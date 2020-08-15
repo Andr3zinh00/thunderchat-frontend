@@ -36,6 +36,7 @@ const ContactMessage = ({ toggle, onToggle }) => {
         <TiGroupOutline
           onClick={onToggle}
           size={45}
+          className="sidebar-toggle"
           style={{
             padding: '2px',
             color: '#ff1616',

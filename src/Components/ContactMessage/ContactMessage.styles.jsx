@@ -29,6 +29,11 @@ export const ContactHeader = styled.header`
   h3{
     color:#ff1616;
   }
+  @media screen and (min-width:767px){
+    .sidebar-toggle{
+      display:none
+    }
+  }
 `;
 
 
@@ -134,6 +139,10 @@ export const HeaderProfileInfo = styled.div`
   align-items:center;
 
   width:60%;
+
+  @media screen and (min-width:767px){
+    width:100%;
+  }
 `;
 
 

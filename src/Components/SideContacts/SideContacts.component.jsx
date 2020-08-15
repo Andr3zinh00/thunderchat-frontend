@@ -18,7 +18,7 @@ const infoStyle = {
   whiteSpace: "nowrap",
   overflow: "hidden",
   width: "130px",
-  fontSize:'1em'
+  fontSize: '1em'
 }
 
 const SideContacts = ({ onToggle, toggle }) => {
@@ -28,60 +28,57 @@ const SideContacts = ({ onToggle, toggle }) => {
   useOnClickOutside(ref, () => !toggle ? null : onToggle());
 
   return (
-    <>
-      {/* JAMAIS USE SOMENTE O NOME DA VARIAVEL NESSA DESGRAÇA, SE FIZER ISSO VAI COMO TRUE */}
-      <Aside ref={ref} toggle={toggle}>
-        <HeaderContainer>
-          <TiUserAdd
-            style={{ margin: "5px 0 0 10px", alignSelf: 'center' }}
+    <Aside ref={ref} toggle={toggle}>
+      <HeaderContainer>
+        <TiUserAdd
+          style={{ margin: "5px 0 0 10px", alignSelf: 'center' }}
+          size={35}
+          color="#fff"
+        />
+        <IconContainer isToggled={toggle} onClick={() => onToggle()}>
+          <TiArrowRightThick
             size={35}
-            color="#fff"
+            style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
           />
-          <IconContainer isToggled={toggle} onClick={() => onToggle()}>
-            <TiArrowRightThick
-              size={35}
-              style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
-            />
-          </IconContainer>
-        </HeaderContainer>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+        </IconContainer>
+      </HeaderContainer>
+      <UserContacts>
+        <ImgContainer>
+          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+        </ImgContainer>
+        <ContactInfoContainer>
+          <h3 style={infoStyle}>André Luiz</h3>
+          <p style={infoStyle}>
+            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-            <Span/>
-          </ContactInfoContainer>
-        </UserContacts>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+          <Span />
+        </ContactInfoContainer>
+      </UserContacts>
+      <UserContacts>
+        <ImgContainer>
+          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+        </ImgContainer>
+        <ContactInfoContainer>
+          <h3 style={infoStyle}>André Luiz</h3>
+          <p style={infoStyle}>
+            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-            <Span/>
-          </ContactInfoContainer>
-        </UserContacts>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+          <Span />
+        </ContactInfoContainer>
+      </UserContacts>
+      <UserContacts>
+        <ImgContainer>
+          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+        </ImgContainer>
+        <ContactInfoContainer>
+          <h3 style={infoStyle}>André Luiz</h3>
+          <p style={infoStyle}>
+            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-            <Span/>
-          </ContactInfoContainer>
-        </UserContacts>
-      </Aside>
-    </>
+          <Span />
+        </ContactInfoContainer>
+      </UserContacts>
+    </Aside>
   )
 }
 

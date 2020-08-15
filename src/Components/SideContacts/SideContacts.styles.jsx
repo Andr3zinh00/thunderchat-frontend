@@ -22,6 +22,17 @@ export const Aside = styled.aside`
 
   overflow-y:auto;
   overflow-x: hidden;
+
+  @media (min-width:767px){
+    position:unset;
+    width:30%;
+    transform: translateX(0);
+    
+    .sidebar-toggle{
+      display:none !important;
+    }
+  }
+
 `;
 
 export const HeaderContainer = styled.header`
