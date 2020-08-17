@@ -5,26 +5,23 @@ export const ContactMessageContent = styled.div`
   display:flex;
   flex-direction:column;
 
-  min-height:700px;
-
   box-shadow:${props => props.toggle ? "inset 10000px 10000px 10000px 10000px rgba(0,0,0,0.46);" : 'unset'};
 `;
 
 export const ContactHeader = styled.header`
   background:#fff;
   
-  box-shadow: 0px 13px 7px 0px rgba(0,0,0,0.45);
+  box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.45);
 
   width:100%;
   height:15%;
-  min-height:105px;
 
   display:flex;
   flex-direction:row;
   justify-content:space-between;
   align-items:center;
   
-  padding:5% 10%;
+  padding:0 10%;
 
   h3{
     color:#ff1616;
@@ -37,7 +34,7 @@ export const ContactHeader = styled.header`
 `;
 
 
-export const Message= styled.div`
+export const Message = styled.div`
   background: #ff1616;
 
   border-radius: 5px 0px 5px 5px;
@@ -78,6 +75,9 @@ export const ContactMessageMain = styled.main`
  .received, .sent{
     margin-bottom:5px;
   }
+
+  @media screen and (min-width:767px){
+  }
 `;
 
 export const TextMessage = styled.textarea`
@@ -92,29 +92,33 @@ export const TextMessage = styled.textarea`
 
   flex:4;
   
-  height:40%;
-  min-height:40px;
+  height:60%;
+  padding:10px;
 
-  padding:3%;
+  ::-webkit-scrollbar {
+    width: 0px;  /* Remove a scrollbar */
+  }
 
   font-family:Lato;
   font-size:1em;
 
   border-radius:20px;
+  overflow-y:auto;
+
 `;
 
 export const FooterTextContainer = styled.footer`
-  flex:1;
+  flex:3;
 
   display:flex;
   flex-direction:row;
   justify-content:space-around;
   align-items:center;
 
-  padding:0 3%;
-
   min-height:50px;
   max-height:110px;
+
+  padding: 0 3% ; 
 
   svg{
    color:#ff1616;
@@ -122,7 +126,15 @@ export const FooterTextContainer = styled.footer`
 
    border-radius:30%;
    margin-left:5px;
-   flex:1; 
+   
+  }
+
+  div{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    
+    width:25%;
   }
 
   svg:active{

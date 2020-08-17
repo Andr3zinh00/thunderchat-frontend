@@ -6,8 +6,10 @@ export const HomeContent = styled.div`
  position:relative;
  background-color:#fff;
 
+
  @media screen and (min-width:767px){
    flex-direction:row;
+   overflow:auto;
  }
 
 `;

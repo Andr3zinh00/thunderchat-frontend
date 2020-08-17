@@ -12,8 +12,6 @@ import {
 import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 
-
-
 const ContactMessage = ({ toggle, onToggle }) => {
 
   const [messages, setMessages] = useState([]);
@@ -87,7 +85,9 @@ const ContactMessage = ({ toggle, onToggle }) => {
           onSubmit={onClick}
           onChange={event => handleChange(event.target.value)}
         />
-        <IoIosSend onClick={onClick} size={50} />
+        <div>
+          <IoIosSend style={{ cursor: 'pointer' }} onClick={onClick} size={50} />
+        </div>
       </FooterTextContainer>
     </ContactMessageContent>
   )
