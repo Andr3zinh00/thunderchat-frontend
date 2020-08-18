@@ -24,9 +24,56 @@ export const HeaderTop = styled.header`
     width:3em;
   }
 
-  div{
+  div:first-child{
     display:flex;
     flex-direction:row;
     align-items:center;
   } 
 `;
+
+export const DropDown = styled.div`
+  cursor:pointer;
+  position:relative;
+`;
+
+export const HiddenElements = styled.div`
+  
+  display:${props => props.dropDown ? "flex" : "none"};
+  flex-direction:column;
+  align-items:center;
+
+  position:absolute;
+  top:35px;
+  right:0;
+
+  width:50px;
+
+  background:#fff;
+  border:1px solid #ff1616;
+
+  z-index:555;
+
+`;
+
+export const Nav = styled.div`
+ 
+ svg{
+    height: 35px;
+    width: 35px;
+  }
+
+  .hide{
+   display: none
+  } 
+
+  @media screen and (min-width:767px){
+    ${DropDown}{
+      display:none;
+    }
+
+    .hide{
+      display:unset;
+    }
+  }
+`;
+
