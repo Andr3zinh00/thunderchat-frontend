@@ -40,10 +40,16 @@ export const OtherInfo = styled.div`
 
     color:#fff;
     opacity:1;
+    
+    
+    @media screen and (min-width:767px){
 
-    :hover{
-      opacity:0.76;
+      :hover{
+        opacity:0.76;
+      }
+
     }
+    
   }
 `;
 

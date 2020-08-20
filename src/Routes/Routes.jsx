@@ -8,6 +8,7 @@ import Home from '../Pages/Home/Home.Page';
 import Header from '../Components/Header/Header.component';
 import Footer from '../Components/Footer/Footer.component';
 import User from '../Pages/User/User.Page';
+import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
         <Route path="/sign-up" component={SignUp} />
         <Route path="/home" component={Home} />
         <Route path="/user" component={User} />
+        <Route path="/settings" component={UserSettings} />
       </Switch>
       <Footer/>
     </Router>
