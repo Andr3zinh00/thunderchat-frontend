@@ -11,8 +11,6 @@ const Home = () => {
   const [toggle, setToggle] = useState(false);
   const onToggle = () => setToggle(!toggle);
 
-
-  
   return (
     <Container>
       <HomeContent>

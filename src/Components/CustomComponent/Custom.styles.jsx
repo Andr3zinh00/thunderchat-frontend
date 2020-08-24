@@ -4,11 +4,22 @@ import styled from 'styled-components';
 export const Button = styled.button`
   ${props => ({ ...props.customStyles })};
   
+  opacity: 0.80;
   box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+  
   outline:none;
+  cursor: pointer;
+  
   font-size:1em;
   font-family:Lato;
   border-radius:5px;
+  border: none;
+  transition: opacity 1s ease-in-out;
+
+  :hover {
+    opacity: 1;
+  }
+
 `;
 
 export const Input = styled.input`

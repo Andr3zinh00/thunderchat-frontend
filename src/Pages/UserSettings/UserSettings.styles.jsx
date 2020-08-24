@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { Wrapper } from '../../Global.styles';
 
 export const Switch = styled.input`
   height: 0;
@@ -8,10 +9,11 @@ export const Switch = styled.input`
 `;
 
 export const ColorBox = styled.div`
-  ${props=>props.color}
+  ${props => props.color}
   width:25px;
   height:20px;
   box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+  border-radius:45%;
 `;
 
 export const ThemeSettings = styled.div`
@@ -19,9 +21,10 @@ export const ThemeSettings = styled.div`
   flex-direction:row;
   justify-content:center;
   align-items:center;
+  flex:3;
 
   label{
-    background: ${props=>props.labelBackground} !important;
+    background: ${props => props.labelBackground} !important;
   }
 
   div{
@@ -33,7 +36,7 @@ export const ThemeSettings = styled.div`
       margin-left:15px;
     }
   }
-`; 
+`;
 
 export const UserSettingsContent = styled.div`
   height:100%;
@@ -41,13 +44,49 @@ export const UserSettingsContent = styled.div`
 
   display:flex;
   flex-direction:column;
-  justify-content:space-around;
 
-  div:first-child{
+  .wrapper-all{
+    flex:3;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+  }
+
+  .img-wrapper{
+    display:none;
+  }
+
+  .settings-wrapper{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+
+    height:100%;
+    border-radius:20px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  }
+
+  .icon-wrapper{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+
+    cursor:pointer;
+
+    svg{
+      margin-right:5px;
+    }
+  }
+
+  header{
     display:flex;
     flex-direction:row;
     align-items:center;
     justify-content:center;
+    flex:1;
+    margin-bottom:15px;
 
     h2{
       margin-left:10px;
@@ -67,8 +106,8 @@ export const UserSettingsContent = styled.div`
     margin: 0 5px;
 
     cursor: pointer;
-    width: 100px;
-    height: 40px;
+    width: 80px;
+    height: 30px;
     background: grey;
     border-radius: 100px;
     position: relative;
@@ -80,8 +119,8 @@ export const UserSettingsContent = styled.div`
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 26px;
     border-radius: 45px;
     transition: 0.2s;
     background: #fff;
@@ -90,6 +129,31 @@ export const UserSettingsContent = styled.div`
 
   .switch-label:active .switch-button {
     width: 60px;
+  }
+
+  @media screen and (min-width:767px){
+    padding:3% 2%;
+
+    .img-wrapper{
+      display:unset;
+      width:50%;
+      height:100%;
+      margin-right:10px;
+    }
+
+    .img-wrapper img{
+      height:100%;
+      width:100%;
+    }
+
+    .settings-wrapper{
+      width:50%;
+    }
+
+    .wrapper-all{
+      flex:5;
+    }
+
   }
 `;
 

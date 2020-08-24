@@ -9,6 +9,7 @@ import Header from '../Components/Header/Header.component';
 import Footer from '../Components/Footer/Footer.component';
 import User from '../Pages/User/User.Page';
 import UserSettings from '../Pages/UserSettings/UserSettings.Page';
+import Notifications from '../Pages/Notifications/Notifications.Page';
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
         <Route path="/home" component={Home} />
         <Route path="/user" component={User} />
         <Route path="/settings" component={UserSettings} />
+        <Route path="/notifications" component={Notifications} />
       </Switch>
       <Footer/>
     </Router>
