@@ -6,11 +6,14 @@ import { useOnClickOutside } from '../../Hooks';
 import { useHistory } from 'react-router-dom';
 import DropDown from '../DropDown/DropDown.component';
 import Notifications from '../../Pages/Notifications/Notifications.Page';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
 
   const [dropDown, setDropDown] = useState(false);
   const [notificationDropDown, setNotificationDropDown] = useState(false);
+
+  const display = useSelector(state => state.sideEffectReducer.displayHeaderFooter);
 
   const ref = useRef();
   const notificationRef = useRef();
@@ -48,12 +51,12 @@ const Header = () => {
 
   }
 
-  const NotificationToHoc = () => (<NotificationWrap><Notifications/></NotificationWrap>);
+  const NotificationToHoc = () => (<NotificationWrap><Notifications /></NotificationWrap>);
 
   const MobileToHoc = () => {
     return (
       <>
-        <NotificationIconToHoc onClick={()=>history.push('/notifications')} isMobile={true} />
+        <NotificationIconToHoc onClick={() => history.push('/notifications')} isMobile={true} />
         <TiUser onClick={() => history.push('/home')} color="#ff1616" />
         <TiCogOutline onClick={() => history.push('/settings')} color="#ff1616" />
       </>)
@@ -62,7 +65,7 @@ const Header = () => {
   const NotificationDropDown = DropDown(NotificationIconToHoc, NotificationToHoc);
   const MobileDropDown = DropDown(MobileIconToHoc, MobileToHoc);
 
-  return (
+  return display ? (
     <HeaderTop>
       <LogoContainer onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
         <img src={require('../../assets/icon.png')} alt="logo" />
@@ -82,10 +85,8 @@ const Header = () => {
           isMobile={true}
         />
       </Nav>
-
-
     </HeaderTop>
-  )
+  ) : null
 }
 
 export default Header;

@@ -1,6 +1,6 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Landing from '../Pages/Landing/Landing.Page';
 import SignUp from '../Pages/SignUp/SignUp.Page';
@@ -12,9 +12,17 @@ import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
 
 const Routes = () => {
+
+  const state = useSelector(state=>state);
+
+  useEffect(() => {
+    console.log(state);
+  //eslint-disable-next-line
+  }, []);
+
   return (
     <Router>
-      <Header/>
+      <Header />
       <Switch>
         <Route path="/" exact component={Landing} />
         <Route path="/sign-up" component={SignUp} />
@@ -23,7 +31,7 @@ const Routes = () => {
         <Route path="/settings" component={UserSettings} />
         <Route path="/notifications" component={Notifications} />
       </Switch>
-      <Footer/>
+      <Footer />
     </Router>
   )
 }

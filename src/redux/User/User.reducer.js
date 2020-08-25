@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   id: undefined,
   name: undefined,
   email: undefined,
-
 }
 
 export default (state = INITIAL_STATE, action) =>{

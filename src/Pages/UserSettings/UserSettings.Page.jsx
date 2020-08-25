@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { UserSettingsContent, Switch, ThemeSettings, ColorBox } from './UserSettings.styles';
 import { Container, Wrapper } from '../../Global.styles';
 import { IoIosSettings, IoMdLogOut, IoIosTrash } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const color1 = {
   "background-color": "rgb(255,22,22)",
@@ -23,8 +24,11 @@ const UserSettings = () => {
     setToggle(!toggle);
   }
 
+  const display = useSelector(state=>state.sideEffectReducer.displayHeaderFooter);
+
+
   return (
-    <Container>
+    <Container display={display?1:0}>
       <UserSettingsContent>
         <header>
           <IoIosSettings size={70} color="#ff1616" />

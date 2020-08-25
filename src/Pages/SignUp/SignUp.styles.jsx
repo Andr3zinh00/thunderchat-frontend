@@ -25,19 +25,19 @@ export const BackgroundContainer = styled.section`
 `;
 
 export const FormContainer = styled.form`
-  height:60%;
+  height:90%;
   min-height:350px;
   width:100%;
   padding:0 5% 0 5%;
 
   display:flex;
-  justify-content:space-between;
+  justify-content:space-around;
   flex-direction:column;
   align-items:center;
 
   ${InputContainer}{
-    justify-content:space-between;
-    height:60% ;
+    justify-content:space-around;
+    height:70%;
     min-height:300px;
   }
 
@@ -56,10 +56,6 @@ export const FormContainer = styled.form`
     :hover{
       opacity:0.7;
     }
-
-    @media (max-height:1366px){
-      margin-top:40px
-    }
   }
 
   ${Input}{
@@ -67,20 +63,34 @@ export const FormContainer = styled.form`
     border: none;
     border-bottom: solid 1px #fff;
     background-color:transparent;
+    opacity:0.75;
 
-  ::placeholder,
-  ::-webkit-input-placeholder {
-    color: #fff;
-  }
+    ::placeholder{
+      color: #fff;
+    }
   
-  :-ms-input-placeholder {
-    color: #fff;
+    :focus{
+      opacity:1;
+      transition:1s;
+    }
   }
 
-  :focus{
-    border-bottom:2px solid #fff;
-    transition:1s;
+  #date-inp:before{
+    content: "Nascimento:" !important;
+    margin-right:3px;
   }
 
+  #date-inp{
+    text-align: right;
+    cursor:text;
   }
+
+  @media screen and (min-width:767px){
+    #date-inp:before{
+      color: lightgrey;
+      content: attr(placeholder) !important;
+      margin-right: 0.5em;
+    }
+  }
+
 `;

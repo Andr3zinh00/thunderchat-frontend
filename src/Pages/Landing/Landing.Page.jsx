@@ -10,8 +10,11 @@ import {
   InputContainer
 } from "./Landing.styles";
 
+import { useDisplayHeaderFooter } from '../../Hooks'
+
 import { Link } from 'react-router-dom';
 import Custom from '../../Components/CustomComponent/Custom.component';
+import { useSelector } from 'react-redux';
 
 
 const inputStyle = {
@@ -21,13 +24,17 @@ const inputStyle = {
 };
 
 const Landing = () => {
+  useDisplayHeaderFooter();
 
   const onSubmit = (e) => {
     e.preventDefault();
   }
 
+  const display = useSelector(state => state.sideEffectReducer.useDisplayHeaderFooter);
+
+
   return (
-    <Container>
+    <Container display={display?1:0}>
       <LandingContent>
         <FirstSide>
           <CenterFirst>
@@ -52,7 +59,7 @@ const Landing = () => {
         </FirstSide>
         <SecondSide>
           <FormContainer onSubmit={event => onSubmit(event)}>
-            <h3 style={{ alignSelf: "start", marginTop: "80px", fontSize: '1.3em', fontWeight:400 }}>Faça login:</h3>
+            <h3 style={{ alignSelf: "start", marginTop: "80px", fontSize: '1.3em', fontWeight: 400 }}>Faça login:</h3>
             <InputContainer>
               <Custom
                 customStyle={inputStyle}

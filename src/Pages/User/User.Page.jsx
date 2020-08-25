@@ -4,6 +4,7 @@ import { UserContent, UserProfileImgContainer, OtherInfo } from './User.styles';
 import { Container } from '../../Global.styles';
 
 import Custom from '../../Components/CustomComponent/Custom.component';
+import { useSelector } from 'react-redux';
 
 const User = () => {
 
@@ -13,8 +14,11 @@ const User = () => {
     setButtonBol(!buttonBol);
   }
 
+  const display = useSelector(state=>state.sideEffectReducer.displayHeaderFooter);
+
+
   return (
-    <Container>
+    <Container display={display?1:0}>
       <UserContent>
         <UserProfileImgContainer>
             <img

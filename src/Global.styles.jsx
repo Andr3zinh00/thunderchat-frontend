@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height:90vh;
+  height:${props=>props.display?"90vh":"100vh"};
   min-height:600px;
 `;
 
