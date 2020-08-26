@@ -12,6 +12,14 @@ export const LandingContent = styled.div`
   }
 `;
 
+export const LandingToModalContent = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:space-evenly;
+  height:100%;
+  color:${props=>props.colors.primaryColor};
+`;
+
 export const FirstSide = styled.div`
   flex:1;
   width:100%;

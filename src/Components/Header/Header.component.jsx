@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
+
+import { useLocation } from 'react-router';
 
 import { HeaderTop, Nav, LogoContainer, NotificationWrap } from './Header.styles';
 import { TiThMenu, TiCogOutline, TiBell, TiUser } from 'react-icons/ti';
@@ -6,14 +8,11 @@ import { useOnClickOutside } from '../../Hooks';
 import { useHistory } from 'react-router-dom';
 import DropDown from '../DropDown/DropDown.component';
 import Notifications from '../../Pages/Notifications/Notifications.Page';
-import { useSelector } from 'react-redux';
 
 const Header = () => {
 
   const [dropDown, setDropDown] = useState(false);
   const [notificationDropDown, setNotificationDropDown] = useState(false);
-
-  const display = useSelector(state => state.sideEffectReducer.displayHeaderFooter);
 
   const ref = useRef();
   const notificationRef = useRef();
@@ -22,6 +21,8 @@ const Header = () => {
   useOnClickOutside(notificationRef, () => !notificationDropDown ? null : setNotificationDropDown(false));
 
   const history = useHistory();
+  const location = useLocation();
+  console.log(location)
 
   const handleClick = (isNotification, event) => {
     event.preventDefault();
@@ -65,7 +66,7 @@ const Header = () => {
   const NotificationDropDown = DropDown(NotificationIconToHoc, NotificationToHoc);
   const MobileDropDown = DropDown(MobileIconToHoc, MobileToHoc);
 
-  return display ? (
+  return (location.pathname === "/") || (location.pathname === "signup") ? null : (
     <HeaderTop>
       <LogoContainer onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
         <img src={require('../../assets/icon.png')} alt="logo" />
@@ -86,7 +87,7 @@ const Header = () => {
         />
       </Nav>
     </HeaderTop>
-  ) : null
+  )
 }
 
 export default Header;

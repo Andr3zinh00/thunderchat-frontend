@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   id: undefined,
   name: undefined,
   email: undefined,
+  token:localStorage.getItem('T'),
 }
 
 export default (state = INITIAL_STATE, action) =>{
@@ -15,7 +16,13 @@ export default (state = INITIAL_STATE, action) =>{
       }
     case types.DELETE_USER:
       return {
-        ...INITIAL_STATE
+        ...INITIAL_STATE,
+        token:undefined,
+      }
+    case types.CREATE_TOKEN:
+      return {
+        ...state,
+        token:action.payload,
       }
     default:
       return state;

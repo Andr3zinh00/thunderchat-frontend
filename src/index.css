@@ -37,7 +37,7 @@ a {
   text-decoration: none;
 }
 
-svg, div {
+svg {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;

@@ -7,9 +7,9 @@ import Custom from '../../Components/CustomComponent/Custom.component';
 import { ReactComponent as Wave } from '../../assets/wave.svg';
 
 import { InputContainer } from '../Landing/Landing.styles';
-import { useDisplayHeaderFooter } from '../../Hooks';
 import api from '../../services/Api';
-import {calculateAge} from '../../utils/utils';
+import { calculateAge, onChange } from '../../utils/utils';
+import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
 
@@ -20,27 +20,21 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [date, setDate] = useState('');
 
-  useDisplayHeaderFooter();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
-    const age=calculateAge(date);
 
-    if(age<0){
+    const age = calculateAge(date);
+
+    if (age < 0) {
       alert("Por favor, insira uma data de nascimento valida")
-      return ;
+      return;
     }
     const data = { email, name, mention, age, password };
     api.post('user/register', data)
-    .then(res => alert(res.data.message))
-    .catch(error => console.log(error.message));
+      .then(res => alert(res.data.message))
+      .catch(error => console.log(error.message));
   }
-
-  const onChange = (value, setState) => {
-    setState(value);
-  }
-
 
   return (
     <Container style={{ backgroundColor: "#990d0d", minHeight: "600px", position: 'relative', zIndex: 1 }}>

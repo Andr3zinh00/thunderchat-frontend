@@ -1,16 +1,16 @@
 import React from 'react'
 import { FooterDown } from './Footer.styles';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 const Footer = () => {
-  const display = useSelector(state=>state.sideEffectReducer.displayHeaderFooter);
-  return display?(
+  const location = useLocation();
+  return location.pathname === "/" || location.pathname === "/sign-up" ? null : (
     <FooterDown>
-      <h3 style={{color:"#fff"}}>
+      <h3 style={{ color: "#fff" }}>
         Criado por André Luiz (@Andr3zinh00)
       </h3>
     </FooterDown>
-  ):null;
+  );
 }
 
 export default Footer;

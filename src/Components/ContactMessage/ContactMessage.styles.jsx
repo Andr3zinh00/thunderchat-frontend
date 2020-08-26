@@ -140,6 +140,8 @@ export const FooterTextContainer = styled.footer`
   svg:active{
     background:#ff1616;
     color:#fff;
+    margin-bottom:4px;
+    transition:0.1s ease-in;
   }
 
 `;

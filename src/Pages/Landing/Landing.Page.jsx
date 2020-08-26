@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 import { Container } from "../../Global.styles";
 import {
@@ -10,11 +10,15 @@ import {
   InputContainer
 } from "./Landing.styles";
 
-import { useDisplayHeaderFooter } from '../../Hooks'
+import { onChange } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
 import Custom from '../../Components/CustomComponent/Custom.component';
 import { useSelector } from 'react-redux';
+import api from '../../services/Api';
+import Modal from '../../Components/Modal/Modal.component';
+import LandingToModal from './Landing.ToModal';
+import { useOnClickOutside } from '../../Hooks';
 
 
 const inputStyle = {
@@ -23,18 +27,60 @@ const inputStyle = {
   "border-bottom-color": "#ff1616",
 };
 
+const customModalStyles = {
+  backgroundColor: "#fff",
+  width:'250px',
+  height:'250px'
+}
+
+
+//hoc do modal
+const MessageModal = Modal(LandingToModal);
+
 const Landing = () => {
-  useDisplayHeaderFooter();
+
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [showModal, setShowModal] = useState(true);
+  console.log(showModal)
+  const [error, setError] = useState(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const data = {
+      userId,
+      password: userPassword
+    }
+
+    api.post('user/login', data)
+      .then(res => alert(res.data.token))
+      .catch(error => console.log(error));
   }
 
   const display = useSelector(state => state.sideEffectReducer.useDisplayHeaderFooter);
 
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
+  const ref = useRef();
+  useOnClickOutside(ref, () => closeModal());
 
   return (
-    <Container display={display?1:0}>
+    <Container display={display ? 1 : 0}>
+      {showModal &&
+        <MessageModal
+          shouldBlurBackground={true}
+          closeModal={closeModal}
+          nodo={ref}
+          text={error ?
+            "Algum erro ocorreu, tente novamente"
+            :
+            "Login feito com sucesso :D"}
+          customStyles={customModalStyles}
+        />
+      }
       <LandingContent>
         <FirstSide>
           <CenterFirst>
@@ -62,11 +108,15 @@ const Landing = () => {
             <h3 style={{ alignSelf: "start", marginTop: "80px", fontSize: '1.3em', fontWeight: 400 }}>Faça login:</h3>
             <InputContainer>
               <Custom
+                value={userId}
+                onChange={(event) => onChange(event.target.value, setUserId)}
                 customStyle={inputStyle}
-                placeholder={"Nome de Usuário"}
-                type="name"
+                placeholder={"Email ou @"}
+                type="text"
               />
               <Custom
+                value={userPassword}
+                onChange={(event) => onChange(event.target.value, setUserPassword)}
                 type="password"
                 placeholder={"Senha"}
                 customStyle={inputStyle}
