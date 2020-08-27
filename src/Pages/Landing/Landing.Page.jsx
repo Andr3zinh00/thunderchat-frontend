@@ -14,11 +14,12 @@ import { onChange } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
 import Custom from '../../Components/CustomComponent/Custom.component';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import api from '../../services/Api';
 import Modal from '../../Components/Modal/Modal.component';
 import LandingToModal from './Landing.ToModal';
 import { useOnClickOutside } from '../../Hooks';
+import { createUser } from '../../redux/User/User.actions';
 
 
 const inputStyle = {
@@ -29,8 +30,8 @@ const inputStyle = {
 
 const customModalStyles = {
   backgroundColor: "#fff",
-  width:'250px',
-  height:'250px'
+  width: '250px',
+  height: '250px'
 }
 
 
@@ -41,9 +42,10 @@ const Landing = () => {
 
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [showModal, setShowModal] = useState(true);
-  console.log(showModal)
+  const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -54,11 +56,22 @@ const Landing = () => {
     }
 
     api.post('user/login', data)
-      .then(res => alert(res.data.token))
-      .catch(error => console.log(error));
+      .then(res => {
+        const user = { ...res.data };
+        dispatch(createUser(user));
+
+        console.log(res)
+
+        if (error) setError(null);
+
+        setShowModal(true);
+      })
+      .catch(error => {
+        setError(error.response.data.message);
+        setShowModal(true);
+      });
   }
 
-  const display = useSelector(state => state.sideEffectReducer.useDisplayHeaderFooter);
 
   const closeModal = () => {
     setShowModal(false);
@@ -68,17 +81,18 @@ const Landing = () => {
   useOnClickOutside(ref, () => closeModal());
 
   return (
-    <Container display={display ? 1 : 0}>
+    <Container display={0}>
       {showModal &&
         <MessageModal
           shouldBlurBackground={true}
           closeModal={closeModal}
           nodo={ref}
           text={error ?
-            "Algum erro ocorreu, tente novamente"
+            error
             :
             "Login feito com sucesso :D"}
           customStyles={customModalStyles}
+          error={error}
         />
       }
       <LandingContent>

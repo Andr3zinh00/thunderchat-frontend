@@ -23,6 +23,7 @@ export const Aside = styled.aside`
   overflow-y:auto;
   overflow-x: hidden;
 
+
   @media (min-width:767px){
     position:unset;
     
@@ -38,6 +39,7 @@ export const Aside = styled.aside`
   }
 
 `;
+
 
 export const HeaderContainer = styled.header`
   display: flex;

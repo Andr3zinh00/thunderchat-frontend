@@ -11,15 +11,12 @@ import {
 } from './ContactMessage.styles';
 import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
+import { onChange } from '../../utils/utils';
 
 const ContactMessage = ({ toggle, onToggle }) => {
 
   const [messages, setMessages] = useState([]);
   const [textValue, setTextValue] = useState('');
-
-  const handleChange = (value) => {
-    setTextValue(value);
-  }
 
   const onClick = () => {
     if (textValue.trim().length !== 0) {
@@ -57,8 +54,8 @@ const ContactMessage = ({ toggle, onToggle }) => {
       </ContactHeader>
       <ContactMessageMain>
         {
-          messages.reverse().map(mes => (
-            <div>
+          messages.reverse().map((mes,index) => (
+            <div key={String(mes+index)}>
               <Message className='sent'>
                 {mes}
               </Message>
@@ -83,7 +80,7 @@ const ContactMessage = ({ toggle, onToggle }) => {
           value={textValue}
           maxLength={200}
           onSubmit={onClick}
-          onChange={event => handleChange(event.target.value)}
+          onChange={event => onChange(event.target.value, setTextValue)}
         />
         <div>
           <IoIosSend style={{ cursor: 'pointer' }} onClick={onClick} size={50} />

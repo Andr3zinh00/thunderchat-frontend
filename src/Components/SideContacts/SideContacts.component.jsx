@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useOnClickOutside } from '../../Hooks';
 
@@ -13,6 +13,10 @@ import {
 } from './SideContacts.styles';
 import { TiArrowRightThick, TiUser, TiUserAdd } from 'react-icons/ti';
 
+import Modal from '../Modal/Modal.component';
+import SideContactsToModal from './SideContacts.ToModal';
+import { useSelector } from 'react-redux';
+
 const infoStyle = {
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
@@ -21,64 +25,84 @@ const infoStyle = {
   fontSize: '1em'
 }
 
+const SearchModal = Modal(SideContactsToModal);
+
 const SideContacts = ({ onToggle, toggle }) => {
 
+  const [modalToggle, setModalToggle] = useState(false);
+
+  const colors = useSelector(state => state.sideEffectReducer);
+
+
   const ref = useRef();
+  const modalRef = useRef();
+
   //caso o usuario dê um click fora da sidebar
-  useOnClickOutside(ref, () => !toggle ? null : onToggle());
+  useOnClickOutside(ref, () => !toggle || modalToggle ? null : onToggle());
+  useOnClickOutside(modalRef, () => setModalToggle(false));
 
   return (
-    <Aside ref={ref} toggle={toggle}>
-      <HeaderContainer>
-        <TiUserAdd
-          style={{ margin: "5px 0 0 10px", alignSelf: 'center' }}
-          size={35}
-          color="#fff"
+    <>
+      {modalToggle &&
+        <SearchModal
+          text={`Adicione algum contato. Procure utilizando a @.`}
+          nodo={modalRef}
+          closeModal={() => setModalToggle(false)}
         />
-        <IconContainer isToggled={toggle} onClick={() => onToggle()}>
-          <TiArrowRightThick
+      }
+      <Aside ref={ref} toggle={toggle} colors={colors.theme}>
+        <HeaderContainer>
+          <TiUserAdd
+            style={{ margin: "5px 0 0 10px", alignSelf: 'center' }}
             size={35}
-            style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
+            color="#fff"
+            onClick={() => setModalToggle(true)}
           />
-        </IconContainer>
-      </HeaderContainer>
-      <UserContacts>
-        <ImgContainer>
-          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-        </ImgContainer>
-        <ContactInfoContainer>
-          <h3 style={infoStyle}>André Luiz</h3>
-          <p style={infoStyle}>
-            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+          <IconContainer isToggled={toggle} onClick={() => onToggle()}>
+            <TiArrowRightThick
+              size={35}
+              style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
+            />
+          </IconContainer>
+        </HeaderContainer>
+        <UserContacts>
+          <ImgContainer>
+            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+          </ImgContainer>
+          <ContactInfoContainer>
+            <h3 style={infoStyle}>André Luiz</h3>
+            <p style={infoStyle}>
+              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-          <Span />
-        </ContactInfoContainer>
-      </UserContacts>
-      <UserContacts>
-        <ImgContainer>
-          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-        </ImgContainer>
-        <ContactInfoContainer>
-          <h3 style={infoStyle}>André Luiz</h3>
-          <p style={infoStyle}>
-            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+            <Span />
+          </ContactInfoContainer>
+        </UserContacts>
+        <UserContacts>
+          <ImgContainer>
+            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+          </ImgContainer>
+          <ContactInfoContainer>
+            <h3 style={infoStyle}>André Luiz</h3>
+            <p style={infoStyle}>
+              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-          <Span />
-        </ContactInfoContainer>
-      </UserContacts>
-      <UserContacts>
-        <ImgContainer>
-          <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-        </ImgContainer>
-        <ContactInfoContainer>
-          <h3 style={infoStyle}>André Luiz</h3>
-          <p style={infoStyle}>
-            EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
+            <Span />
+          </ContactInfoContainer>
+        </UserContacts>
+        <UserContacts>
+          <ImgContainer>
+            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+          </ImgContainer>
+          <ContactInfoContainer>
+            <h3 style={infoStyle}>André Luiz</h3>
+            <p style={infoStyle}>
+              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
             </p>
-          <Span />
-        </ContactInfoContainer>
-      </UserContacts>
-    </Aside>
+            <Span />
+          </ContactInfoContainer>
+        </UserContacts>
+      </Aside>
+    </>
   )
 }
 

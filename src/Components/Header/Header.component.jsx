@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 
-import { useLocation } from 'react-router';
-
 import { HeaderTop, Nav, LogoContainer, NotificationWrap } from './Header.styles';
 import { TiThMenu, TiCogOutline, TiBell, TiUser } from 'react-icons/ti';
-import { useOnClickOutside } from '../../Hooks';
+
+import { useOnClickOutside, useDisplayHeaderFooter } from '../../Hooks';
+
 import { useHistory } from 'react-router-dom';
+
 import DropDown from '../DropDown/DropDown.component';
 import Notifications from '../../Pages/Notifications/Notifications.Page';
 
@@ -21,8 +22,7 @@ const Header = () => {
   useOnClickOutside(notificationRef, () => !notificationDropDown ? null : setNotificationDropDown(false));
 
   const history = useHistory();
-  const location = useLocation();
-  console.log(location)
+  const display = useDisplayHeaderFooter();
 
   const handleClick = (isNotification, event) => {
     event.preventDefault();
@@ -66,7 +66,7 @@ const Header = () => {
   const NotificationDropDown = DropDown(NotificationIconToHoc, NotificationToHoc);
   const MobileDropDown = DropDown(MobileIconToHoc, MobileToHoc);
 
-  return (location.pathname === "/") || (location.pathname === "signup") ? null : (
+  return display ? null : (
     <HeaderTop>
       <LogoContainer onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
         <img src={require('../../assets/icon.png')} alt="logo" />

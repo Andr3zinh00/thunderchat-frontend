@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { displayHeaderFooter } from './redux/SideEffects/SideEffects.actions';
+import { useLocation } from 'react-router';
 
 export const useOnClickOutside = (ref, handler) => {
   useEffect(() => {
@@ -31,10 +29,9 @@ export const useWindowSize = () => {
 
 
 export const useDisplayHeaderFooter = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(displayHeaderFooter())
-    return () => dispatch(displayHeaderFooter());
-    // eslint-disable-next-line
-  }, [])
+  const location = useLocation();
+
+  const { pathname } = location;
+
+  return (pathname === "/") || (pathname === "signup");
 }

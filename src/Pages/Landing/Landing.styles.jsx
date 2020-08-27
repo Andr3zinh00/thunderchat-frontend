@@ -15,9 +15,25 @@ export const LandingContent = styled.div`
 export const LandingToModalContent = styled.div`
   display:flex;
   align-items:center;
+  flex-direction:column;
   justify-content:space-evenly;
+
+  padding:0 10px;
+
+  text-align:center;
   height:100%;
   color:${props=>props.colors.primaryColor};
+  font-size:1.1em;
+
+  ${Button}{
+    color:${props=>props.colors.secondaryColor};
+    background:${props=>props.colors.primaryColor};
+  
+    height:45px;
+    width:120px;
+  
+    font-size:0.7em;
+  }
 `;
 
 export const FirstSide = styled.div`
