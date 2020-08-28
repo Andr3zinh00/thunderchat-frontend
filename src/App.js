@@ -7,7 +7,9 @@ const App = () => {
 
   useEffect(() => {
 
-    socketio.emit('chat', {HELLO:'HELOOO'})
+    if (socketio.connected) {
+      socketio.emit('chat', {HELLO:'HELOOO'})
+    }
 
     // eslint-ignore-next-line
   }, [])

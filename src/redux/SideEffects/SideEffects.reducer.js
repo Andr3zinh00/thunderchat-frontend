@@ -1,12 +1,20 @@
 import types from './SideEffects.types'
+import { getReduxState } from '../../utils/utils'
 
-const INITIAL_STATE = {
-  theme: localStorage.getItem('theme') || {
+
+const STATE = {
+  theme: {
     primaryColor: "#ff1616",
     secondaryColor: "#fff",
     primaryColorDarker: ""
   },
   displayHeaderFooter: true,
+}
+
+
+const INITIAL_STATE = {
+  ...STATE,
+  ...getReduxState('s')
 }
 
 export default (state = INITIAL_STATE, action) => {

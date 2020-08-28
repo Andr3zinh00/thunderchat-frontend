@@ -1,13 +1,22 @@
 import types from './User.types';
+import { getReduxState } from '../../utils/utils';
 
-const INITIAL_STATE = {
+const STATE = {
   id: undefined,
   name: undefined,
   email: undefined,
-  token:localStorage.getItem('T'),
+  mention: undefined,
+  token: undefined,
 }
 
-export default (state = INITIAL_STATE, action) =>{
+
+const INITIAL_STATE = {
+  ...STATE,
+  ...getReduxState('u')
+}
+
+
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.CREATE_USER:
       return {
@@ -17,12 +26,12 @@ export default (state = INITIAL_STATE, action) =>{
     case types.DELETE_USER:
       return {
         ...INITIAL_STATE,
-        token:undefined,
+        token: undefined,
       }
     case types.CREATE_TOKEN:
       return {
         ...state,
-        token:action.payload,
+        token: action.payload,
       }
     default:
       return state;
