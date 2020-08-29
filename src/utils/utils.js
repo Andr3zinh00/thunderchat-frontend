@@ -14,7 +14,6 @@ export function calculateAge(birthDate) {
 
 export const onChange = (value, setState) => {
   setState(value);
-  console.log(value)
 }
 
 

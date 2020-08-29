@@ -53,6 +53,10 @@ export const HeaderContainer = styled.header`
 
   box-shadow: 0 0px 5px 0px rgba(0,0,0,1);
 
+  @media screen and (min-width:767px){
+    justify-content:center;
+  }
+
 `;
 
 export const IconContainer = styled.div`

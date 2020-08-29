@@ -5,7 +5,6 @@ export const ContactMessageContent = styled.div`
   display:flex;
   flex-direction:column;
 
-  box-shadow:${props => props.toggle ? "inset 10000px 10000px 10000px 10000px rgba(0,0,0,0.46);" : 'unset'};
 `;
 
 export const ContactHeader = styled.header`

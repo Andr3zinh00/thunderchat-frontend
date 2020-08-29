@@ -11,7 +11,24 @@ export const HomeContent = styled.div`
 
  .modal-wrap{
     display:flex;
-    
+    position:relative;
+
+    .close-io{
+      position:absolute;
+      top:10px;
+      right:20px;
+      
+      height:30px;
+      width:30px;
+      
+      cursor:pointer;
+      color:${props=>props.colors.primaryColor};
+
+      :active{
+        color:${props=>props.colors.primaryColorDarker}
+      }
+    }
+
     padding:0 10px;
 
     ${Wrapper}{
@@ -19,7 +36,27 @@ export const HomeContent = styled.div`
     }
 
     ${Button}{
+      width:50%;
+      height:35px;
 
+      margin-top:10px;
+      
+      border-radius:15px;
+      
+      color:${props => props.colors.secondaryColor};
+      background:${props => props.colors.primaryColor};
+      
+      opacity:1;
+      
+      :hover{
+        background:${props => props.colors.primaryColorDarker};
+      }
+
+      :active{
+        transform: translateY(-4px);
+      }
+
+      transition: .7s;
     }
 
     ${Wrapper}:first-child{
@@ -41,12 +78,17 @@ export const HomeContent = styled.div`
         display:flex;
         flex-direction:row;
         justify-content:center;
+        font-family:Lato;
+
 
         width:100%;
         padding:0 1%;
         
         ${Input}{
-          font-size:0.9em;
+          font-size:.9em;
+          font-weight:700;
+          padding-left:10px;
+
           height:35px;
           width:70%;
           border-top-right-radius:15px;
@@ -56,6 +98,7 @@ export const HomeContent = styled.div`
           :focus{
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
           }
+
           transition:1s ease-in-out;
 
         }
@@ -91,8 +134,8 @@ export const HomeContent = styled.div`
 
    ${ModalContent}{
     position:absolute;
-    top:40px;
-    left:40px;
+    top:70px;
+    left:10px;
    }
  }
 

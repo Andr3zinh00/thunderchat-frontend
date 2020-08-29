@@ -1,17 +1,52 @@
 import styled from "styled-components";
 import { InputContainer } from '../Landing/Landing.styles';
 import { Button, Input } from "../../Components/CustomComponent/Custom.styles";
+import { Wrapper } from "../../Global.styles";
 
 export const ContentContainer = styled.div`
   height:100%;
   width:100%;
   min-height:600px;
-  /* background-color:#ff7373; */
   
   display:flex;
   flex-direction:column;
   justify-content:space-evenly;
   align-items:center;
+
+  ${Wrapper}{
+    height:300px;
+    width:75vw;
+
+    border-radius:25px;
+    text-align:center;
+    padding:0 20px;
+
+    display:flex;
+    justify-content:space-evenly;
+    flex-direction:column;
+    align-items:center;
+
+    background:${props => props.colors.secondaryColor};
+    color:${props => props.colors.primaryColor};
+    box-shadow: 0 0px 5px 0px rgba(0,0,0,1);
+
+    ${Button}{
+      width:45%;
+      height:35px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:1em;
+      background-color:${props => props.colors.primaryColor};
+      color:${props => props.colors.fontColor};
+    }
+    
+  }
+
+  @media screen and (min-width:767px){
+    ${Wrapper}{
+        width:400px;
+    }
+  }
 `;
 
 export const BackgroundContainer = styled.section`

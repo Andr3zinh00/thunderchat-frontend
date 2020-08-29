@@ -4,22 +4,36 @@ import { Container } from '../../Global.styles';
 import { ContentContainer, FormContainer, BackgroundContainer } from './SignUp.styles';
 
 import Custom from '../../Components/CustomComponent/Custom.component';
+import Modal from '../../Components/Modal/Modal.component';
+import SignUpToModal from './SignUp.ToModal';
 import { ReactComponent as Wave } from '../../assets/wave.svg';
 
 import { InputContainer } from '../Landing/Landing.styles';
+
 import api from '../../services/Api';
 import { calculateAge, onChange } from '../../utils/utils';
-import { useDispatch } from 'react-redux';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+
+const OnSubmitModal = Modal(SignUpToModal);
 
 const SignUp = () => {
-
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [mention, setMention] = useState('');
   const [password, setPassword] = useState('');
   const [date, setDate] = useState('');
+  const [toggleModal, setToggleModal] = useState({
+    toggle: false,
+    message: "",
+    error: false
+  });
 
+  const state = useSelector(state=>state);
+
+  const history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -30,16 +44,45 @@ const SignUp = () => {
       alert("Por favor, insira uma data de nascimento valida")
       return;
     }
-    const data = { email, name, mention, age, password };
+
+    const checkMention = mention[0] === "@" ?
+      mention.split('@')[1] :
+      mention;
+    console.log(checkMention);
+    const data = { email, name, date, mention: checkMention, password };
     api.post('user/register', data)
-      .then(res => alert(res.data.message))
-      .catch(error => console.log(error.message));
+      .then(res => {
+        setToggleModal({ message: res.data.message, toggle: true, error: false });
+      })
+      .catch(error => {
+        console.log(error.response.data.message)
+        setToggleModal({ message: error.response.data.message, toggle: true, error: true });
+      });
+  }
+
+  const closeModal = () => {
+    setToggleModal({ message: toggleModal.message, toggle: false, error: false });
+    if (!toggleModal.error) {
+      history.push('/');
+    }
   }
 
   return (
     <Container style={{ backgroundColor: "#990d0d", minHeight: "600px", position: 'relative', zIndex: 1 }}>
-      <ContentContainer>
-        <div style={{ display: 'flex', alignItems: 'center', color: "#fff", flexWrap: 'wrap' }}>
+      <ContentContainer colors={state.sideEffectReducer.theme}>
+        {toggleModal.toggle &&
+          <OnSubmitModal
+            text={toggleModal.message}
+            closeModal={closeModal}
+          />
+        }
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          color: "#fff",
+          flexWrap: 'wrap',
+          marginTop: '10px'
+        }}>
           <img
             src={require('../../assets/icon.png')}
             style={{ height: "60px", width: "60px", marginRight: '10px' }}

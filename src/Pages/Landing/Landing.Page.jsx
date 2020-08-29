@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { Container } from "../../Global.styles";
 import {
@@ -14,12 +14,13 @@ import { onChange } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
 import Custom from '../../Components/CustomComponent/Custom.component';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../services/Api';
 import Modal from '../../Components/Modal/Modal.component';
 import LandingToModal from './Landing.ToModal';
 import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
+import { useHistory } from 'react-router';
 
 
 const inputStyle = {
@@ -40,12 +41,19 @@ const MessageModal = Modal(LandingToModal);
 
 const Landing = () => {
 
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state);
+  const history = useHistory();
+
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(selector)
+  }, [showModal])
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -58,10 +66,14 @@ const Landing = () => {
     api.post('user/login', data)
       .then(res => {
         const user = { ...res.data };
-        dispatch(createUser(user));
+
+        //seria isso uma gambiarra? acredito que nao...
+        const filter = ({ message, ...rest }) => ({ ...rest });
+
+        dispatch(createUser(filter(user)));
 
         console.log(res)
-        localStorage.setItem("u", JSON.stringify(user));
+        // localStorage.setItem("u", JSON.stringify(user));
 
         //caso o usuario ja tenha errado a senha/login alguma outra vez
         if (error) setError(null);
@@ -77,6 +89,7 @@ const Landing = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    if (!error) history.push('/home');
   }
 
   const ref = useRef();
@@ -94,7 +107,6 @@ const Landing = () => {
             :
             "Login feito com sucesso :D"}
           customStyles={customModalStyles}
-          error={error}
         />
       }
       <LandingContent>

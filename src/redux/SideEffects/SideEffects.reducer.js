@@ -6,7 +6,8 @@ const STATE = {
   theme: {
     primaryColor: "#ff1616",
     secondaryColor: "#fff",
-    primaryColorDarker: ""
+    fontColor: "#fff",
+    primaryColorDarker: "#990d0d"
   },
   displayHeaderFooter: true,
 }
