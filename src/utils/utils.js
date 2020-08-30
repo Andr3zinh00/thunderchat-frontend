@@ -5,7 +5,8 @@ export function calculateAge(birthDate) {
   let years = (otherDate.getFullYear() - birthDate.getFullYear());
 
   if (otherDate.getMonth() < birthDate.getMonth() ||
-    (otherDate.getMonth() === birthDate.getMonth() && otherDate.getDate() < birthDate.getDate())) {
+    (otherDate.getMonth() === birthDate.getMonth() &&
+      otherDate.getDate() < birthDate.getDate())) {
     years--;
   }
 
@@ -17,7 +18,4 @@ export const onChange = (value, setState) => {
 }
 
 
-export const getReduxState = (accessString) => {
-
-  return JSON.parse(localStorage.getItem(accessString));
-}
+export const getReduxState = (accessString) => JSON.parse(localStorage.getItem(accessString));

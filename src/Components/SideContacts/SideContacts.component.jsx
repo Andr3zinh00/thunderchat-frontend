@@ -42,10 +42,12 @@ const SideContacts = ({ onToggle, toggle }) => {
   useEffect(() => {
     socketio.on('add-contact', (eventRes) => {
       setRequestResponse(eventRes);
+      console.log(eventRes, 'merdaaaa')
     });
   }, []);
 
   const colors = useSelector(state => state.sideEffectReducer);
+  const user = useSelector(state => state.userReducer);
 
 
   const ref = useRef();
@@ -57,7 +59,25 @@ const SideContacts = ({ onToggle, toggle }) => {
       return;
     }
 
-    socketio.emit('request-contact', { mention: value });
+    //caso o exxxpertinho do usuario tente mandar uma mensagem pra ele mesmo
+    //WARNING: FAZER ISSO PARA CASO ELE TENTE MANDAR UM PEDIDO PARA ALGUEM QUE JA
+    //CONSTA NA LISTA DE CONTATOS!
+    if (user.mention === value) {
+      setModalError({
+        message:"Você está tentando mandar um pedido para si mesmo?",
+        error:true
+      })  
+      return
+    }
+
+    socketio.emit('request', {
+      mention: value,
+      message: {
+        message: "O usuário " + user.mention + " quer ser seu contato.",
+        genre: "contact",
+        sender: user.mention
+      }
+    });
 
   }
 

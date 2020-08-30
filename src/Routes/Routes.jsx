@@ -10,26 +10,60 @@ import Footer from '../Components/Footer/Footer.component';
 import User from '../Pages/User/User.Page';
 import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
+import ProtectedRoute from './ProtectedRoute';
+
+import { getReduxState } from '../utils/utils';
 
 const Routes = () => {
 
-  const state = useSelector(state=>state);
+  const state = useSelector(state => state);
 
   useEffect(() => {
     console.log(state);
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   return (
     <Router>
       <Header />
       <Switch>
-        <Route path="/" exact component={Landing} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/home" component={Home} />
-        <Route path="/user" component={User} />
-        <Route path="/settings" component={UserSettings} />
-        <Route path="/notifications" component={Notifications} />
+        <ProtectedRoute
+          exact
+          authFunc={() => !getReduxState('u')}
+          redirectToWhere='/home'
+          path="/"
+          component={Landing}
+        />
+        <ProtectedRoute
+          authFunc={() => !getReduxState('u')}
+          redirectToWhere='/home'
+          path="/sign-up"
+          component={SignUp}
+        />
+        <ProtectedRoute
+          authFunc={() => getReduxState('u')}
+          redirectToWhere='/'
+          path="/home"
+          component={Home}
+        />
+        <ProtectedRoute
+          authFunc={() => getReduxState('u')}
+          redirectToWhere='/'
+          path="/user"
+          component={User}
+        />
+        <ProtectedRoute
+          authFunc={() => getReduxState('u')}
+          redirectToWhere='/'
+          path="/settings"
+          component={UserSettings}
+        />
+        <ProtectedRoute
+          authFunc={() => getReduxState('u')}
+          redirectToWhere='/'
+          path="/notifications"
+          component={Notifications}
+        />
       </Switch>
       <Footer />
     </Router>
