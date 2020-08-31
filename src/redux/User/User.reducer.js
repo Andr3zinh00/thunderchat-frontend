@@ -7,6 +7,7 @@ const STATE = {
   email: undefined,
   mention: undefined,
   token: undefined,
+  notifications: [],
 }
 
 
@@ -22,6 +23,14 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...action.payload
+      }
+    case types.ON_NOTIFICATIONS:
+      const isLive = action.payload?.isLive;
+      //diferencia se a notificação é em tempo real ou não
+      const payload = isLive ? [action.payload.messages] : action.payload;
+      return {
+        ...state,
+        notifications: [...state.notifications, ...payload]
       }
     case types.DELETE_USER:
       return {

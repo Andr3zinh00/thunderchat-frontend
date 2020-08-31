@@ -5,7 +5,6 @@ import { HomeContent } from './Home.styles';
 import ContactMessage from '../../Components/ContactMessage/ContactMessage.component';
 import SideContacts from '../../Components/SideContacts/SideContacts.component';
 import { useSelector } from 'react-redux';
-import socketio from '../../services/Socket';
 
 
 const Home = () => {
@@ -14,7 +13,6 @@ const Home = () => {
 
   useEffect(() => {
     console.log(userReducer)
-    socketio.emit('connected', { mention: userReducer.mention });
   }, []);
 
   const [toggle, setToggle] = useState(false);

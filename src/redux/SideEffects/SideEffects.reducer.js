@@ -9,7 +9,6 @@ const STATE = {
     fontColor: "#fff",
     primaryColorDarker: "#990d0d"
   },
-  displayHeaderFooter: true,
 }
 
 
@@ -20,11 +19,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.SHOULD_SHOW_FOOTER_AND_HEADER:
-      return {
-        ...state,
-        displayHeaderFooter: !state.displayHeaderFooter
-      }
+
     case types.CHANGE_THEME:
       return {
         ...state,

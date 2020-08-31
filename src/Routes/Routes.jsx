@@ -11,15 +11,19 @@ import User from '../Pages/User/User.Page';
 import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
 import ProtectedRoute from './ProtectedRoute';
+import socketio from '../services/Socket';
 
 import { getReduxState } from '../utils/utils';
 
 const Routes = () => {
 
-  const state = useSelector(state => state);
+  const user = useSelector(state => state.userReducer);
 
   useEffect(() => {
-    console.log(state);
+    console.log(user);
+    if (user.mention) {
+      socketio.emit('connected', { mention: user.mention });
+    }
     //eslint-disable-next-line
   }, []);
 

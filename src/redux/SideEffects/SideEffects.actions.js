@@ -5,6 +5,3 @@ export const changeTheme = (theme) => ({
   payload: theme
 });
 
-export const displayHeaderFooter = () => ({
-  type:types.SHOULD_SHOW_FOOTER_AND_HEADER,
-});

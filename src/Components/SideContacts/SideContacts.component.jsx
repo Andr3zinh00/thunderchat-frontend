@@ -18,6 +18,7 @@ import SideContactsToModal from './SideContacts.ToModal';
 import { useSelector } from 'react-redux';
 
 import socketio from '../../services/Socket';
+import api from '../../services/Api';
 
 const infoStyle = {
   textOverflow: "ellipsis",
@@ -39,12 +40,7 @@ const SideContacts = ({ onToggle, toggle }) => {
     console.log(requestResponse);
   }, [requestResponse]);
 
-  useEffect(() => {
-    socketio.on('add-contact', (eventRes) => {
-      setRequestResponse(eventRes);
-      console.log(eventRes, 'merdaaaa')
-    });
-  }, []);
+  
 
   const colors = useSelector(state => state.sideEffectReducer);
   const user = useSelector(state => state.userReducer);
@@ -64,19 +60,33 @@ const SideContacts = ({ onToggle, toggle }) => {
     //CONSTA NA LISTA DE CONTATOS!
     if (user.mention === value) {
       setModalError({
-        message:"Você está tentando mandar um pedido para si mesmo?",
-        error:true
-      })  
-      return
+        message: "Você está tentando mandar um pedido para si mesmo?",
+        error: true
+      })
+      return;
     }
 
-    socketio.emit('request', {
+    const data = {
       mention: value,
       message: {
         message: "O usuário " + user.mention + " quer ser seu contato.",
         genre: "contact",
-        sender: user.mention
+        sender: user.id
       }
+    };
+
+    api.post('/notification/send-notification', data,{
+      headers:{
+        Authorization:"Bearer "+user.token
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(error => console.log(error.response));
+
+    socketio.emit('send-notification', {
+      ...data
     });
 
   }
