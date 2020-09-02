@@ -34,13 +34,13 @@ const SideContacts = ({ onToggle, toggle }) => {
 
   const [modalToggle, setModalToggle] = useState(false);
   const [modalError, setModalError] = useState({ message: "", error: false });
+
   const [requestResponse, setRequestResponse] = useState("");
 
-  useEffect(() => {
-    console.log(requestResponse);
-  }, [requestResponse]);
+  const [isLoadingContacts, setIsLoadingContacts] = useState(true);
+  const [contacts, setContacts] = useState([]);
 
-  
+
 
   const colors = useSelector(state => state.sideEffectReducer);
   const user = useSelector(state => state.userReducer);
@@ -48,6 +48,17 @@ const SideContacts = ({ onToggle, toggle }) => {
 
   const ref = useRef();
   const modalRef = useRef();
+
+  useEffect(() => {
+    api.get(`/contacts/get-contacts/${user.id}`)
+      .then(res => {
+        console.log(res.data)
+        setContacts(res.data.list);
+        setIsLoadingContacts(false);
+      })
+      .catch(error => console.log(error.response));
+
+  }, []);
 
   const onRequestSent = (value) => {
     if (value[0] !== "@") {
@@ -75,13 +86,10 @@ const SideContacts = ({ onToggle, toggle }) => {
       }
     };
 
-    api.post('/notification/send-notification', data,{
-      headers:{
-        Authorization:"Bearer "+user.token
-      }
-    })
+    api.post('/notification/send-notification', data)
       .then(res => {
         console.log(res.data)
+        //WARNING:setar isso na tela para o usuario
       })
       .catch(error => console.log(error.response));
 
@@ -121,42 +129,22 @@ const SideContacts = ({ onToggle, toggle }) => {
             />
           </IconContainer>
         </HeaderContainer>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
-            </p>
-            <Span />
-          </ContactInfoContainer>
-        </UserContacts>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
-            </p>
-            <Span />
-          </ContactInfoContainer>
-        </UserContacts>
-        <UserContacts>
-          <ImgContainer>
-            <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-          </ImgContainer>
-          <ContactInfoContainer>
-            <h3 style={infoStyle}>André Luiz</h3>
-            <p style={infoStyle}>
-              EAE MAN ME DEVOLVE LA O BAGULHO SE NÃO VOU PEGAR SUA FAMILIA
-            </p>
-            <Span />
-          </ContactInfoContainer>
-        </UserContacts>
+        {
+          contacts.map(contact => (
+            <UserContacts key={String(contact._id)}>
+              <ImgContainer>
+                <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+              </ImgContainer>
+              <ContactInfoContainer>
+                <h3 style={infoStyle}>André Luiz</h3>
+                <p style={infoStyle}>
+                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                </p>
+                <Span />
+              </ContactInfoContainer>
+            </UserContacts>
+          ))
+        }
       </Aside>
     </>
   )

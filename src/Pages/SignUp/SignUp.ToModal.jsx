@@ -1,13 +1,13 @@
 import React from 'react'
 import { Wrapper } from '../../Global.styles';
-import { default as Button } from '../../Components/CustomComponent/Custom.component';
+import CustomButton from '../../Components/CustomComponent/Button';
 
 
 const SignUpToModal = ({ text, closeModal }) => {
   return (
     <Wrapper>
       <h3>{text}</h3>
-      <Button text="OK" onClick={closeModal} />
+      <CustomButton text="OK" onClick={closeModal} />
     </Wrapper>
   )
 }

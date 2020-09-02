@@ -27,10 +27,13 @@ export default (state = INITIAL_STATE, action) => {
     case types.ON_NOTIFICATIONS:
       const isLive = action.payload?.isLive;
       //diferencia se a notificação é em tempo real ou não
-      const payload = isLive ? [action.payload.messages] : action.payload;
+      //A notificação em tempo real vem como um objeto
+      //para continuar com o spread operator coloquei a 
+      //mensagem dentro de um array
+      // const payload = isLive ? [{ ...action.payload }] : action.payload;
       return {
         ...state,
-        notifications: [...state.notifications, ...payload]
+        notifications: [...state.notifications, ...action.payload]
       }
     case types.DELETE_USER:
       return {

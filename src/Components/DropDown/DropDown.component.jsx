@@ -2,12 +2,12 @@ import React from 'react';
 import { DropDownContainer, HiddenElements } from './DropDown.styles';
 
 const DropDown = (WrappedIcon, WrappedComponent) => {
-  return ({ dropDown, nodo, isMobile }) => {
+  return ({ dropDown, nodo, isMobile, ...rest }) => {
     return (
       <DropDownContainer ref={nodo}>
-        <WrappedIcon isMobile={isMobile} />
+        <WrappedIcon {...rest} isMobile={isMobile} />
         <HiddenElements isMobile={isMobile} dropDown={dropDown}>
-          <WrappedComponent />
+          <WrappedComponent {...rest} />
         </HiddenElements>
       </DropDownContainer>
     )

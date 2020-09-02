@@ -18,6 +18,7 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
+  //deixei o switch caso tenha mais funcionalidades mais tarde...
   switch (action.type) {
 
     case types.CHANGE_THEME:

@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Container } from '../../Global.styles';
 import { ContentContainer, FormContainer, BackgroundContainer } from './SignUp.styles';
 
-import Custom from '../../Components/CustomComponent/Custom.component';
+import CustomButton from '../../Components/CustomComponent/Button';
+import CustomInput from '../../Components/CustomComponent/Input';
 import Modal from '../../Components/Modal/Modal.component';
 import SignUpToModal from './SignUp.ToModal';
 import { ReactComponent as Wave } from '../../assets/wave.svg';
@@ -92,31 +93,31 @@ const SignUp = () => {
         </div>
         <FormContainer onSubmit={(event) => onSubmit(event)}>
           <InputContainer>
-            <Custom
+            <CustomInput
               value={email}
               onChange={(event) => onChange(event.target.value, setEmail)}
               placeholder={"Informe um email"}
               type="email"
             />
-            <Custom
+            <CustomInput
               value={mention}
               onChange={(event) => onChange(event.target.value, setMention)}
               placeholder={"Escolha sua @ para outros usuários te encontrarem"}
               type="text"
             />
-            <Custom
+            <CustomInput
               value={name}
               onChange={(event) => onChange(event.target.value, setName)}
               placeholder={"Escolha seu nome de exibição"}
               type="name"
             />
-            <Custom
+            <CustomInput
               value={password}
               onChange={(event) => onChange(event.target.value, setPassword)}
               type="password"
               placeholder={"Escolha uma senha"}
             />
-            <Custom
+            <CustomInput
               value={date}
               onChange={(event) => onChange(event.target.value, setDate)}
               type="date"
@@ -124,7 +125,7 @@ const SignUp = () => {
               id="date-inp"
             />
           </InputContainer>
-          <Custom
+          <CustomButton
             text={"Cadastrar"}
           />
         </FormContainer>

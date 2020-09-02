@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from '../../Global.styles';
 import { HomeContent } from './Home.styles';
 import ContactMessage from '../../Components/ContactMessage/ContactMessage.component';
 import SideContacts from '../../Components/SideContacts/SideContacts.component';
-import { useSelector } from 'react-redux';
+ import { useSelector } from 'react-redux';
 
 
 const Home = () => {
 
   const { sideEffectReducer: { theme }, userReducer } = useSelector(state => state);
-
-  useEffect(() => {
-    console.log(userReducer)
-  }, []);
 
   const [toggle, setToggle] = useState(false);
   const onToggle = () => setToggle(!toggle);

@@ -42,23 +42,58 @@ export const Nav = styled.div`
     width: 35px;
   }
 
+  .abs{
+    position:relative;
+    svg{
+      color:${p => p.color.primaryColor};
+    }
+    div{
+        background:${p => p.color.primaryColor};
+
+        border-radius:50%;
+        position:absolute;
+        bottom:0;
+        right:-3px;
+        padding:4px;
+
+        h4{
+          color:${p => p.color.secondaryColor};
+          font-size:0.7em;
+          font-weight:700;
+        }
+    }
+  }
+
   .hide{
    display: none;
   } 
 
-  @media screen and (min-width:767px){
+@media screen and (min-width:767px){
     ${DropDownContainer}:last-child{
       display:none !important;
     }
 
     .hide{
       display:unset;
+      color:${p => p.color.secondaryColor} !important;
     }
+
+    .abs{
+      svg{
+        color:${p => p.color.secondaryColor} !important;
+      }
+      div{
+          background:${p => p.color.secondaryColor};
+          h4{
+            color:${p => p.color.primaryColor};
+          }
+      }
   }
+}
 `;
 
 
-export const NotificationWrap=styled.div`
+export const NotificationWrap = styled.div`
     ${Container}{
       height:350px;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { Container } from "../../Global.styles";
 import {
@@ -13,7 +13,8 @@ import {
 import { onChange } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
-import Custom from '../../Components/CustomComponent/Custom.component';
+import CustomInput from '../../Components/CustomComponent/Input';
+import CustomButton from '../../Components/CustomComponent/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../services/Api';
 import Modal from '../../Components/Modal/Modal.component';
@@ -42,7 +43,6 @@ const MessageModal = Modal(LandingToModal);
 const Landing = () => {
 
   const dispatch = useDispatch();
-  const selector = useSelector(state => state);
   const history = useHistory();
 
   const [userId, setUserId] = useState("");
@@ -50,9 +50,9 @@ const Landing = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    console.log(selector)
-  }, [showModal])
+  // useEffect(() => {
+  //   console.log(selector)
+  // }, [showModal])
 
 
   const onSubmit = (e) => {
@@ -135,14 +135,14 @@ const Landing = () => {
           <FormContainer onSubmit={event => onSubmit(event)}>
             <h3 style={{ alignSelf: "start", marginTop: "80px", fontSize: '1.3em', fontWeight: 400 }}>Faça login:</h3>
             <InputContainer>
-              <Custom
+              <CustomInput
                 value={userId}
                 onChange={(event) => onChange(event.target.value, setUserId)}
                 customStyle={inputStyle}
                 placeholder={"Email ou @"}
                 type="text"
               />
-              <Custom
+              <CustomInput
                 value={userPassword}
                 onChange={(event) => onChange(event.target.value, setUserPassword)}
                 type="password"
@@ -150,7 +150,7 @@ const Landing = () => {
                 customStyle={inputStyle}
               />
             </InputContainer>
-            <Custom
+            <CustomButton
               text={"Entrar"}
             />
             <Link

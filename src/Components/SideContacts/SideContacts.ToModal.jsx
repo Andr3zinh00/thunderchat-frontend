@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Custom from '../CustomComponent/Custom.component';
+import CustomButton from '../CustomComponent/Button';
+import CustomInput from '../CustomComponent/Input';
 import { Wrapper } from '../../Global.styles';
 import { IoMdSearch, IoMdClose } from 'react-icons/io';
 
@@ -16,7 +17,7 @@ const SideContactsToModal = ({ text, closeModal, onRequestSent }) => {
         <h3>{text}</h3>
         <Wrapper>
           <span><IoMdSearch /></span>
-          <Custom
+          <CustomInput
             value={value}
             onChange={(event) => {
               console.log("ahhhh")
@@ -24,7 +25,7 @@ const SideContactsToModal = ({ text, closeModal, onRequestSent }) => {
             placeholder={"Ex.: @FernandoBeiramar123"}
           />
         </Wrapper>
-        <Custom text={'Enviar solicitação'} onClick={() => onRequestSent(value)} />
+        <CustomButton text={'Enviar solicitação'} onClick={() => onRequestSent(value)} />
       </Wrapper>
     </Wrapper>
   )
