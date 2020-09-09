@@ -11,7 +11,7 @@ import User from '../Pages/User/User.Page';
 import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
 import ProtectedRoute from './ProtectedRoute';
-import socketio from '../services/Socket';
+// import socketio from '../services/Socket';
 
 import { getReduxState } from '../utils/utils';
 
@@ -22,7 +22,7 @@ const Routes = () => {
   useEffect(() => {
     console.log(user);
     if (user.mention) {
-      socketio.emit('connected', { mention: user.mention });
+      // socketio.emit('connected', { mention: user.mention });
     }
     //eslint-disable-next-line
   }, []);
@@ -33,37 +33,37 @@ const Routes = () => {
       <Switch>
         <ProtectedRoute
           exact
-          authFunc={() => !getReduxState('u')}
+          authFunc={() => !getReduxState("u")}
           redirectToWhere='/home'
           path="/"
           component={Landing}
         />
         <ProtectedRoute
-          authFunc={() => !getReduxState('u')}
+          authFunc={() => !getReduxState("u")}
           redirectToWhere='/home'
           path="/sign-up"
           component={SignUp}
         />
         <ProtectedRoute
-          authFunc={() => getReduxState('u')}
+          authFunc={() => getReduxState("u")}
           redirectToWhere='/'
           path="/home"
           component={Home}
         />
         <ProtectedRoute
-          authFunc={() => getReduxState('u')}
+          authFunc={() => getReduxState("u")}
           redirectToWhere='/'
           path="/user"
           component={User}
         />
         <ProtectedRoute
-          authFunc={() => getReduxState('u')}
+          authFunc={() => getReduxState("u")}
           redirectToWhere='/'
           path="/settings"
           component={UserSettings}
         />
         <ProtectedRoute
-          authFunc={() => getReduxState('u')}
+          authFunc={() => getReduxState("u")}
           redirectToWhere='/'
           path="/notifications"
           component={Notifications}

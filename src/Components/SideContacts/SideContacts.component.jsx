@@ -17,8 +17,9 @@ import Modal from '../Modal/Modal.component';
 import SideContactsToModal from './SideContacts.ToModal';
 import { useSelector } from 'react-redux';
 
-import socketio from '../../services/Socket';
+import stompClient from '../../services/Socket';
 import api from '../../services/Api';
+import { getAuth } from '../../utils/utils';
 
 const infoStyle = {
   textOverflow: "ellipsis",
@@ -50,7 +51,12 @@ const SideContacts = ({ onToggle, toggle }) => {
   const modalRef = useRef();
 
   useEffect(() => {
-    api.get(`/contacts/get-contacts/${user.id}`)
+    // {
+    //   headers: {
+    //     Authorization: "Basic " + new Buffer.from(user.mention + ':' + user.password).toString('base64'),
+    //   }
+    // }
+    api.get(`contact/${user._id}`)
       .then(res => {
         console.log(res.data)
         setContacts(res.data.list);
@@ -58,7 +64,7 @@ const SideContacts = ({ onToggle, toggle }) => {
       })
       .catch(error => console.log(error.response));
 
-  }, []);
+  }, [user._id, user.id, user.mention, user.password]);
 
   const onRequestSent = (value) => {
     if (value[0] !== "@") {
@@ -77,25 +83,40 @@ const SideContacts = ({ onToggle, toggle }) => {
       return;
     }
 
-    const data = {
-      mention: value,
-      message: {
-        message: "O usuário " + user.mention + " quer ser seu contato.",
-        genre: "contact",
-        sender: user.id
-      }
-    };
+    // const data = {
+    //   mention: value,
+    //   message: {
+    //     message: "O usuário " + user.mention + " quer ser seu contato.",
+    //     genre: "contact",
+    //     sender: user.id
+    //   }
+    // };
 
-    api.post('/notification/send-notification', data)
-      .then(res => {
-        console.log(res.data)
-        //WARNING:setar isso na tela para o usuario
-      })
-      .catch(error => console.log(error.response));
+    // api.post('/notification/send-notification', data)
+    //   .then(res => {
+    //     console.log(res.data)
+    //     //WARNING:setar isso na tela para o usuario
+    //   })
+    //   .catch(error => console.log(error.response));
+    function stompCallback() {
+      stompClient.send("/app/send-notification", {}, JSON.stringify({
+        content: "O usuário " + user.mention + " quer ser seu contato.",
+        from: user.mention,
+        to: value,
+      }));
+    }
 
-    socketio.emit('send-notification', {
-      ...data
-    });
+    if (stompClient.active) {
+      stompCallback();
+      return;
+    }
+
+    stompClient.connect({}, () => stompCallback());
+    // socketConnect(null, null, "queue/notification/send", null, {
+    //   content: "O usuário " + user.mention + " quer ser seu contato.",
+    //   from: user.mention,
+    //   to: value,
+    // });
 
   }
 

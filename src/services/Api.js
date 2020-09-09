@@ -1,13 +1,15 @@
 import axios from 'axios';
+import { getAuth } from '../utils/utils';
 
-const Authorization = "Bearer "+JSON.parse(localStorage.getItem('u'))?.token;
-console.log(Authorization)
+const Authorization = getAuth();
+
 const api = axios.create({
   baseURL: 'http://localhost:8080/',
-  headers: { 
-    'Content-Type': 'application/json',
-    Authorization
-  }
+  headers: !Authorization.headers.Authorization.endsWith(undefined) ? {
+    ...Authorization.headers
+  } : {
+      "Content-Type": 'application/json'
+    }
 });
 
 export default api;

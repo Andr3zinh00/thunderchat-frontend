@@ -10,41 +10,67 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DropDown from '../DropDown/DropDown.component';
 
-import socketio from '../../services/Socket';
+import stompClient from '../../services/Socket';
 import api from '../../services/Api';
 import { onNotification } from '../../redux/User/User.actions';
 
 import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
+import { getAuth } from '../../utils/utils';
 
 
 const Header = () => {
 
   const dispatch = useDispatch();
-  const { notifications, id } = useSelector(state => state.userReducer);
+  const { notifications, _id } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
 
   useEffect(() => {
-    socketio.on('request-sent', (eventRes) => {
-      dispatch(onNotification([{
-        ...eventRes.data.message,
-        isLive: true
-      }]));
-      setCountNotification(pastCount => pastCount + 1);
-    });
+    if (_id) {
+
+      function stompCallback() {
+        stompClient.subscribe("/user/queue/sendback", (eventRes) => {
+          console.log(eventRes)
+          console.log("asoidjaiosjdioajsdiojaiosdjioasjdiojasiodjaklsmlkamsxklmaklsdmklamsdkl")
+          dispatch(onNotification([{
+            ...eventRes,
+            isLive: true
+          }]));
+          setCountNotification(pastCount => pastCount + 1);
+        });
+      }
+
+      if (stompClient.active) {
+        stompCallback();
+      } else {
+        stompClient.connect({}, () => stompCallback());
+      }
+
+
+      // socketConnect(null, "user/queue/sendback", null, (eventRes) => {
+      //   console.log(eventRes)
+      //   dispatch(onNotification([{
+      //     ...eventRes,
+      //     isLive: true
+      //   }]));
+      //   setCountNotification(pastCount => pastCount + 1);
+      // },null);
+    }
     // eslint-disable-next-line 
   }, []);
+
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
-    if (id) {
-
+    //por enquanto desabilitado
+    if (false) {
       api.get('/notification/get-notification', {
         params: {
-          id: id
-        }
+          id: _id
+        },
+        ...getAuth()
       })
         .then(res => {
           const { messages } = res.data.notifications;

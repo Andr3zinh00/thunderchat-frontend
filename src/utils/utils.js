@@ -19,3 +19,11 @@ export const onChange = (value, setState) => {
 
 
 export const getReduxState = (accessString) => JSON.parse(localStorage.getItem(accessString));
+
+
+export const getAuth = () => {
+  const state = getReduxState('u');
+  console.log(state)
+  const Authorization = "Bearer " + state?.token || "12312312pokspadkopaskopas";
+  return { headers: { Authorization: Authorization, 'Content-Type': 'application/json' } };
+}

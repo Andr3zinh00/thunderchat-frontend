@@ -10,7 +10,7 @@ import {
   InputContainer
 } from "./Landing.styles";
 
-import { onChange } from '../../utils/utils';
+import { onChange, getAuth } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
 import CustomInput from '../../Components/CustomComponent/Input';
@@ -55,35 +55,54 @@ const Landing = () => {
   // }, [showModal])
 
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
-      userId,
+      username: userId,
       password: userPassword
     }
 
-    api.post('user/login', data)
+    const jwt = await api.post('user/authenticate', data)
       .then(res => {
-        const user = { ...res.data };
-
-        //seria isso uma gambiarra? acredito que nao...
-        const filter = ({ message, ...rest }) => ({ ...rest });
-
-        dispatch(createUser(filter(user)));
-
         console.log(res)
-        // localStorage.setItem("u", JSON.stringify(user));
-
-        //caso o usuario ja tenha errado a senha/login alguma outra vez
-        if (error) setError(null);
-
-        setShowModal(true);
+        return res.data.jwt;
       })
       .catch(error => {
-        setError(error.response.data.message);
+        console.log(error.response)
+        setError(error.response.message);
         setShowModal(true);
       });
+
+    console.log(jwt);
+
+    api.post('user/login', data, {
+      headers: {
+        Authorization: 'Bearer ' + jwt
+      }
+    }).then(res => {
+      const user = { ...res.data, token: jwt };
+
+      //seria isso uma gambiarra? acredito que nao...
+      // const filter = ({ message, ...rest }) => ({ ...rest });
+
+      dispatch(createUser(user));
+
+      console.log(res)
+      // localStorage.setItem("u", JSON.stringify(user));
+
+      //caso o usuario ja tenha errado a senha/login alguma outra vez
+      if (error) setError(null);
+
+      setShowModal(true)
+
+    })
+      .catch(error => {
+        console.log(error.response)
+        setError(error.response.message);
+        setShowModal(true);
+      });
+
   }
 
 
