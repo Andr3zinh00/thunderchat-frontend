@@ -1,9 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-const WithSpinner = (isLoading, WrappedComponent) => {
-  return (...props) => isLoading ? <ThunderLoading /> : (
-    <WrappedComponent {...props} />
-  )
+import { ThunderLoading, Container } from './WithSpinner.styles';
+
+//CustomLoadingComp=caso queira mostrar alguma outra coisa
+//no lugar do componente padrao de loading
+//um exemplo pode ser visto no component "ContactMessage"
+const WithSpinner = (WrappedComponent, CustomLoadingComp) => {
+  return ({ isLoading, ...props }) => isLoading ?
+    CustomLoadingComp ?
+      <CustomLoadingComp />
+      :
+      (
+        <Container>
+          <ThunderLoading />
+        </Container>
+      )
+    :
+    (
+      <WrappedComponent {...props} />
+    )
 }
 
 export default WithSpinner;

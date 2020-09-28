@@ -62,34 +62,15 @@ const Landing = () => {
       username: userId,
       password: userPassword
     }
-
-    const jwt = await api.post('user/authenticate', data)
-      .then(res => {
-        console.log(res)
-        return res.data.jwt;
-      })
-      .catch(error => {
-        console.log(error.response)
-        setError(error.response.message);
-        setShowModal(true);
-      });
-
-    console.log(jwt);
-
-    api.post('user/login', data, {
-      headers: {
-        Authorization: 'Bearer ' + jwt
-      }
-    }).then(res => {
-      const user = { ...res.data, token: jwt };
+    api.post('user/login', data).then(res => {
+      const { user, token: { jwt } } = res.data;
 
       //seria isso uma gambiarra? acredito que nao...
       // const filter = ({ message, ...rest }) => ({ ...rest });
 
-      dispatch(createUser(user));
+      dispatch(createUser({ ...user, token: jwt }));
 
       console.log(res)
-      // localStorage.setItem("u", JSON.stringify(user));
 
       //caso o usuario ja tenha errado a senha/login alguma outra vez
       if (error) setError(null);

@@ -33,10 +33,10 @@ const Header = () => {
 
       function stompCallback() {
         stompClient.subscribe("/user/queue/sendback", (eventRes) => {
-          console.log(eventRes)
-          console.log("asoidjaiosjdioajsdiojaiosdjioasjdiojasiodjaklsmlkamsxklmaklsdmklamsdkl")
+          console.log(eventRes.body)
+          const message = JSON.parse(eventRes.body);
           dispatch(onNotification([{
-            ...eventRes,
+            ...message,
             isLive: true
           }]));
           setCountNotification(pastCount => pastCount + 1);
@@ -49,15 +49,6 @@ const Header = () => {
         stompClient.connect({}, () => stompCallback());
       }
 
-
-      // socketConnect(null, "user/queue/sendback", null, (eventRes) => {
-      //   console.log(eventRes)
-      //   dispatch(onNotification([{
-      //     ...eventRes,
-      //     isLive: true
-      //   }]));
-      //   setCountNotification(pastCount => pastCount + 1);
-      // },null);
     }
     // eslint-disable-next-line 
   }, []);
@@ -65,20 +56,21 @@ const Header = () => {
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
     //por enquanto desabilitado
-    if (false) {
-      api.get('/notification/get-notification', {
-        params: {
-          id: _id
-        },
+    console.log("asdasd");
+    if (_id) {
+      console.log("asdasd passei");
+      api.get(`/notifications/${_id}`, {
         ...getAuth()
       })
-        .then(res => {
-          const { messages } = res.data.notifications;
-          console.log(messages)
-          if (messages.length !== 0) {
-            dispatch(onNotification(messages));
+      .then(res => {
+        console.log("asdasd passei to aqui dentro");
+          const {notifications} = res.data;
+          console.log(notifications)
+          console.log(res.data)
+          if (notifications.length !== 0) {
+            dispatch(onNotification(notifications));
             setCountNotification(
-              messages.filter(notif => !notif?.isChecked).length
+              notifications.filter(notif => !notif?.isChecked).length
             );
           }
         })

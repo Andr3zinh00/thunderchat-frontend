@@ -31,12 +31,11 @@ const infoStyle = {
 
 const SearchModal = Modal(SideContactsToModal);
 
-const SideContacts = ({ onToggle, toggle }) => {
+const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
 
   const [modalToggle, setModalToggle] = useState(false);
   const [modalError, setModalError] = useState({ message: "", error: false });
 
-  const [requestResponse, setRequestResponse] = useState("");
 
   const [isLoadingContacts, setIsLoadingContacts] = useState(true);
   const [contacts, setContacts] = useState([]);
@@ -59,7 +58,7 @@ const SideContacts = ({ onToggle, toggle }) => {
     api.get(`contact/${user._id}`)
       .then(res => {
         console.log(res.data)
-        setContacts(res.data.list);
+        setContacts(res.data.contacts);
         setIsLoadingContacts(false);
       })
       .catch(error => console.log(error.response));
@@ -83,26 +82,13 @@ const SideContacts = ({ onToggle, toggle }) => {
       return;
     }
 
-    // const data = {
-    //   mention: value,
-    //   message: {
-    //     message: "O usuário " + user.mention + " quer ser seu contato.",
-    //     genre: "contact",
-    //     sender: user.id
-    //   }
-    // };
-
-    // api.post('/notification/send-notification', data)
-    //   .then(res => {
-    //     console.log(res.data)
-    //     //WARNING:setar isso na tela para o usuario
-    //   })
-    //   .catch(error => console.log(error.response));
     function stompCallback() {
       stompClient.send("/app/send-notification", {}, JSON.stringify({
         content: "O usuário " + user.mention + " quer ser seu contato.",
         from: user.mention,
         to: value,
+        type: "INVITE",
+        time: new Date(),
       }));
     }
 
@@ -112,12 +98,6 @@ const SideContacts = ({ onToggle, toggle }) => {
     }
 
     stompClient.connect({}, () => stompCallback());
-    // socketConnect(null, null, "queue/notification/send", null, {
-    //   content: "O usuário " + user.mention + " quer ser seu contato.",
-    //   from: user.mention,
-    //   to: value,
-    // });
-
   }
 
   //caso o usuario dê um click fora da sidebar
@@ -152,14 +132,17 @@ const SideContacts = ({ onToggle, toggle }) => {
         </HeaderContainer>
         {
           contacts.map(contact => (
-            <UserContacts key={String(contact._id)}>
+            <UserContacts
+              onClick={() => setSelectedUser({ user: contact })}
+              key={String(contact._id)}
+            >
               <ImgContainer>
                 <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
               </ImgContainer>
               <ContactInfoContainer>
-                <h3 style={infoStyle}>André Luiz</h3>
+                <h3 style={infoStyle}>{contact.mention}</h3>
                 <p style={infoStyle}>
-                  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                  ULTIMA MENSAGEM
                 </p>
                 <Span />
               </ContactInfoContainer>

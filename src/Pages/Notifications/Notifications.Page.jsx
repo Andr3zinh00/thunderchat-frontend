@@ -10,7 +10,7 @@ const Notifications = () => {
 
 
   const notifications = useSelector(state => state.userReducer.notifications);
-  const id = useSelector(state => state.userReducer.id);
+  const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
 
   return (
@@ -23,8 +23,8 @@ const Notifications = () => {
           {notifications.length > 0 ?
             notifications.map((notification, index) =>
               <NotificationItem
-                id={id}
-                key={String(notification._id || notification.sender + index)}
+                id={notification.type === "INVITE" ? _id : null}
+                key={String(index)}
                 {...notification}
               />
             )
