@@ -11,17 +11,12 @@ import {
 
 import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
-import { onChange } from '../../utils/utils';
-
 import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
 
 const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages }) => {
   const user = useSelector(state => state.userReducer)
   const { name, mention } = selectedUser.user;
-  console.log(selectedUser, "selectedddd")
-
-  console.log(user);
 
   const initial_state = {
     content: "",

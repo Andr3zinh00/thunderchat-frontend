@@ -23,7 +23,6 @@ export const getReduxState = (accessString) => JSON.parse(localStorage.getItem(a
 
 export const getAuth = () => {
   const state = getReduxState('u');
-  console.log(state)
-  const Authorization = "Bearer " + state?.token || "12312312pokspadkopaskopas";
+  const Authorization = "Bearer " + state?.token;
   return { headers: { Authorization: Authorization, 'Content-Type': 'application/json' } };
 }

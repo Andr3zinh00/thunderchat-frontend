@@ -10,12 +10,12 @@ import {
   InputContainer
 } from "./Landing.styles";
 
-import { onChange, getAuth } from '../../utils/utils';
+import { onChange } from '../../utils/utils';
 
 import { Link } from 'react-router-dom';
 import CustomInput from '../../Components/CustomComponent/Input';
 import CustomButton from '../../Components/CustomComponent/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import api from '../../services/Api';
 import Modal from '../../Components/Modal/Modal.component';
 import LandingToModal from './Landing.ToModal';
@@ -50,11 +50,6 @@ const Landing = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   console.log(selector)
-  // }, [showModal])
-
-
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,7 +65,6 @@ const Landing = () => {
 
       dispatch(createUser({ ...user, token: jwt }));
 
-      console.log(res)
 
       //caso o usuario ja tenha errado a senha/login alguma outra vez
       if (error) setError(null);
@@ -79,7 +73,6 @@ const Landing = () => {
 
     })
       .catch(error => {
-        console.log(error.response)
         setError(error.response.message);
         setShowModal(true);
       });

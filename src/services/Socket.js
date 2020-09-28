@@ -21,9 +21,7 @@ export default stompClient;
 //     stompClient.disconnect();
 //     return;
 //   }
-//   console.log("alskdklasd")
 //   stompClient.onConnect(() => {
-//     console.log("alskdklasdasdasdasd123123")
 //     if (listenerURL) stompClient.subscribe(listenerURL, callbackListener);
 
 //     if (senderURL) stompClient.send(senderURL, {}, JSON.stringify(payload));

@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux';
 
 import stompClient from '../../services/Socket';
 import api from '../../services/Api';
-import { getAuth } from '../../utils/utils';
 
 const infoStyle = {
   textOverflow: "ellipsis",
@@ -57,7 +56,6 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
     // }
     api.get(`contact/${user._id}`)
       .then(res => {
-        console.log(res.data)
         setContacts(res.data.contacts);
         setIsLoadingContacts(false);
       })

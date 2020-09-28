@@ -22,13 +22,11 @@ const Home = () => {
 
     function stompCallback() {
       stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
-        console.log(eventRes.body, "kikikkikikikik")
         const message = JSON.parse(eventRes.body);
         setMessages(past => [message, ...past]);
       });
     }
     //usar o stompClient.connected ao inves do .active
-    console.log("isac", stompClient.connected)
     if (stompClient.connected) {
       stompCallback();
     } else {

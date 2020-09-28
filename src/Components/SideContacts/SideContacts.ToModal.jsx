@@ -20,8 +20,8 @@ const SideContactsToModal = ({ text, closeModal, onRequestSent }) => {
           <CustomInput
             value={value}
             onChange={(event) => {
-              console.log("ahhhh")
-              setValue(event.target.value)}}
+              setValue(event.target.value)
+            }}
             placeholder={"Ex.: @FernandoBeiramar123"}
           />
         </Wrapper>

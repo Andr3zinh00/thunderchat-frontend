@@ -49,7 +49,6 @@ const SignUp = () => {
     const checkMention = mention[0] === "@" ?
       mention.split('@')[1] :
       mention;
-    console.log(checkMention);
     const data = { email, name, date, mention: checkMention, password };
     api.post('user/register', data)
       .then(res => {

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Landing from '../Pages/Landing/Landing.Page';
 import SignUp from '../Pages/SignUp/SignUp.Page';
@@ -16,16 +15,6 @@ import ProtectedRoute from './ProtectedRoute';
 import { getReduxState } from '../utils/utils';
 
 const Routes = () => {
-
-  const user = useSelector(state => state.userReducer);
-
-  useEffect(() => {
-    console.log(user);
-    if (user.mention) {
-      // socketio.emit('connected', { mention: user.mention });
-    }
-    //eslint-disable-next-line
-  }, []);
 
   return (
     <Router>

@@ -23,7 +23,7 @@ import { getAuth } from '../../utils/utils';
 const Header = () => {
 
   const dispatch = useDispatch();
-  const { notifications, _id } = useSelector(state => state.userReducer);
+  const { _id } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
@@ -33,7 +33,6 @@ const Header = () => {
 
       function stompCallback() {
         stompClient.subscribe("/user/queue/sendback", (eventRes) => {
-          console.log(eventRes.body)
           const message = JSON.parse(eventRes.body);
           dispatch(onNotification([{
             ...message,
@@ -56,17 +55,12 @@ const Header = () => {
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
     //por enquanto desabilitado
-    console.log("asdasd");
     if (_id) {
-      console.log("asdasd passei");
       api.get(`/notifications/${_id}`, {
         ...getAuth()
       })
       .then(res => {
-        console.log("asdasd passei to aqui dentro");
           const {notifications} = res.data;
-          console.log(notifications)
-          console.log(res.data)
           if (notifications.length !== 0) {
             dispatch(onNotification(notifications));
             setCountNotification(
