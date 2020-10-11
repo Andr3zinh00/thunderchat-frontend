@@ -4,8 +4,7 @@ import styled from 'styled-components';
 export const Button = styled.button`
   ${props => ({ ...props.customStyles })};
   
-  opacity: 0.80;
-  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+  opacity: 1;
   
   outline:none;
   cursor: pointer;
@@ -14,10 +13,10 @@ export const Button = styled.button`
   font-family:Lato;
   border-radius:5px;
   border: none;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 
   :hover {
-    opacity: 1;
+    opacity: 0.8;
   }
 
 `;

@@ -105,7 +105,7 @@ export const FormContainer = styled.form`
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
   padding:0 50px 0 50px;
 
   ${Button}{

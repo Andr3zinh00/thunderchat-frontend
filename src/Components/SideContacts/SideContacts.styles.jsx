@@ -12,8 +12,9 @@ export const Aside = styled.aside`
     return toggle ? 'translateX(0)' : 'translateX(-200%)'
   }};
   transition: transform 0.3s ease-in-out;
+  box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.3);
 
-  box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.35);
+  border-right: 1px solid #ccc;
 
   display:flex;
   flex-direction:column;
@@ -42,16 +43,16 @@ export const Aside = styled.aside`
 
 
 export const HeaderContainer = styled.header`
-  display: flex;
+margin: 10px;  
+display: flex;
   justify-content: space-between;
 
   background:#ff1616;
+  border-radius: 10px;
 
-  border:1px solid #ff1616;
+  height:10%;
 
-  height:15%;
-
-  box-shadow: 0 0px 5px 0px rgba(0,0,0,1);
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.3);
 
   @media screen and (min-width:767px){
     justify-content:center;

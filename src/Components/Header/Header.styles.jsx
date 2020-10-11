@@ -10,7 +10,7 @@ export const LogoContainer = styled.div`
 
 export const HeaderTop = styled.header`
   height:10vh;
-  min-height:70px;
+  min-height:60px;
 
   width:100%;
 
@@ -19,10 +19,9 @@ export const HeaderTop = styled.header`
   flex-direction:row;
   justify-content:space-between;
   padding: 0 5%;
-  background:#ff1616;
+  background:#990d0d;
 
   h1{
-    text-shadow: 3px 3px 2px rgba(150, 150, 150, 1);
     font-size:1.7em;
     color:#fff;
   }
