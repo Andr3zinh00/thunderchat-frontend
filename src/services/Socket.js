@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
 
-const socketio = io("http://localhost:8080");
+const socketio = io("https://thunderchat-backend.herokuapp.com");
 
 export default socketio;

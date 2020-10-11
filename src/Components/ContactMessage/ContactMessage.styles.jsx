@@ -9,11 +9,12 @@ export const ContactMessageContent = styled.div`
 
 export const ContactHeader = styled.header`
   background:#fff;
-  
-  box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.45);
+
+  border-bottom: 1px solid #eee;
+  box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.3);
 
   width:100%;
-  height:15%;
+  height:13%;
 
   display:flex;
   flex-direction:row;

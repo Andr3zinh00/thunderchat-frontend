@@ -89,7 +89,7 @@ const SignUp = () => {
             style={{ height: "60px", width: "60px", marginRight: '10px' }}
             alt="icon da page"
           />
-          <h3>Sign Up</h3>
+          <h3>Criar Conta</h3>
         </div>
         <FormContainer onSubmit={(event) => onSubmit(event)}>
           <InputContainer>
@@ -115,13 +115,13 @@ const SignUp = () => {
               value={password}
               onChange={(event) => onChange(event.target.value, setPassword)}
               type="password"
-              placeholder={"Escolha uma senha"}
+              placeholder={"Senha"}
             />
             <CustomInput
               value={date}
               onChange={(event) => onChange(event.target.value, setDate)}
               type="date"
-              placeholder={"Sua data de nascimento:"}
+              placeholder={"Data de nascimento"}
               id="date-inp"
             />
           </InputContainer>

@@ -125,7 +125,6 @@ const Landing = () => {
                 color: "#fff",
                 fontWeight: "700",
                 fontSize: "2.3em",
-                textShadow: " 2px 2px 0px rgba(150, 150, 150, 1)",
               }}>
               ThunderChat
             </h1>
@@ -133,7 +132,7 @@ const Landing = () => {
         </FirstSide>
         <SecondSide>
           <FormContainer onSubmit={event => onSubmit(event)}>
-            <h3 style={{ alignSelf: "start", marginTop: "80px", fontSize: '1.3em', fontWeight: 400 }}>Faça login:</h3>
+          <h3 style={{ alignSelf: "center", marginTop: "80px", fontSize: '1.3em', fontWeight: "bold", color:"#555" }}>Faça login</h3>
             <InputContainer>
               <CustomInput
                 value={userId}
@@ -156,8 +155,9 @@ const Landing = () => {
             <Link
               to="/sign-up"
               style={{
-                marginBottom: "50px",
+                marginTop: "10px",
                 fontSize: '1em',
+                color: "#ff1616",
               }}>Criar conta</Link>
           </FormContainer>
         </SecondSide>

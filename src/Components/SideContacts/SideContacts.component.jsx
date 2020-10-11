@@ -11,7 +11,7 @@ import {
   ContactInfoContainer,
   Span
 } from './SideContacts.styles';
-import { TiArrowRightThick, TiUser, TiUserAdd } from 'react-icons/ti';
+import { TiChevronRight, TiUser, TiUserAdd } from 'react-icons/ti';
 
 import Modal from '../Modal/Modal.component';
 import SideContactsToModal from './SideContacts.ToModal';
@@ -123,7 +123,7 @@ const SideContacts = ({ onToggle, toggle }) => {
             onClick={() => setModalToggle(true)}
           />
           <IconContainer isToggled={toggle} onClick={() => onToggle()}>
-            <TiArrowRightThick
+            <TiChevronRight
               size={35}
               style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
             />
