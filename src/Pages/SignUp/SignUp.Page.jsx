@@ -50,7 +50,7 @@ const SignUp = () => {
       mention.split('@')[1] :
       mention;
     const data = { email, name, date, mention: checkMention, password };
-    api.post('user/register', data)
+    api.post('user/create', data)
       .then(res => {
         setToggleModal({ message: res.data.message, toggle: true, error: false });
       })
