@@ -19,7 +19,6 @@ const UserSettings = () => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
-    console.log(toggle);
     setToggle(!toggle);
   }
 

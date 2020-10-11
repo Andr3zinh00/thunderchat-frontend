@@ -10,49 +10,61 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DropDown from '../DropDown/DropDown.component';
 
-import socketio from '../../services/Socket';
+import stompClient from '../../services/Socket';
 import api from '../../services/Api';
 import { onNotification } from '../../redux/User/User.actions';
 
 import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
+import { getAuth } from '../../utils/utils';
 
 
 const Header = () => {
 
   const dispatch = useDispatch();
-  const { notifications, id } = useSelector(state => state.userReducer);
+  const { _id } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
 
   useEffect(() => {
-    socketio.on('request-sent', (eventRes) => {
-      dispatch(onNotification([{
-        ...eventRes.data.message,
-        isLive: true
-      }]));
-      setCountNotification(pastCount => pastCount + 1);
-    });
+    if (_id) {
+
+      function stompCallback() {
+        stompClient.subscribe("/user/queue/sendback", (eventRes) => {
+          const message = JSON.parse(eventRes.body);
+          dispatch(onNotification([{
+            ...message,
+            isLive: true
+          }]));
+          setCountNotification(pastCount => pastCount + 1);
+        });
+      }
+
+      if (stompClient.active) {
+        stompCallback();
+      } else {
+        stompClient.connect({}, () => stompCallback());
+      }
+
+    }
     // eslint-disable-next-line 
   }, []);
+
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
-    if (id) {
-
-      api.get('/notification/get-notification', {
-        params: {
-          id: id
-        }
+    //por enquanto desabilitado
+    if (_id) {
+      api.get(`/notifications/${_id}`, {
+        ...getAuth()
       })
-        .then(res => {
-          const { messages } = res.data.notifications;
-          console.log(messages)
-          if (messages.length !== 0) {
-            dispatch(onNotification(messages));
+      .then(res => {
+          const {notifications} = res.data;
+          if (notifications.length !== 0) {
+            dispatch(onNotification(notifications));
             setCountNotification(
-              messages.filter(notif => !notif?.isChecked).length
+              notifications.filter(notif => !notif?.isChecked).length
             );
           }
         })

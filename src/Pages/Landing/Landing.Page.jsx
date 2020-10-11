@@ -15,7 +15,7 @@ import { onChange } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import CustomInput from '../../Components/CustomComponent/Input';
 import CustomButton from '../../Components/CustomComponent/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import api from '../../services/Api';
 import Modal from '../../Components/Modal/Modal.component';
 import LandingToModal from './Landing.ToModal';
@@ -50,40 +50,33 @@ const Landing = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   console.log(selector)
-  // }, [showModal])
-
-
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
-      userId,
+      username: userId,
       password: userPassword
     }
+    api.post('user/login', data).then(res => {
+      const { user, token: { jwt } } = res.data;
 
-    api.post('user/login', data)
-      .then(res => {
-        const user = { ...res.data };
+      //seria isso uma gambiarra? acredito que nao...
+      // const filter = ({ message, ...rest }) => ({ ...rest });
 
-        //seria isso uma gambiarra? acredito que nao...
-        const filter = ({ message, ...rest }) => ({ ...rest });
+      dispatch(createUser({ ...user, token: jwt }));
 
-        dispatch(createUser(filter(user)));
 
-        console.log(res)
-        // localStorage.setItem("u", JSON.stringify(user));
+      //caso o usuario ja tenha errado a senha/login alguma outra vez
+      if (error) setError(null);
 
-        //caso o usuario ja tenha errado a senha/login alguma outra vez
-        if (error) setError(null);
+      setShowModal(true)
 
-        setShowModal(true);
-      })
+    })
       .catch(error => {
-        setError(error.response.data.message);
+        setError(error.response.message);
         setShowModal(true);
       });
+
   }
 
 

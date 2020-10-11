@@ -5,16 +5,19 @@ import CustomButton from '../CustomComponent/Button';
 
 import { ItemContainer } from './NotificationItem.styles';
 import api from '../../services/Api';
+import { getAuth } from '../../utils/utils';
 
-const NotificationItem = ({ isEmpty, message, genre, sender, id: userId ,...rest }) => {
+const NotificationItem = ({ isEmpty, content, type, from, id: userId ,...rest }) => {
 
   const onClick = () => {
     const data = {
       userId,
-      contact_id: sender
+      mention: from
     }
-    api.post("/contacts/add-contact", data)
-      .then(res => console.log(res.data))
+    api.post("contact/add", data,{
+      ...getAuth()
+    })
+      .then(res => console.log(res.data, "asdlkaskldjlaks"))
       .catch(error => {
         console.log(error.response);
       });
@@ -28,9 +31,9 @@ const NotificationItem = ({ isEmpty, message, genre, sender, id: userId ,...rest
     (
       <ItemContainer colors={colors} >
         <div className="msg">
-          <h3>{message}</h3>
+          <h3>{content}</h3>
         </div>
-        {genre === "contact" ?
+        {type === "INVITE" ?
           <div className="btn-container">
             <CustomButton text={"Aceitar"} onClick={onClick} />
             <CustomButton text={"Recusar"} />

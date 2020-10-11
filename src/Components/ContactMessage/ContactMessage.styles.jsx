@@ -59,6 +59,10 @@ export const Message = styled.div`
     border-radius: 0 5px 5px 5px;
     background:#990d0d;
   }
+
+  :last-child{
+    margin-top:5px;
+  }
 `;
 
 export const ContactMessageMain = styled.main`
@@ -76,7 +80,9 @@ export const ContactMessageMain = styled.main`
     margin-bottom:5px;
   }
 
+
   @media screen and (min-width:767px){
+    padding:0  25% 2% 15%;
   }
 `;
 
@@ -157,6 +163,44 @@ export const HeaderProfileInfo = styled.div`
   @media screen and (min-width:767px){
     width:100%;
   }
+`;
+
+export const NotSelectedContact = styled.div`
+  height:100%;
+  padding:10% 3%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-evenly;
+  flex-direction:column;
+
+  img{
+    flex:2;
+    width:100%;
+  }
+
+  div{
+    flex:0.72;
+  }
+
+  p{
+    font-size:1.5em;
+    font-weight:700;
+    text-align:center;
+  }
+
+  p:first-child{
+    margin:1em 0 2em;
+  }
+
+
+  @media screen and (min-width:767px){
+    padding:3%;
+    img{
+      min-width:300px;
+    }
+  }
+
 `;
 
 

@@ -9,13 +9,15 @@ import types from './SideEffects/SideEffects.types';
 const middleware = store => next => action => {
   //se a ação for do UserReducer
   const result = next(action);
-  console.log("UHULLLLLL")
-  console.log(store.getState())
+  console.log("Mudança de estado!");
+
+  console.log("--------//--------")
   if (types[action.type] === undefined) {
     localStorage.setItem("u", JSON.stringify(store.getState().userReducer))
   } else {
     localStorage.setItem("s", JSON.stringify(store.getState().sideEffectReducer))
   }
+  console.log("--------//--------")
 
   return result;
 }

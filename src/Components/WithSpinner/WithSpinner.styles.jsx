@@ -1,25 +1,35 @@
 import styled from 'styled-components';
 
-export const ThunderLoading = styled.div`
 
-  position: absolute;
-  bottom: 100px;
-  left: 65px;
-  width: 12px;
-  height: 12px;
-  background: #f9db62;
+export const Container = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height: 100%;
+  position: relative; 
+`;
+
+
+export const RotationRing = styled.div`
+
+`;
+
+export const ThunderLoading = styled.div`
+  width: 19px;
+  height: 30px;
+  background: #ff1616;
   transform: skew(-25deg);
   opacity: 0;
-  animation: thunder 10s 0s linear infinite;
+  animation: thunder 3s 0s linear infinite;
 
 :before{
   content: '';
   position: absolute;
   top: 11px;
   left: 0px;
-  width: 25px;
-  height: 8px;
-  background: #f9db62;
+  width: 32px;
+  height: 21px;
+  background: #ff1616;
 }
 
 :after{
@@ -27,12 +37,11 @@ export const ThunderLoading = styled.div`
   position: absolute;
   width: 0; 
   height: 0;
-  top: 18px;
+  top: 30px;
   right: -14px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  
-  border-top: 20px solid #f9db62;
+  border-left: 10px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 30px solid #ff1616;
   transform: skew(5deg);
 }
 
@@ -40,27 +49,22 @@ export const ThunderLoading = styled.div`
 @keyframes thunder{
   0%{
     opacity: 0;
-    bottom: 100px;
-    left: 65px;
-  }
-  62%{
-    opacity: 0;
-    bottom: 100px;
+    bottom: 110px;
     left: 65px;
   }
   64%{
     opacity: 1;
-    bottom: 50px;
+    bottom: 60px;
     left: 60px;
   }
   65%{
     opacity: 1;
-    bottom: 55px;
+    bottom: 65px;
     left: 61px;
   }
   72%{
     opacity: 1;
-    bottom: 55px;
+    bottom: 65px;
     left: 61px;
   }
   73%{
@@ -68,7 +72,7 @@ export const ThunderLoading = styled.div`
   }
   100%{
     opacity: 0;
-    bottom: 55px;
+    bottom: 65px;
   }
 }   
 

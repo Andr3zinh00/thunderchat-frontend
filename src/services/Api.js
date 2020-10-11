@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { getAuth } from '../utils/utils';
 
-const Authorization = "Bearer "+JSON.parse(localStorage.getItem('u'))?.token;
-console.log(Authorization)
+const Authorization = getAuth();
+
 const api = axios.create({
   baseURL: 'https://thunderchat-backend.herokuapp.com/',
   headers: { 
