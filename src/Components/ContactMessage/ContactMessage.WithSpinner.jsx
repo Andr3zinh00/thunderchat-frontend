@@ -27,6 +27,12 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
   }
 
   const [messageValue, setMessageValue] = useState(initial_state);
+  
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        onClick()
+      }
+    }
 
   //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
   const onClick = () => {
@@ -93,6 +99,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
           placeholder="Insira sua mensagem"
           value={messageValue.content}
           maxLength={200}
+          onKeyDown={handleKeyDown}
           onSubmit={onClick}
           onChange={event =>
             setMessageValue({ ...initial_state, content: event.target.value })

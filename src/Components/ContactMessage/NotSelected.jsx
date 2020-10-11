@@ -8,11 +8,10 @@ const NotSelected = () => {
         src={require("../../assets/msg-empty.svg")}
         alt="Menina segurando um notebook"
       />
-      <div>
-        <p>Não seja tímido(a), chame alguém pra conversar</p>
-        <p>Garanto que não vai se arrepender :D</p>
+      <div >
+      <p>Não seja tímido(a), chame alguém pra conversar <br></br> Garanto que não vai se arrepender</p>
       </div>
-    </NotSelectedContact>
+    </NotSelectedContact >
   )
 }
 
