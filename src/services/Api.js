@@ -5,10 +5,11 @@ const Authorization = getAuth();
 
 const api = axios.create({
   baseURL: 'https://thunderchat-backend.herokuapp.com/',
-  headers: { 
-    'Content-Type': 'application/json',
-    Authorization
-  }
+  headers: !Authorization.headers.Authorization.endsWith(undefined) ? {
+    ...Authorization.headers
+  } : {
+      "Content-Type": 'application/json'
+    }
 });
 
 export default api;

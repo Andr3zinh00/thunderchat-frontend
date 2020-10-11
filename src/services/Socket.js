@@ -6,6 +6,7 @@ const credentials = getAuth().headers;
 console.log(credentials, "cred")
 console.log(credentials.Authorization)
 const socket = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization="+credentials.Authorization);
+
 const stompClient = Stomp.over(socket);
 
 export default stompClient;
