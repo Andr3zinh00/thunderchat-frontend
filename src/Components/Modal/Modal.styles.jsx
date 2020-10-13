@@ -23,7 +23,7 @@ export const ModalContent = styled.div`
   max-width:100%;
   max-height:100%;
 
-  border-radius:15px;
+  border-radius:10px;
 
   @media screen and (min-width:767px){
     width:400px !important;

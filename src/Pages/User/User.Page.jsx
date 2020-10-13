@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import { UserContent, UserProfileImgContainer, OtherInfo } from './User.styles';
 import { Container } from '../../Global.styles';
-
 import CustomButton from '../../Components/CustomComponent/Button';
 
-const User = () => {
+import {calcAge} from '../../utils/utils';
 
+const User = () => {
   const [buttonBol, setButtonBol] = useState(true);
 
   const onClick = () => {
     setButtonBol(!buttonBol);
   }
-
+  const user = useSelector(state => state.userReducer);
   return (
     <Container display={1}>
       <UserContent>
@@ -25,12 +25,11 @@ const User = () => {
           />
         </UserProfileImgContainer>
         <OtherInfo>
-          <span><strong>Nome de exibição:</strong> André Luiz<br /></span>
-          <span><strong>Idade:</strong> 20</span>
-          <span><strong>Sua @: </strong>@andr3zinh00</span>
-          <span><strong>ID: </strong>000000001</span>
-          <span><strong>Email:</strong> andrelp1015@gmail.com</span>
-          <span><strong>Conta criada em: </strong> 05/08/2020</span>
+          <span><strong>Nome de exibição: </strong>{user.name}<br /></span>
+          <span><strong>Idade:</strong> {calcAge(user.birth_date)}</span>
+          <span><strong>Usuário: </strong>{user.mention}</span>
+          <span><strong>Email:</strong> {user.email}</span>
+          <span><strong>Data de nascimento: </strong> {user.birth_date}</span>
           <span><strong>Contatos bloqueados: </strong>0</span>
           <div>
             <CustomButton

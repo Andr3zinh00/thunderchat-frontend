@@ -114,12 +114,14 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
         />
       }
       <Aside ref={ref} toggle={toggle} colors={colors.theme}>
-        <HeaderContainer>
+        <HeaderContainer
+        style={{cursor: 'pointer'}}
+        onClick={() => setModalToggle(true)}
+        >
           <TiUserAdd
             style={{ margin: "5px 0 0 10px", alignSelf: 'center', cursor: 'pointer' }}
             size={35}
             color="#fff"
-            onClick={() => setModalToggle(true)}
           />
           <IconContainer isToggled={toggle} onClick={() => onToggle()}>
             <TiChevronRight

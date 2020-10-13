@@ -50,9 +50,12 @@ display: flex;
   background:#ff1616;
   border-radius: 10px;
 
-  height:10%;
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.1);
 
-  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.3);
+  height:10%;
+  :hover{
+    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.3);
+  }
 
   @media screen and (min-width:767px){
     justify-content:center;
