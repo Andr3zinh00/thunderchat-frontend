@@ -19,7 +19,7 @@ export const HeaderTop = styled.header`
   flex-direction:row;
   justify-content:space-between;
   padding: 0 5%;
-  background:#990d0d;
+  background:#FF1616;
 
   h1{
     font-size:1.7em;
