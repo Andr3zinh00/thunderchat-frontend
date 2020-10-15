@@ -4,7 +4,7 @@ import { UserContent, UserProfileImgContainer, OtherInfo } from './User.styles';
 import { Container } from '../../Global.styles';
 import CustomButton from '../../Components/CustomComponent/Button';
 
-import {calcAge} from '../../utils/utils';
+import {calculateAge} from '../../utils/utils';
 
 const User = () => {
   const [buttonBol, setButtonBol] = useState(true);
@@ -26,7 +26,7 @@ const User = () => {
         </UserProfileImgContainer>
         <OtherInfo>
           <span><strong>Nome de exibição: </strong>{user.name}<br /></span>
-          <span><strong>Idade:</strong> {calcAge(user.birth_date)}</span>
+          <span><strong>Idade:</strong> {calculateAge(user.birth_date)}</span>
           <span><strong>Usuário: </strong>{user.mention}</span>
           <span><strong>Email:</strong> {user.email}</span>
           <span><strong>Data de nascimento: </strong> {user.birth_date}</span>

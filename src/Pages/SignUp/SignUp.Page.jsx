@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container } from '../../Global.styles';
 import { ContentContainer, FormContainer, BackgroundContainer } from './SignUp.styles';
@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 const OnSubmitModal = Modal(SignUpToModal);
-
 const SignUp = () => {
 
   const [email, setEmail] = useState('');
@@ -49,7 +48,9 @@ const SignUp = () => {
     const checkMention = mention[0] === "@" ?
       mention.split('@')[1] :
       mention;
+
     const data = { email, name, date, mention: checkMention, password };
+    console.log(data);
     api.post('user/create', data)
       .then(res => {
         setToggleModal({ message: res.data.message, toggle: true, error: false });

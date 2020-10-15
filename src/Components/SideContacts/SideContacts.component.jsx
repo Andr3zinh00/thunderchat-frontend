@@ -54,9 +54,12 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
     //     Authorization: "Basic " + new Buffer.from(user.mention + ':' + user.password).toString('base64'),
     //   }
     // }
-    api.get(`contact/${user._id}`)
+    
+    api.get(`contact-chat/${user._id}`)
       .then(res => {
-        setContacts(res.data.contacts);
+        setContacts(res.data.content);
+        console.log(contacts);
+        setIsLoadingContacts(false);
         setIsLoadingContacts(false);
       })
       .catch(error => console.log(error.response));
@@ -131,23 +134,24 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
           </IconContainer>
         </HeaderContainer>
         {
+          contacts.length === 0 ? <a style={{ marginTop:'5px', color:"#aaa", justifyContent: 'center', display:'flex'}}> Nenhum contato adicionado :( </a> : (
           contacts.map(contact => (
             <UserContacts
-              onClick={() => setSelectedUser({ user: contact })}
-              key={String(contact._id)}
+              onClick={() => setSelectedUser({ user: contact.contact })}
+              key={String(contact.contact._id)}
             >
               <ImgContainer>
                 <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
               </ImgContainer>
               <ContactInfoContainer>
-                <h3 style={infoStyle}>{contact.mention}</h3>
+                <h3 style={infoStyle}>{contact.contact.mention}</h3>
                 <p style={infoStyle}>
-                  ULTIMA MENSAGEM
+                  {contact.lastMsg.content}
                 </p>
                 <Span />
               </ContactInfoContainer>
             </UserContacts>
-          ))
+          )))
         }
       </Aside>
     </>

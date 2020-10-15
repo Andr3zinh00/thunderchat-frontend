@@ -14,7 +14,7 @@ export const MessagesContent = styled.div`
     justify-content:center;
     align-items:center;
     background:#ff1616;
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.45);
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
     cursor:auto;
   }
 

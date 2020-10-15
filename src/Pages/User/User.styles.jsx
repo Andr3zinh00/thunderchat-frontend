@@ -12,7 +12,7 @@ export const UserProfileImgContainer = styled.div`
 
   img{
     border-radius:50%;
-    box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.1);
   }
 `;
 
@@ -24,7 +24,7 @@ export const OtherInfo = styled.div`
 
   background:#fff;
   border-radius:15px;
-  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.1);
   height:70%;
   margin-top:20px;
   font-size:0.8em;

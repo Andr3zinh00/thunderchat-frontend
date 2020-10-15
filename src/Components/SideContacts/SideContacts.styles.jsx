@@ -115,7 +115,6 @@ export const ContactInfoContainer = styled.div`
 export const UserContacts = styled.div`
   display:flex;
   flex-direction:row;
-  justify-content:space-around;
   align-items:center;
 
   min-height:100px;
@@ -141,7 +140,7 @@ export const UserContacts = styled.div`
 export const ImgContainer = styled.div`
   border-radius:50%;
   border:1px solid #ff1616;
-  
+  margin: 0 10px 0 15px ;
   height:65%;
   width:20%;
   display:flex;
