@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from '../../Components/CustomComponent/Custom.styles';
 
 export const UserProfileImgContainer = styled.div`
@@ -16,11 +16,32 @@ export const UserProfileImgContainer = styled.div`
   }
 `;
 
+export const Input = styled.input`
+      text-align: center;
+      border: 0;
+      border-bottom: 2px solid #eee ;
+      height: 25px;
+      font-size: 16px;
+      padding: 0 100px;
+      margin: 5px 0 15px;
+      
+      :focus{
+        border-bottom-color:#ff1616;
+        transition:0.5s;
+      }
+${(props) => !props.disabled &&
+    css`
+    background: #fff;
+    border-bottom-color:#aaa;
+    transition:0.81s;
+     `}
+`;
+
 export const OtherInfo = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:space-evenly;
+  justify-content: center;
 
   background:#fff;
   border-radius:15px;
@@ -30,6 +51,7 @@ export const OtherInfo = styled.div`
   font-size:0.8em;
 
   span{
+    color: #555;
     text-align:left;
   }
 
