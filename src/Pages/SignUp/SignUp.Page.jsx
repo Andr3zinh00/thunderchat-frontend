@@ -24,32 +24,39 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [mention, setMention] = useState('');
   const [password, setPassword] = useState('');
-  const [date, setDate] = useState('');
+  const [birth_date, setBirth_date] = useState('');
   const [toggleModal, setToggleModal] = useState({
     toggle: false,
     message: "",
     error: false
   });
 
-  const state = useSelector(state=>state);
+  useEffect(()=>{
+    if(!mention){
+      return
+    }
+    if (mention[0] !== "@"){
+      setMention('@' + mention)
+    }
+  },[mention])
+
+  const state = useSelector(state => state);
 
   const history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const age = calculateAge(date);
+    const age = calculateAge(birth_date);
 
     if (age < 0) {
       alert("Por favor, insira uma data de nascimento valida")
       return;
     }
 
-    const checkMention = mention[0] === "@" ?
-      mention.split('@')[1] :
-      mention;
+    
 
-    const data = { email, name, date, mention: checkMention, password };
+    const data = { email, name, birth_date, mention, password };
     console.log(data);
     api.post('user/create', data)
       .then(res => {
@@ -118,8 +125,8 @@ const SignUp = () => {
               placeholder={"Senha"}
             />
             <CustomInput
-              value={date}
-              onChange={(event) => onChange(event.target.value, setDate)}
+              value={birth_date}
+              onChange={(event) => onChange(event.target.value, setBirth_date)}
               type="date"
               placeholder={"Data de nascimento"}
               id="date-inp"
