@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-
+import { toast } from 'react-toastify';
 import { useOnClickOutside } from '../../Hooks';
 
 import {
@@ -58,7 +58,6 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
     api.get(`contact-chat/${user._id}`)
       .then(res => {
         setContacts(res.data.content);
-        console.log(contacts);
         setIsLoadingContacts(false);
         setIsLoadingContacts(false);
       })
@@ -66,40 +65,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
 
   }, [user._id, user.id, user.mention, user.password]);
 
-  const onRequestSent = (value) => {
-    if (value[0] !== "@") {
-      setModalError({ message: "Insira a @!", error: true });
-      return;
-    }
 
-    //caso o exxxpertinho do usuario tente mandar uma mensagem pra ele mesmo
-    //WARNING: FAZER ISSO PARA CASO ELE TENTE MANDAR UM PEDIDO PARA ALGUEM QUE JA
-    //CONSTA NA LISTA DE CONTATOS!
-    if (user.mention === value) {
-      setModalError({
-        message: "Você está tentando mandar um pedido para si mesmo?",
-        error: true
-      })
-      return;
-    }
-
-    function stompCallback() {
-      stompClient.send("/app/send-notification", {}, JSON.stringify({
-        content: "O usuário " + user.mention + " quer ser seu contato.",
-        from: user.mention,
-        to: value,
-        type: "INVITE",
-        time: new Date(),
-      }));
-    }
-
-    if (stompClient.active) {
-      stompCallback();
-      return;
-    }
-
-    stompClient.connect({}, () => stompCallback());
-  }
 
   //caso o usuario dê um click fora da sidebar
   useOnClickOutside(ref, () => !toggle || modalToggle ? null : onToggle());
@@ -113,7 +79,8 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
           nodo={modalRef}
           closeModal={() => setModalToggle(false)}
           error={modalError}
-          onRequestSent={onRequestSent}
+          user={user}
+          stompClient={stompClient}
         />
       }
       <Aside ref={ref} toggle={toggle} colors={colors.theme}>
