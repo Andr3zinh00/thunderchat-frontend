@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Routes from './Routes/Routes';
 
 
@@ -9,7 +10,10 @@ const App = () => {
     // eslint-ignore-next-line
   }, [])
 
-  return <Routes />;
+  return (<>
+    <Routes />
+    <ToastContainer autoClose={4000} style={{marginTop:'50px'}} />
+  </>);
 }
 
 export default App;
