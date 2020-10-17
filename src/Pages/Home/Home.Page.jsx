@@ -6,7 +6,7 @@ import ContactMessage from '../../Components/ContactMessage/ContactMessage.compo
 import SideContacts from '../../Components/SideContacts/SideContacts.component';
 import { useSelector } from 'react-redux';
 
-import stompClient from '../../services/Socket';
+// import stompClient from '../../services/Socket';
 
 
 const Home = () => {
@@ -20,18 +20,18 @@ const Home = () => {
 
   useEffect(() => {
 
-    function stompCallback() {
-      stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
-        const message = JSON.parse(eventRes.body);
-        setMessages(past => [message, ...past]);
-      });
-    }
-    //usar o stompClient.connected ao inves do .active
-    if (stompClient.connected) {
-      stompCallback();
-    } else {
-      stompClient.connect({}, () => stompCallback());
-    }
+    // function stompCallback() {
+    //   stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
+    //     const message = JSON.parse(eventRes.body);
+    //     setMessages(past => [message, ...past]);
+    //   });
+    // }
+    // //usar o stompClient.connected ao inves do .active
+    // if (stompClient.connected) {
+    //   stompCallback();
+    // } else {
+    //   stompClient.connect({}, () => stompCallback());
+    // }
 
     // eslint-disable-next-line
   }, []);

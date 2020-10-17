@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Landing from '../Pages/Landing/Landing.Page';
@@ -13,8 +13,20 @@ import ProtectedRoute from './ProtectedRoute';
 // import socketio from '../services/Socket';
 
 import { getReduxState } from '../utils/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { connect } from '../redux/Socket/Socket.actions';
 
 const Routes = () => {
+  const user = useSelector(state => state.userReducer);
+  const { connection } = useSelector(state => state.socketReducer);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    console.log(user, connection)
+    if (user._id && !connection) {
+      dispatch(connect());
+    }
+  }, [user._id, connection]);
 
   return (
     <Router>

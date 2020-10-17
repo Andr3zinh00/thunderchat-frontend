@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DropDown from '../DropDown/DropDown.component';
 
-import stompClient from '../../services/Socket';
+// import { stompClient } from ';'
 import api from '../../services/Api';
 import { onNotification } from '../../redux/User/User.actions';
 
@@ -24,15 +24,18 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const { _id } = useSelector(state => state.userReducer);
+  const { connection } = useSelector(state => state.socketReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
 
   useEffect(() => {
-    if (_id) {
-
-      function stompCallback() {
-        stompClient.subscribe("/user/queue/sendback", (eventRes) => {
+    console.log("entrei", connection)
+    if (_id && connection) {
+      console.log("ontrei", connection)
+      connection.onConnect(() => {
+        console.log("MERDAAAAAAAAAAAAAAAAA")
+        connection.subscribe("/user/queue/sendback", (eventRes) => {
           const message = JSON.parse(eventRes.body);
           dispatch(onNotification([{
             ...message,
@@ -40,17 +43,17 @@ const Header = () => {
           }]));
           setCountNotification(pastCount => pastCount + 1);
         });
-      }
+      })
 
-      if (stompClient.active) {
-        stompCallback();
-      } else {
-        stompClient.connect({}, () => stompCallback());
-      }
+      // if (stompClient.active) {
+      //   stompCallback();
+      // } else {
+      //   stompClient.connect({}, () => stompCallback());
+      // }
 
     }
-    // eslint-disable-next-line 
-  }, []);
+    // eslint-disable-next-line
+  }, [connection, _id]);
 
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
@@ -59,8 +62,8 @@ const Header = () => {
       api.get(`/notifications/${_id}`, {
         ...getAuth()
       })
-      .then(res => {
-          const {notifications} = res.data;
+        .then(res => {
+          const { notifications } = res.data;
           if (notifications.length !== 0) {
             dispatch(onNotification(notifications));
             setCountNotification(
