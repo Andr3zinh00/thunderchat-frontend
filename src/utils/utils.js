@@ -24,6 +24,7 @@ export const onChange = (value, setState) => {
 
 export const getReduxState = (accessString) => JSON.parse(localStorage.getItem(accessString));
 
+export const cleanLocal = (accessString) => JSON.parse(localStorage.clear(accessString));
 
 export const getAuth = () => {
   const state = getReduxState('u');
