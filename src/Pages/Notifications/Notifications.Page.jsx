@@ -20,7 +20,7 @@ const Notifications = () => {
           <h2 className="title-wrap">Notificações</h2>
         </Wrapper>
         <Wrapper>
-          {notifications.length > 0 ?
+          {notifications ?
             notifications.map((notification, index) =>
               <NotificationItem
                 id={notification.type === "INVITE" ? _id : null}

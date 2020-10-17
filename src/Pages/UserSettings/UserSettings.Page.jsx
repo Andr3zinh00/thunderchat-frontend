@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
+import { useDispatch } from 'react-redux';
 import { UserSettingsContent, Switch, ThemeSettings, ColorBox } from './UserSettings.styles';
 import { Container, Wrapper } from '../../Global.styles';
 import { IoIosSettings, IoMdLogOut, IoIosTrash } from 'react-icons/io';
+import { signOut, createUser } from '../../redux/User/User.actions';
 
 const color1 = {
   "background-color": "rgb(255,22,22)",
@@ -15,11 +18,18 @@ const color2 = {
 }
 
 const UserSettings = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
     setToggle(!toggle);
+  }
+
+  const onClick = () => {
+    dispatch(signOut());
+    history.push('/')
   }
 
   return (
@@ -57,7 +67,7 @@ const UserSettings = () => {
               </div>
             </ThemeSettings>
             <Wrapper>
-              <Wrapper className="icon-wrapper">
+              <Wrapper className="icon-wrapper" onClick={onClick}>
                 <IoMdLogOut color="#ff1616" size={40} />
                 <h3> Sair. </h3>
               </Wrapper>

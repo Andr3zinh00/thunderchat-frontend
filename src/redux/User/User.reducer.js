@@ -1,5 +1,5 @@
 import types from './User.types';
-import { getReduxState } from '../../utils/utils';
+import { getReduxState, cleanLocal } from '../../utils/utils';
 
 const STATE = {
   id: undefined,
@@ -7,8 +7,11 @@ const STATE = {
   email: undefined,
   mention: undefined,
   token: undefined,
+  signed: false,
   notifications: [],
 }
+
+
 
 
 const INITIAL_STATE = {
@@ -44,6 +47,9 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         token: action.payload,
+      }
+    case types.SIGN_OUT:
+      return{
       }
     default:
       return state;

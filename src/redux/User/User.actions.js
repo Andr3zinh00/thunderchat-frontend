@@ -5,6 +5,10 @@ export const createUser = (user) => ({
   payload: user
 });
 
+export const signOut = () => ({
+  type: types.SIGN_OUT,
+});
+
 export const deleteUser = () => ({
   type: types.DELETE_USER,
 });
