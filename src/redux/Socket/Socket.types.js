@@ -1,0 +1,4 @@
+export default {
+  CONNECT:"CONNECT",
+  DISPATCH_MESSAGE:"DISPATCH_MESSAGE"
+};

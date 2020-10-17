@@ -22,6 +22,7 @@ import LandingToModal from './Landing.ToModal';
 import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
+import connect from '../../services/Socket';
 
 
 const inputStyle = {
@@ -64,7 +65,8 @@ const Landing = () => {
       // const filter = ({ message, ...rest }) => ({ ...rest });
 
       dispatch(createUser({ ...user, token: jwt }));
-
+      //connecta no backendo (socket)
+      connect();
 
       //caso o usuario ja tenha errado a senha/login alguma outra vez
       if (error) setError(null);
@@ -125,7 +127,7 @@ const Landing = () => {
         </FirstSide>
         <SecondSide>
           <FormContainer onSubmit={event => onSubmit(event)}>
-          <h3 style={{ alignSelf: "center", marginTop: "80px", fontSize: '1.3em', fontWeight: "bold", color:"#555" }}>Faça login</h3>
+            <h3 style={{ alignSelf: "center", marginTop: "80px", fontSize: '1.3em', fontWeight: "bold", color: "#555" }}>Faça login</h3>
             <InputContainer>
               <CustomInput
                 value={userId}
