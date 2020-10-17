@@ -113,7 +113,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
               <ContactInfoContainer>
                 <h3 style={infoStyle}>{contact.contact.mention}</h3>
                 <p style={infoStyle}>
-                  {contact.lastMsg.content}
+                  {contact.lastMsg?contact.lastMsg.content:""}
                 </p>
                 <Span />
               </ContactInfoContainer>
