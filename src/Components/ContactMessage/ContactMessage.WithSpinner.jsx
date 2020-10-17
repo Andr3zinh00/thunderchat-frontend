@@ -11,7 +11,7 @@ import {
 
 import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
-import stompClient from '../../services/Socket';
+// import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
 
 const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages }) => {
@@ -36,24 +36,24 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
 
   //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
   const onClick = () => {
-    if (messageValue.content.trim().length !== 0) {
-      function stompCallback() {
-        const data = {
-          ...initial_state,
-          content: messageValue.content,
-          time: new Date(),
-        }
-        stompClient.send("/app/send-message", {}, JSON.stringify(data));
-        setMessageValue(initial_state);
-      }
+    // if (messageValue.content.trim().length !== 0) {
+    //   function stompCallback() {
+    //     const data = {
+    //       ...initial_state,
+    //       content: messageValue.content,
+    //       time: new Date(),
+    //     }
+    //     stompClient.send("/app/send-message", {}, JSON.stringify(data));
+    //     setMessageValue(initial_state);
+    //   }
 
-      if (stompClient.active) {
-        stompCallback();
-        return;
-      }
+    //   if (stompClient.active) {
+    //     stompCallback();
+    //     return;
+    //   }
 
-      stompClient.connect({}, () => stompCallback());
-    }
+    //   stompClient.connect({}, () => stompCallback());
+    // }
   };
   return (
     <>
