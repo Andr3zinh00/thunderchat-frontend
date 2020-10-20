@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Container } from "../../Global.styles";
 import {
@@ -50,6 +50,15 @@ const Landing = () => {
   const [userPassword, setUserPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!userId) {
+      return
+    }
+    if (userId[0] !== "@") {
+      setUserId('@' + userId)
+    }
+  }, [userId])
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -133,7 +142,7 @@ const Landing = () => {
                 value={userId}
                 onChange={(event) => onChange(event.target.value, setUserId)}
                 customStyle={inputStyle}
-                placeholder={"Email ou @"}
+                placeholder={"Digite seu @"}
                 type="text"
               />
               <CustomInput
