@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { UserContent, UserProfileImgContainer, OtherInfo, Input } from './User.styles';
 import { Container } from '../../Global.styles';
@@ -34,11 +34,11 @@ const User = () => {
         return;
       }
 
-      const data = { _id: user._id ,email, name, birth_date, mention };
+      const data = { _id: user._id, email, name, birth_date, mention };
       console.log(data);
       api.put(`user/${user._id}`, data)
         .then(res => {
-          toast.success ("Alteração feita com sucesso!");
+          toast.success("Alteração feita com sucesso!");
           dispach(createUser(data));
         })
         .catch(error => {
@@ -50,7 +50,6 @@ const User = () => {
     setButtonBol(!buttonBol);
   }
   const onChangeDate = (value) => {
-
     setBirth_date(value);
   };
 
@@ -59,17 +58,13 @@ const User = () => {
     setMention(user.mention);
     setEmail(user.email);
 
-    var a = new Date(user.birth_date).toLocaleString('en-US', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
-    }).replace(/\//g, '-');
+    var a = new Date(user.birth_date).toISOString().
+      replace(/T/, ' ').
+      replace(/\..+/, '');
 
-    console.log(a);
-    var dArr = a.split("-");
+    var dArr = a.split(" ");
 
-    a = dArr[2] + "-" + dArr[0] + "-" + dArr[1];
-    setBirth_date(a);
+    setBirth_date(dArr[0]);
   }, [user]);
 
   return (
@@ -108,7 +103,7 @@ const User = () => {
           />
           <span><strong>Email</strong></span>
           <Input
-            type="text"
+            type="email"
             value={email}
             disabled={buttonBol}
             onChange={(event) => onChange(event.target.value, setEmail)}

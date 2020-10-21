@@ -7,7 +7,6 @@ const STATE = {
   email: undefined,
   mention: undefined,
   token: undefined,
-  signed: false,
   notifications: [],
 }
 
