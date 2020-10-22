@@ -5,6 +5,7 @@ import { HomeContent } from './Home.styles';
 import ContactMessage from '../../Components/ContactMessage/ContactMessage.component';
 import SideContacts from '../../Components/SideContacts/SideContacts.component';
 import { useSelector } from 'react-redux';
+import { sendSubscribe } from '../../services/Socket';
 
 // import stompClient from '../../services/Socket';
 
@@ -19,7 +20,7 @@ const Home = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-
+    sendSubscribe();
     // function stompCallback() {
     //   stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
     //     const message = JSON.parse(eventRes.body);

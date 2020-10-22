@@ -13,29 +13,62 @@ import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
+import { sendMessageChat, sendSubscribe } from '../../services/Socket';
+import { useEffect } from 'react';
+import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages }) => {
   const user = useSelector(state => state.userReducer)
-  const { name, mention } = selectedUser.user;
+  const { _id, name, mention } = selectedUser.user;
 
   const initial_state = {
-    content: "",
+    content: " ".trim(),
     from: user.mention,
     to: mention,
     type: "CHAT",
     time: null,
   }
 
+  const { connection } = useSelector(state => state.socketReducer);
+
   const [messageValue, setMessageValue] = useState(initial_state);
-  
-    const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        onClick()
-      }
+  const [messageLoad, setMessageLoad] = useState([]);
+
+  useEffect(() => {
+    api.get(`chat/${user._id}/${_id}`).then(res => {
+      const arr = res.data.messages.reverse();
+      setMessageLoad(arr);
     }
+    ).catch(error => {
+      console.log(error)
+      toast.error("Erro ao carregar conversa");
+    })
+  }, []);
+
+  
+  useEffect(() => {
+    sendSubscribe(setMessageLoad);
+  }, [connection]);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      onClick();
+    }
+  }
 
   //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
   const onClick = () => {
+    const data = {
+      ...initial_state,
+      content: messageValue.content,
+      time: new Date(),
+    }
+    if (messageValue.content.trim().length !== 0){
+      sendMessageChat(data);
+      setMessageValue(initial_state);
+    }
+
     // if (messageValue.content.trim().length !== 0) {
     //   function stompCallback() {
     //     const data = {
@@ -84,7 +117,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
       </ContactHeader>
       <ContactMessageMain>
         {
-          messages.reverse().map((mes, index) => (
+          messageLoad.map((mes, index) => (
             <div key={String(index)}>
               <Message className={mes.from === user.mention ? 'sent' : 'received'}>
                 {mes.content}

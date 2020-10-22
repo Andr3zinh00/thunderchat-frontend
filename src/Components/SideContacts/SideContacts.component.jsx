@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import { useOnClickOutside } from '../../Hooks';
 
 import {
@@ -17,7 +16,7 @@ import Modal from '../Modal/Modal.component';
 import SideContactsToModal from './SideContacts.ToModal';
 import { useSelector } from 'react-redux';
 
-import stompClient from '../../services/Socket';
+import {} from '../../services/Socket';
 import api from '../../services/Api';
 
 const infoStyle = {
@@ -35,15 +34,11 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
   const [modalToggle, setModalToggle] = useState(false);
   const [modalError, setModalError] = useState({ message: "", error: false });
 
-
   const [isLoadingContacts, setIsLoadingContacts] = useState(true);
   const [contacts, setContacts] = useState([]);
 
-
-
   const colors = useSelector(state => state.sideEffectReducer);
   const user = useSelector(state => state.userReducer);
-
 
   const ref = useRef();
   const modalRef = useRef();
@@ -80,7 +75,6 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
           closeModal={() => setModalToggle(false)}
           error={modalError}
           user={user}
-          stompClient={stompClient}
         />
       }
       <Aside ref={ref} toggle={toggle} colors={colors.theme}>
