@@ -13,14 +13,21 @@ export const Container = styled.div`
 export const RotationRing = styled.div`
 
 `;
+export const ContainerLoading = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+height: 30%;
+`;
 
 export const ThunderLoading = styled.div`
+  
   width: 19px;
   height: 30px;
   background: #ff1616;
   transform: skew(-25deg);
   opacity: 0;
-  animation: thunder 3s 0s linear infinite;
+  animation: thunder 2s 0s linear infinite;
 
 :before{
   content: '';

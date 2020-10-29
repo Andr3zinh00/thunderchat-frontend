@@ -1,19 +1,16 @@
 import SockJS from 'sockjs-client';
 import { toast } from 'react-toastify';
 import { Stomp } from "@stomp/stompjs";
-import { getAuth } from '../utils/utils'
+import { getAuth } from '../utils/utils';
 
 const credentials = getAuth().headers;
 console.log(credentials, "cred")
 console.log(credentials.Authorization)
 
-export const stompClient = {
-  connection: undefined
-}
 const socket = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
 const client = Stomp.over(socket)
+
 client.activate();
-stompClient['connection'] = client;
 
 export default function connect() {
 }
@@ -32,6 +29,18 @@ export function sendRequestChat(user, value) {
   );
   toast.success(`Pedido de amizade enviado para ${value}!`)
 }
+export function sendSubscribeNotifi() {
+  const getNotification = (eventRes) => {
+    const message = JSON.parse(eventRes.body);
+    console.log("messagemessagemessagemessagemessagemessagemessagemessagemessage");
+    console.log(message);
+    return message;
+  }
+  if (client.connected) {
+    client.subscribe("/user/queue/sendback", getNotification);
+  }
+}
+
 
 export function sendSubscribe(setMessage) {
   const getMessage = (eventRes) => {
@@ -41,6 +50,7 @@ export function sendSubscribe(setMessage) {
     return message;
   }
   if (client.connected) {
+    console.log(client.connected);
     client.subscribe("/user/queue/get-msg", getMessage);
   }
 }

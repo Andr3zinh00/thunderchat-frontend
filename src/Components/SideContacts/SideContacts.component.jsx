@@ -16,8 +16,9 @@ import Modal from '../Modal/Modal.component';
 import SideContactsToModal from './SideContacts.ToModal';
 import { useSelector } from 'react-redux';
 
-import {} from '../../services/Socket';
+import { } from '../../services/Socket';
 import api from '../../services/Api';
+import { ContainerLoading, ThunderLoading } from '../WithSpinner/WithSpinner.styles';
 
 const infoStyle = {
   textOverflow: "ellipsis",
@@ -44,19 +45,16 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
   const modalRef = useRef();
 
   useEffect(() => {
-    // {
-    //   headers: {
-    //     Authorization: "Basic " + new Buffer.from(user.mention + ':' + user.password).toString('base64'),
-    //   }
-    // }
-    
+
     api.get(`contact-chat/${user._id}`)
       .then(res => {
         setContacts(res.data.content);
         setIsLoadingContacts(false);
-        setIsLoadingContacts(false);
       })
-      .catch(error => console.log(error.response));
+      .catch(error => {
+        setIsLoadingContacts(false);
+        console.log(error.response)
+      });
 
   }, [user._id, user.id, user.mention, user.password]);
 
@@ -79,8 +77,8 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
       }
       <Aside ref={ref} toggle={toggle} colors={colors.theme}>
         <HeaderContainer
-        style={{cursor: 'pointer'}}
-        onClick={() => setModalToggle(true)}
+          style={{ cursor: 'pointer' }}
+          onClick={() => setModalToggle(true)}
         >
           <TiUserAdd
             style={{ margin: "5px 0 0 10px", alignSelf: 'center', cursor: 'pointer' }}
@@ -94,25 +92,32 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
             />
           </IconContainer>
         </HeaderContainer>
+        {isLoadingContacts ?
+          <ContainerLoading>
+            <ThunderLoading />
+          </ContainerLoading>
+          : (null)}
         {
-          contacts.length === 0 ? <a style={{ marginTop:'5px', color:"#aaa", justifyContent: 'center', display:'flex'}}> Nenhum contato adicionado :( </a> : (
-          contacts.map(contact => (
-            <UserContacts
-              onClick={() => setSelectedUser({ user: contact.contact })}
-              key={String(contact.contact._id)}
-            >
-              <ImgContainer>
-                <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
-              </ImgContainer>
-              <ContactInfoContainer>
-                <h3 style={infoStyle}>{contact.contact.mention}</h3>
-                <p style={infoStyle}>
-                  {contact.lastMsg?contact.lastMsg.content:""}
-                </p>
-                <Span />
-              </ContactInfoContainer>
-            </UserContacts>
-          )))
+          contacts.length === 0 && !isLoadingContacts ?
+            <a style={{ marginTop: '5px', color: "#aaa", justifyContent: 'center', display: 'flex' }}> Nenhum contato adicionado :( </a> :
+            (
+              contacts.map(contact => (
+                <UserContacts
+                  onClick={() => setSelectedUser({ user: contact.contact })}
+                  key={String(contact.contact._id)}
+                >
+                  <ImgContainer>
+                    <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+                  </ImgContainer>
+                  <ContactInfoContainer>
+                    <h3 style={infoStyle}>{contact.contact.mention}</h3>
+                    <p style={infoStyle}>
+                      {contact.lastMsg ? contact.lastMsg.content : ""}
+                    </p>
+                    <Span />
+                  </ContactInfoContainer>
+                </UserContacts>
+              )))
         }
       </Aside>
     </>

@@ -13,7 +13,7 @@ import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
-import { sendMessageChat, sendSubscribe } from '../../services/Socket';
+import { sendMessageChat, sendSubscribe, sendSubscribeNotifi } from '../../services/Socket';
 import { useEffect } from 'react';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
@@ -49,6 +49,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
   
   useEffect(() => {
     sendSubscribe(setMessageLoad);
+    sendSubscribeNotifi();
   }, [connection]);
 
   const handleKeyDown = (event) => {

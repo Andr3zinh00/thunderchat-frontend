@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from '../CustomComponent/Custom.styles';
 
 export const ItemContainer = styled.div`
@@ -10,8 +10,13 @@ export const ItemContainer = styled.div`
   cursor:auto;
 
   color:${p => p.colors.theme.primaryColor};
+  ${p => p.read && css`
+  color:#bbb;
+  
+  `
+  }
 
-  border-bottom:1px solid ${props=>props.colors.theme.primaryColor};
+  border-bottom:1px solid ${props => props.colors.theme.primaryColor};
 
   :last-child{
     border:none;

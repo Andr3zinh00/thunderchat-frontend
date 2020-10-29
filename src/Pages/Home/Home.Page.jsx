@@ -19,24 +19,6 @@ const Home = () => {
   const [selectedUser, setSelectedUser] = useState({ user: null });
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    sendSubscribe();
-    // function stompCallback() {
-    //   stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
-    //     const message = JSON.parse(eventRes.body);
-    //     setMessages(past => [message, ...past]);
-    //   });
-    // }
-    // //usar o stompClient.connected ao inves do .active
-    // if (stompClient.connected) {
-    //   stompCallback();
-    // } else {
-    //   stompClient.connect({}, () => stompCallback());
-    // }
-
-    // eslint-disable-next-line
-  }, []);
-
   return (
     <Container display={1}>
       <HomeContent colors={theme}>

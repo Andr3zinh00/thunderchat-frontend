@@ -5,7 +5,6 @@ import sideEffectReducer from './SideEffects/SideEffects.reducer';
 import socketReducer from './Socket/Socket.reducer';
 import userReducer from './User/User.reducer';
 import types from './SideEffects/SideEffects.types';
-import socketTypes from './Socket/Socket.types';
 
 const middleware = store => next => action => {
   //se a ação for do UserReducer

@@ -40,14 +40,16 @@ const User = () => {
         .then(res => {
           toast.success("Alteração feita com sucesso!");
           dispach(createUser(data));
+          setButtonBol(!buttonBol);
         })
         .catch(error => {
           console.log(error.response.data.message)
           toast.error(error.response.data.message);
         });
-    }
+      }else{
+        setButtonBol(!buttonBol);
+      }
 
-    setButtonBol(!buttonBol);
   }
   const onChangeDate = (value) => {
     setBirth_date(value);
