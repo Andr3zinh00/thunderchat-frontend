@@ -10,7 +10,6 @@ const Notifications = () => {
 
 
   const notifications = useSelector(state => state.userReducer.notifications);
-  console.log(notifications)
   const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
 
