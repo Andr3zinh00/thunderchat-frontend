@@ -29,7 +29,7 @@ const Header = () => {
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
-  
+
   useEffect(() => {
     console.log("tesssssss")
     sendSubscribeNotifi();
@@ -38,11 +38,13 @@ const Header = () => {
   useEffect(() => {
     console.log("AAAAAAAAAAAAss")
     const message = sendSubscribeNotifi();
-    dispatch(onNotification([{
-      ...message,
-      isLive: true
-    }]));
-    console.log(message);
+    if (message) {
+      dispatch(onNotification([{
+        ...message
+      }]));
+      console.log(message);
+
+    }
   }, []);
 
   useEffect(() => {

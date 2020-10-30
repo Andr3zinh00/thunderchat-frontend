@@ -28,6 +28,9 @@ export default (state = INITIAL_STATE, action) => {
       }
     case types.ON_NOTIFICATIONS:
       const isLive = action.payload?.isLive;
+      if(!action.payload){
+         console.log("Ta nulo caraio")
+      }
       //diferencia se a notificação é em tempo real ou não
       //A notificação em tempo real vem como um objeto
       //para continuar com o spread operator coloquei a 

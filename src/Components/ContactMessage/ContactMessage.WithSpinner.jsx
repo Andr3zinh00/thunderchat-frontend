@@ -23,7 +23,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
   const { _id, name, mention } = selectedUser.user;
 
   const initial_state = {
-    content: " ".trim(),
+    content: "",
     from: user.mention,
     to: mention,
     type: "CHAT",
@@ -34,6 +34,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
 
   const [messageValue, setMessageValue] = useState(initial_state);
   const [messageLoad, setMessageLoad] = useState([]);
+  const [messageSend, setMessageSend] = useState([]);
 
   useEffect(() => {
     api.get(`chat/${user._id}/${_id}`).then(res => {
@@ -46,7 +47,10 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     })
   }, []);
 
-  
+  useEffect(() => {
+    setMessageValue(initial_state);
+   }, [messageSend])
+
   useEffect(() => {
     sendSubscribe(setMessageLoad);
     sendSubscribeNotifi();
@@ -58,36 +62,17 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     }
   }
 
-  //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
   const onClick = () => {
     const data = {
       ...initial_state,
       content: messageValue.content,
       time: new Date(),
     }
-    if (messageValue.content.trim().length !== 0){
+    if (messageValue.content.trim().length !== 0) {
       sendMessageChat(data);
       setMessageValue(initial_state);
+      setMessageSend(!messageSend);
     }
-
-    // if (messageValue.content.trim().length !== 0) {
-    //   function stompCallback() {
-    //     const data = {
-    //       ...initial_state,
-    //       content: messageValue.content,
-    //       time: new Date(),
-    //     }
-    //     stompClient.send("/app/send-message", {}, JSON.stringify(data));
-    //     setMessageValue(initial_state);
-    //   }
-
-    //   if (stompClient.active) {
-    //     stompCallback();
-    //     return;
-    //   }
-
-    //   stompClient.connect({}, () => stompCallback());
-    // }
   };
   return (
     <>
