@@ -25,7 +25,7 @@ export default function connect() {
 }
 
 export function sendRequestChat(user, value) {
-  client.publish({
+  connection.client.publish({
 
     destination: "/app/send-notification",
     body: JSON.stringify({
@@ -45,6 +45,7 @@ export function sendSubscribeNotifi(getNotification) {
     console.log("entrei aqui ")
     const { client } = connection;
     client.onConnect = () => client.subscribe("/user/queue/sendback", getNotification);
+  }
 }
 
 
@@ -65,9 +66,9 @@ export function sendSubscribe(setMessage) {
 }
 
 export function sendMessageChat(data) {
-
   if (!connection.client) return;
   connection.client.publish({ destination: "/app/send-message", body: JSON.stringify(data) });
 }
+
 
 
