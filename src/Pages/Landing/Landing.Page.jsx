@@ -23,6 +23,7 @@ import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
 import connect from '../../services/Socket';
+import { toast } from 'react-toastify';
 
 
 const inputStyle = {
@@ -70,22 +71,14 @@ const Landing = () => {
     api.post('user/login', data).then(res => {
       const { user, token: { jwt } } = res.data;
 
-      //seria isso uma gambiarra? acredito que nao...
-      // const filter = ({ message, ...rest }) => ({ ...rest });
-
       dispatch(createUser({ ...user, token: jwt }));
-      //connecta no backendo (socket)
       connect();
-
-      //caso o usuario ja tenha errado a senha/login alguma outra vez
-      if (error) setError(null);
-
+      history.push('/home');
       setShowModal(true)
 
     })
       .catch(error => {
-        setError(error.response.message);
-        setShowModal(true);
+          toast.error("Falha na autenticação, verifique seus dados");
       });
 
   }
