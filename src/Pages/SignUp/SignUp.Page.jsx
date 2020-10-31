@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Container } from '../../Global.styles';
 import { ContentContainer, FormContainer, BackgroundContainer } from './SignUp.styles';
@@ -60,11 +61,11 @@ const SignUp = () => {
     console.log(data);
     api.post('user/create', data)
       .then(res => {
-        setToggleModal({ message: res.data.message, toggle: true, error: false });
+        setToggleModal({ message:`Bem vindo ao ThunderChat ${mention}!`, toggle: true, error: false });
       })
       .catch(error => {
         console.log(error.response.data.message)
-        setToggleModal({ message: error.response.data.message, toggle: true, error: true });
+        setToggleModal({ message: "Erro: "+error.response.data.message, toggle: true, error: true });
       });
   }
 
@@ -135,6 +136,13 @@ const SignUp = () => {
           <CustomButton
             text={"Cadastrar"}
           />
+          <Link
+              to="/"
+              style={{
+                marginTop: "-30px",
+                fontSize: '1em',
+                color: "#fff",
+              }}>Fazer login</Link>
         </FormContainer>
       </ContentContainer>
       <BackgroundContainer>

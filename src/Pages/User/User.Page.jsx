@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+
 import { UserContent, UserProfileImgContainer, OtherInfo, Input } from './User.styles';
 import { Container } from '../../Global.styles';
 import CustomButton from '../../Components/CustomComponent/Button';
+import { createUser } from '../../redux/User/User.actions';
 
 
 import { calculateAge, onChange } from '../../utils/utils';
 import api from '../../services/Api';
-import { toast } from 'react-toastify';
 
 const User = () => {
   const [buttonBol, setButtonBol] = useState(true);
@@ -16,6 +19,8 @@ const User = () => {
   const [name, setName] = useState('');
   const [mention, setMention] = useState('');
   const [birth_date, setBirth_date] = useState('');
+
+  const dispach = useDispatch();
 
   const user = useSelector(state => state.userReducer);
 
@@ -29,22 +34,24 @@ const User = () => {
         return;
       }
 
-      const data = { email, name, birth_date, mention };
+      const data = { _id: user._id, email, name, birth_date, mention };
       console.log(data);
       api.put(`user/${user._id}`, data)
         .then(res => {
-          toast(res.data.message);
+          toast.success("Alteração feita com sucesso!");
+          dispach(createUser(data));
+          setButtonBol(!buttonBol);
         })
         .catch(error => {
           console.log(error.response.data.message)
           toast.error(error.response.data.message);
         });
-    }
+      }else{
+        setButtonBol(!buttonBol);
+      }
 
-    setButtonBol(!buttonBol);
   }
   const onChangeDate = (value) => {
-
     setBirth_date(value);
   };
 
@@ -53,17 +60,13 @@ const User = () => {
     setMention(user.mention);
     setEmail(user.email);
 
-    var a = new Date(user.birth_date).toLocaleString('en-US', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
-    }).replace(/\//g, '-');
+    var a = new Date(user.birth_date).toISOString().
+      replace(/T/, ' ').
+      replace(/\..+/, '');
 
-    console.log(a);
-    var dArr = a.split("-");
+    var dArr = a.split(" ");
 
-    a = dArr[2] + "-" + dArr[0] + "-" + dArr[1];
-    setBirth_date(a);
+    setBirth_date(dArr[0]);
   }, [user]);
 
   return (
@@ -102,7 +105,7 @@ const User = () => {
           />
           <span><strong>Email</strong></span>
           <Input
-            type="text"
+            type="email"
             value={email}
             disabled={buttonBol}
             onChange={(event) => onChange(event.target.value, setEmail)}

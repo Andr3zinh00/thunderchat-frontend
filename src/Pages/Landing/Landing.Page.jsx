@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Container } from "../../Global.styles";
 import {
@@ -23,7 +23,9 @@ import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
 import connect from '../../services/Socket';
-import axios from 'axios';
+
+import { toast } from 'react-toastify';
+
 
 
 const inputStyle = {
@@ -52,6 +54,15 @@ const Landing = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (!userId) {
+      return
+    }
+    if (userId[0] !== "@") {
+      setUserId('@' + userId)
+    }
+  }, [userId])
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -62,10 +73,8 @@ const Landing = () => {
     api.post('user/login', data).then(res => {
       const { user, token: { jwt } } = res.data;
 
-      //seria isso uma gambiarra? acredito que nao...
-      // const filter = ({ message, ...rest }) => ({ ...rest });
-
       dispatch(createUser({ ...user, token: jwt }));
+
       //caso o usuario ja tenha errado a senha/login alguma outra vez
       if (error) setError(null);
 
@@ -73,8 +82,7 @@ const Landing = () => {
 
     })
       .catch(error => {
-        setError(error.response.message);
-        setShowModal(true);
+          toast.error("Falha na autenticação, verifique seus dados");
       });
 
   }
@@ -131,7 +139,7 @@ const Landing = () => {
                 value={userId}
                 onChange={(event) => onChange(event.target.value, setUserId)}
                 customStyle={inputStyle}
-                placeholder={"Email ou @"}
+                placeholder={"Digite seu @"}
                 type="text"
               />
               <CustomInput

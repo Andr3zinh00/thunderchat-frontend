@@ -5,6 +5,7 @@ import { HomeContent } from './Home.styles';
 import ContactMessage from '../../Components/ContactMessage/ContactMessage.component';
 import SideContacts from '../../Components/SideContacts/SideContacts.component';
 import { useSelector } from 'react-redux';
+import { sendSubscribe } from '../../services/Socket';
 
 // import stompClient from '../../services/Socket';
 
@@ -17,24 +18,6 @@ const Home = () => {
   const onToggle = () => setToggle(!toggle);
   const [selectedUser, setSelectedUser] = useState({ user: null });
   const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-
-    // function stompCallback() {
-    //   stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
-    //     const message = JSON.parse(eventRes.body);
-    //     setMessages(past => [message, ...past]);
-    //   });
-    // }
-    // //usar o stompClient.connected ao inves do .active
-    // if (stompClient.connected) {
-    //   stompCallback();
-    // } else {
-    //   stompClient.connect({}, () => stompCallback());
-    // }
-
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Container display={1}>

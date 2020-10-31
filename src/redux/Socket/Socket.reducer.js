@@ -15,28 +15,6 @@ export default (state = INITIAL_STATE, action) => {
   console.log("asdjhaskjdhjaksdhjkashdjkhaskjdhkas dentro do reducer", action);
   switch (action.type) {
     case types.CONNECT:
-<<<<<<< Updated upstream
-
-      const credentials = getAuth().headers;
-      console.log(credentials.Authorization)
-      const socket = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + credentials.Authorization);
-      const stompClient = Stomp.over(socket);
-      // stompClient.activate();
-      stompClient.connect({}, () => {
-
-        console.log("connected")
-        stompClient.subscribe("/user/queue/sendback", (eventRes) => {
-          console.log("subscribe");
-        });
-
-        stompClient.subscribe("/user/queue/get-msg", (eventRes) => {
-          console.log("subscribe");
-        });
-        return {
-          connection: stompClient
-        }
-      });
-=======
       console.log(" REDUCE SOCKET")
       const connection = {};
       connection['socket'] = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
@@ -54,7 +32,6 @@ export default (state = INITIAL_STATE, action) => {
           ...connection
         }
       }
->>>>>>> Stashed changes
     default:
       return state;
   }

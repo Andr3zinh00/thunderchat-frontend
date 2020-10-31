@@ -8,8 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Notifications = () => {
 
-
-  const notifications = useSelector(state => state.userReducer.notifications);
+  const notifications = useSelector(state => state.userReducer.notifications) || [];
+  console.log(notifications);
+  const idNotification = useSelector(state => state.userReducer.idNotification);
   const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
 
@@ -20,11 +21,13 @@ const Notifications = () => {
           <h2 className="title-wrap">Notificações</h2>
         </Wrapper>
         <Wrapper>
-          {notifications.length > 0 ?
+          {notifications[0] ?
             notifications.map((notification, index) =>
               <NotificationItem
                 id={notification.type === "INVITE" ? _id : null}
                 key={String(index)}
+                idMenssage={notification._id}
+                idNotification={idNotification}
                 {...notification}
               />
             )

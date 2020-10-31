@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Landing from '../Pages/Landing/Landing.Page';
@@ -10,29 +10,14 @@ import User from '../Pages/User/User.Page';
 import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
 import ProtectedRoute from './ProtectedRoute';
-// import socketio from '../services/Socket';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { connect } from '../redux/Socket/Socket.actions';
 import { onNotification } from '../redux/User/User.actions';
 import { getReduxState } from '../utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { connect } from '../redux/Socket/Socket.actions';
 
 const Routes = () => {
-<<<<<<< Updated upstream
-  const user = useSelector(state => state.userReducer);
-  const { connection } = useSelector(state => state.socketReducer);
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    console.log(user, connection)
-    if (user._id && !connection) {
-      dispatch(connect());
-    }
-  }, [user._id, connection]);
 
-=======
   const { _id, token } = useSelector(state => state.userReducer);
   const { connection } = useSelector(state => state.socketReducer);
   const dispatch = useDispatch();
@@ -59,7 +44,7 @@ const Routes = () => {
       // });
     }
   }, [_id]);
->>>>>>> Stashed changes
+
   return (
     <Router>
       <Header />

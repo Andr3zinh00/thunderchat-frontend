@@ -1,5 +1,5 @@
 import types from './User.types';
-import { getReduxState } from '../../utils/utils';
+import { getReduxState, cleanLocal } from '../../utils/utils';
 
 const STATE = {
   id: undefined,
@@ -9,6 +9,8 @@ const STATE = {
   token: undefined,
   notifications: [],
 }
+
+
 
 
 const INITIAL_STATE = {
@@ -25,15 +27,10 @@ export default (state = INITIAL_STATE, action) => {
         ...action.payload
       }
     case types.ON_NOTIFICATIONS:
-      const isLive = action.payload?.isLive;
-      //diferencia se a notificação é em tempo real ou não
-      //A notificação em tempo real vem como um objeto
-      //para continuar com o spread operator coloquei a 
-      //mensagem dentro de um array
-      // const payload = isLive ? [{ ...action.payload }] : action.payload;
       return {
         ...state,
-        notifications: [...state.notifications, ...action.payload]
+        notifications: [...state.notifications, ...action.payload.notification],
+        idNotification: action.payload._id
       }
     case types.DELETE_USER:
       return {
@@ -45,6 +42,18 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         token: action.payload,
       }
+    case types.SIGN_OUT:
+      return{
+      }
+    
+    case types.REMOVE_NOTIFICATIONS:
+      console.log(state.notifications)
+      console.log(action.payload)
+      return{
+        ...state,
+        notification: state.notifications.filter(noti=>noti._id!==action.payload)
+      }
+    
     default:
       return state;
   }

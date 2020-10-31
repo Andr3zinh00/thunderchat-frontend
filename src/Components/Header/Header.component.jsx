@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import { HeaderTop, Nav, LogoContainer } from './Header.styles';
 import { TiCogOutline, TiUser } from 'react-icons/ti';
@@ -12,16 +12,13 @@ import DropDown from '../DropDown/DropDown.component';
 
 // import { stompClient } from ';'
 import api from '../../services/Api';
-import { onNotification } from '../../redux/User/User.actions';
+import { onNotification, signOut } from '../../redux/User/User.actions';
 
 import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
 import { getAuth } from '../../utils/utils';
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 
 const Header = () => {
 
@@ -32,34 +29,11 @@ const Header = () => {
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
-<<<<<<< Updated upstream
 
-  useEffect(() => {
-    console.log("entrei", connection)
-    if (_id && connection) {
-      console.log("ontrei", connection)
-      connection.onConnect(() => {
-        console.log("MERDAAAAAAAAAAAAAAAAA")
-        connection.subscribe("/user/queue/sendback", (eventRes) => {
-          const message = JSON.parse(eventRes.body);
-          dispatch(onNotification([{
-            ...message,
-            isLive: true
-          }]));
-          setCountNotification(pastCount => pastCount + 1);
-        });
-      })
 
-      // if (stompClient.active) {
-      //   stompCallback();
-      // } else {
-      //   stompClient.connect({}, () => stompCallback());
-      // }
 
-    }
-    // eslint-disable-next-line
-  }, [connection, _id]);
-=======
+
+
   useEffect(() => {
     if (countNotification < notifications.length) {
       setCountNotification(past => past + 1);
@@ -86,8 +60,6 @@ const Header = () => {
     // eslint-disable-next-line
   // }, [connection.client]);
 
->>>>>>> Stashed changes
-
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
     //por enquanto desabilitado
@@ -96,15 +68,26 @@ const Header = () => {
         ...getAuth()
       })
         .then(res => {
-          const { notifications } = res.data;
-          if (notifications.length !== 0) {
-            dispatch(onNotification(notifications));
+          console.log(res.data)
+          const { notificationContent, _id } = res.data;
+          console.log(res);
+          console.log(notificationContent);
+          if (notificationContent.length !== 0) {
+            dispatch(onNotification(notificationContent, _id));
             setCountNotification(
-              notifications.filter(notif => !notif?.isChecked).length
+              notificationContent.filter(notif => !notif.read).length
             );
+            console.log(notificationContent.filter(notif => !notif.read).length);
           }
         })
-        .catch(error => console.log(error.response));
+        .catch((erro) => {
+          console.log(erro)
+          if (erro.response.status === 401) {
+            dispatch(signOut());
+            history.push('/');
+          }
+          console.log(erro.response);
+        });
     }
 
     // eslint-disable-next-line

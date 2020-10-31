@@ -13,10 +13,14 @@ import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
+import { sendMessageChat, sendSubscribe, sendSubscribeNotifi } from '../../services/Socket';
+import { useEffect } from 'react';
+import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages, setMessageLoad, messageLoad }) => {
   const user = useSelector(state => state.userReducer)
-  const { name, mention } = selectedUser.user;
+  const { _id, name, mention } = selectedUser.user;
 
   const initial_state = {
     content: "",
@@ -26,52 +30,53 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     time: null,
   }
 
+  const { connection } = useSelector(state => state.socketReducer);
+
   const [messageValue, setMessageValue] = useState(initial_state);
-<<<<<<< Updated upstream
-  
-    const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        onClick()
-      }
-=======
- 
+
   const [messageSend, setMessageSend] = useState([]);
 
   useEffect(() => {
     api.get(`chat/${user._id}/${_id}`).then(res => {
       const arr = res.data.messages.reverse();
-      setMessageLoad(arr);
->>>>>>> Stashed changes
     }
+    ).catch(error => {
+      console.log(error)
+      toast.error("Erro ao carregar conversa");
+    })
+  }, []);
 
-<<<<<<< Updated upstream
-  //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
-  const onClick = () => {
-    // if (messageValue.content.trim().length !== 0) {
-    //   function stompCallback() {
-    //     const data = {
-    //       ...initial_state,
-    //       content: messageValue.content,
-    //       time: new Date(),
-    //     }
-    //     stompClient.send("/app/send-message", {}, JSON.stringify(data));
-    //     setMessageValue(initial_state);
-    //   }
 
-    //   if (stompClient.active) {
-    //     stompCallback();
-    //     return;
-    //   }
-=======
   useEffect(() => {
     setMessageValue(initial_state);
   }, [messageSend])
 
   
->>>>>>> Stashed changes
 
-    //   stompClient.connect({}, () => stompCallback());
-    // }
+  useEffect(() => {
+    setMessageValue(initial_state);
+   }, [messageSend])
+
+
+
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      onClick();
+    }
+  }
+
+  const onClick = () => {
+    const data = {
+      ...initial_state,
+      content: messageValue.content,
+      time: new Date(),
+    }
+    if (messageValue.content.trim().length !== 0) {
+      sendMessageChat(data);
+      setMessageValue(initial_state);
+      setMessageSend(!messageSend);
+    }
   };
   return (
     <>
@@ -102,7 +107,7 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
       </ContactHeader>
       <ContactMessageMain>
         {
-          messages.reverse().map((mes, index) => (
+          messageLoad.map((mes, index) => (
             <div key={String(index)}>
               <Message className={mes.from === user.mention ? 'sent' : 'received'}>
                 {mes.content}

@@ -4,9 +4,10 @@ import CustomButton from '../CustomComponent/Button';
 import CustomInput from '../CustomComponent/Input';
 import { Wrapper } from '../../Global.styles';
 import { IoMdSearch, IoMdClose } from 'react-icons/io';
+import { sendRequestChat } from '../../services/Socket';
 
 
-const SideContactsToModal = ({ text, closeModal, user, stompClient }) => {
+const SideContactsToModal = ({ text, closeModal, user }) => {
 
   const [value, setValue] = useState("");
 
@@ -31,23 +32,8 @@ const SideContactsToModal = ({ text, closeModal, user, stompClient }) => {
       return;
     }
 
-    function stompCallback() {
-      stompClient.send("/app/send-notification", {}, JSON.stringify({
-        content: "O usuário " + user.mention + " quer ser seu contato.",
-        from: user.mention,
-        to: value,
-        type: "INVITE",
-        time: new Date(),
-      }));
-      toast.success(`Pedido de amizade enviado para ${value}!`)
-    }
-
-    if (stompClient.active) {
-      stompCallback();
-      return;
-    }
-
-    stompClient.connect({}, () => stompCallback());
+    sendRequestChat(user, value);
+    
   }
 
   const handleSubmit = () => {
