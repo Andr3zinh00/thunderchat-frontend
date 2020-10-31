@@ -49,6 +49,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
   const modalRef = useRef();
 
   useEffect(() => {
+<<<<<<< Updated upstream
     // {
     //   headers: {
     //     Authorization: "Basic " + new Buffer.from(user.mention + ':' + user.password).toString('base64'),
@@ -64,6 +65,22 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
       .catch(error => console.log(error.response));
 
   }, [user._id, user.id, user.mention, user.password]);
+=======
+    console.log(user);
+    if (user._id) {
+      api.get(`contact-chat/${user._id}`)
+        .then(res => {
+          setContacts(res.data.content);
+          setIsLoadingContacts(false);
+        })
+        .catch(error => {
+          setIsLoadingContacts(false);
+          console.log(error.response)
+        });
+    }
+
+  }, [user._id]);
+>>>>>>> Stashed changes
 
 
 

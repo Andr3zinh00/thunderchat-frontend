@@ -14,7 +14,7 @@ import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
 import { useSelector } from 'react-redux';
 
-const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages }) => {
+const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages, setMessageLoad, messageLoad }) => {
   const user = useSelector(state => state.userReducer)
   const { name, mention } = selectedUser.user;
 
@@ -27,13 +27,24 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
   }
 
   const [messageValue, setMessageValue] = useState(initial_state);
+<<<<<<< Updated upstream
   
     const handleKeyDown = (event) => {
       if (event.key === 'Enter') {
         onClick()
       }
+=======
+ 
+  const [messageSend, setMessageSend] = useState([]);
+
+  useEffect(() => {
+    api.get(`chat/${user._id}/${_id}`).then(res => {
+      const arr = res.data.messages.reverse();
+      setMessageLoad(arr);
+>>>>>>> Stashed changes
     }
 
+<<<<<<< Updated upstream
   //boa sorte pra refazer essa tralheira que eu fiz, joão aiusdhjuiqwhduihquiwduhqwduiuiqdwduiqwdhuiqwdi
   const onClick = () => {
     // if (messageValue.content.trim().length !== 0) {
@@ -51,6 +62,13 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     //     stompCallback();
     //     return;
     //   }
+=======
+  useEffect(() => {
+    setMessageValue(initial_state);
+  }, [messageSend])
+
+  
+>>>>>>> Stashed changes
 
     //   stompClient.connect({}, () => stompCallback());
     // }

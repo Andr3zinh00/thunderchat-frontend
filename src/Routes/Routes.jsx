@@ -12,11 +12,15 @@ import Notifications from '../Pages/Notifications/Notifications.Page';
 import ProtectedRoute from './ProtectedRoute';
 // import socketio from '../services/Socket';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { connect } from '../redux/Socket/Socket.actions';
+import { onNotification } from '../redux/User/User.actions';
 import { getReduxState } from '../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { connect } from '../redux/Socket/Socket.actions';
 
 const Routes = () => {
+<<<<<<< Updated upstream
   const user = useSelector(state => state.userReducer);
   const { connection } = useSelector(state => state.socketReducer);
   const dispatch = useDispatch();
@@ -28,6 +32,34 @@ const Routes = () => {
     }
   }, [user._id, connection]);
 
+=======
+  const { _id, token } = useSelector(state => state.userReducer);
+  const { connection } = useSelector(state => state.socketReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(_id, token, connection);
+    if (_id) {
+      console.log("entrei");
+      dispatch(connect(
+        (eventRes) => {
+          console.log("Callback")
+          const message = JSON.parse(eventRes.body);
+          dispatch(onNotification([{
+            ...message,
+            isLive: true
+          }]));
+        },
+        () => {
+          console.log("asdasdasdasd");
+        }));
+      // Axios.interceptors.request.use(function (config) {
+      //   const token = getAuth();
+      //   config.headers.Authorization = token.headers.Authorization;
+      //   return config;
+      // });
+    }
+  }, [_id]);
+>>>>>>> Stashed changes
   return (
     <Router>
       <Header />
