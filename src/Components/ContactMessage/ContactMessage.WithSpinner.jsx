@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TiUserDelete } from 'react-icons/ti';
 
 import {
   ContactHeader,
@@ -18,7 +19,7 @@ import { useEffect } from 'react';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
 
-const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages, setMessageLoad, messageLoad }) => {
+const ContactMessageWithSpinner = ({ onToggle, toggle, setSelectedUser, selectedUser, messageLoad,}) => {
   const user = useSelector(state => state.userReducer)
   const { _id, name, mention } = selectedUser.user;
 
@@ -51,13 +52,23 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     setMessageValue(initial_state);
   }, [messageSend])
 
-  
+
 
   useEffect(() => {
     setMessageValue(initial_state);
-   }, [messageSend])
+  }, [messageSend])
 
-
+  const handleDeleteUser = () => {
+    
+    console.log(setSelectedUser);
+    //api.delete(`/contact/${user._id}/${_id}`)
+    //.then((res)=>{
+    // toast.success("Amizade e conversa excluida!")
+    //}).catch((error)=>{
+    // console.log(error)
+    //  toast.error("Erro ao tentar excluir amizade!")
+    // })
+  }
 
 
   const handleKeyDown = (event) => {
@@ -95,7 +106,6 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
           }}
         />
         <HeaderProfileInfo>
-          <h3>{name}</h3>
           <img
             style={{ borderRadius: "50%" }}
             alt="Profile pic"
@@ -103,7 +113,9 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
             height={45}
             width={50}
           />
+          <h3>{name}</h3>
         </HeaderProfileInfo>
+        <TiUserDelete size={40} color="#ff1616" onClick={handleDeleteUser} />
       </ContactHeader>
       <ContactMessageMain>
         {

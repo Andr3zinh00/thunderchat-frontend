@@ -8,7 +8,7 @@ import ContactMessageWithSpinner from './ContactMessage.WithSpinner';
 import NotSelected from './NotSelected';
 
 
-const ContactMessage = ({ selectedUser, toggle, ...rest }) => {
+const ContactMessage = ({ setSelectedUser, selectedUser, toggle, ...rest }) => {
   const MessagesWithSpinner = WithSpinner(
     ContactMessageWithSpinner,
     selectedUser.user ? null : NotSelected);
@@ -25,6 +25,7 @@ const ContactMessage = ({ selectedUser, toggle, ...rest }) => {
   return (
     <ContactMessageContent toggle={toggle}>
       <MessagesWithSpinner
+        setSelectedUser={setSelectedUser}
         isLoading={!selectedUser.user}
         toggle={toggle}
         selectedUser={selectedUser}

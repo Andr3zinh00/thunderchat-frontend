@@ -155,11 +155,13 @@ export const FooterTextContainer = styled.footer`
 export const HeaderProfileInfo = styled.div`
   display:flex;
   flex-direction:row;
-  justify-content:space-between;
+  justify-content: left;
   align-items:center;
 
   width:60%;
-
+  img{
+    margin-right: 10px
+  }
   @media screen and (min-width:767px){
     width:100%;
   }

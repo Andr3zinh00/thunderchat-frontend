@@ -18,47 +18,32 @@ import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
 import { getAuth } from '../../utils/utils';
+import { sendSubscribeNotifi } from '../../services/Socket';
 
 
 const Header = () => {
 
   const dispatch = useDispatch();
-  const { _id, notifications } = useSelector(state => state.userReducer);
-  // const { connection } = useSelector(state => state.socketReducer);
+  const { _id } = useSelector(state => state.userReducer);
   const { connection } = useSelector(state => state.socketReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
 
-
-
-
+  useEffect(() => {
+    sendSubscribeNotifi();
+  }, [countNotification]);
 
   useEffect(() => {
-    if (countNotification < notifications.length) {
-      setCountNotification(past => past + 1);
+    const message = sendSubscribeNotifi();
+    if (message) {
+      dispatch(onNotification([{
+        ...message
+      }]));
+      console.log(message);
+
     }
-  }, [notifications]);
-  // useEffect(() => {
-    // console.log("AAAAAAAAAAAAss", connection);
-
-    // sendSubscribeNotifi((eventRes) => {
-    //   const message = JSON.parse(eventRes.body);
-    //   dispatch(onNotification([{
-    //     ...message,
-    //     isLive: true
-    //   }]));
-    //   setCountNotification(past => past + 1);
-    // });
-    // if (message) {
-    //   dispatch(onNotification([{
-    //     ...message
-    //   }]));
-    //   console.log(message);
-
-    // }
-    // eslint-disable-next-line
-  // }, [connection.client]);
+  }, []);
 
   useEffect(() => {
     //só fazer a busca por notificações quando algum user estiver logado
@@ -91,7 +76,7 @@ const Header = () => {
     }
 
     // eslint-disable-next-line
-  }, [_id]);
+  }, []);
 
   const [dropDown, setDropDown] = useState(false);
   const [notificationDropDown, setNotificationDropDown] = useState(false);
