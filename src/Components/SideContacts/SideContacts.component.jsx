@@ -58,8 +58,20 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
 
   }, [user._id, user.id, user.mention, user.password]);
 
+    console.log(user);
+    if (user._id) {
+      api.get(`contact-chat/${user._id}`)
+        .then(res => {
+          setContacts(res.data.content);
+          setIsLoadingContacts(false);
+        })
+        .catch(error => {
+          setIsLoadingContacts(false);
+          console.log(error.response)
+        });
+    }
 
-
+  }, [user._id]);
   //caso o usuario dê um click fora da sidebar
   useOnClickOutside(ref, () => !toggle || modalToggle ? null : onToggle());
   useOnClickOutside(modalRef, () => setModalToggle(false));

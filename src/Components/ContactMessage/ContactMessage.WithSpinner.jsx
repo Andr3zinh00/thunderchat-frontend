@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
 
-const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages }) => {
+const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, setMessages, setMessageLoad, messageLoad }) => {
   const user = useSelector(state => state.userReducer)
   const { _id, name, mention } = selectedUser.user;
 
@@ -33,13 +33,12 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
   const { connection } = useSelector(state => state.socketReducer);
 
   const [messageValue, setMessageValue] = useState(initial_state);
-  const [messageLoad, setMessageLoad] = useState([]);
+
   const [messageSend, setMessageSend] = useState([]);
 
   useEffect(() => {
     api.get(`chat/${user._id}/${_id}`).then(res => {
       const arr = res.data.messages.reverse();
-      setMessageLoad(arr);
     }
     ).catch(error => {
       console.log(error)
@@ -47,14 +46,19 @@ const ContactMessageWithSpinner = ({ onToggle, toggle, selectedUser, messages, s
     })
   }, []);
 
+
+  useEffect(() => {
+    setMessageValue(initial_state);
+  }, [messageSend])
+
+  
+
   useEffect(() => {
     setMessageValue(initial_state);
    }, [messageSend])
 
-  useEffect(() => {
-    sendSubscribe(setMessageLoad);
-    sendSubscribeNotifi();
-  }, [connection]);
+
+
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {

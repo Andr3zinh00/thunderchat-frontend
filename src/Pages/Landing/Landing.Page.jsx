@@ -23,7 +23,9 @@ import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
 import connect from '../../services/Socket';
+
 import { toast } from 'react-toastify';
+
 
 
 const inputStyle = {
@@ -72,8 +74,10 @@ const Landing = () => {
       const { user, token: { jwt } } = res.data;
 
       dispatch(createUser({ ...user, token: jwt }));
-      connect();
-      history.push('/home');
+
+      //caso o usuario ja tenha errado a senha/login alguma outra vez
+      if (error) setError(null);
+
       setShowModal(true)
 
     })

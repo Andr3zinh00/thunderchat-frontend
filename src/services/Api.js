@@ -12,4 +12,11 @@ const api = axios.create({
     }
 });
 
+api.interceptors.request.use(function (config) {
+  const token = getAuth();
+  if (config.url === "user/login" || config.url === "user/create") return config;
+  config.headers.Authorization = token.headers.Authorization;
+  return config;
+});
+
 export default api;

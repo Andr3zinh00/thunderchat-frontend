@@ -7,16 +7,26 @@ const credentials = getAuth().headers;
 console.log(credentials, "cred")
 console.log(credentials.Authorization)
 
-const socket = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
-const client = Stomp.over(socket)
-
-client.activate();
+export const connection = {
+  client: undefined,
+  socket: undefined,
+  connected: undefined
+};
 
 export default function connect() {
+  connection['socket'] = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
+  connection['client'] = Stomp.over(connection.socket);
+  connection.client.onConnect = () => {
+    connection['connected'] = {};
+    console.log(connection, "conexao on conncet")
+  };
+  connection.client.activate();
+
 }
 
 export function sendRequestChat(user, value) {
   client.publish({
+
     destination: "/app/send-notification",
     body: JSON.stringify({
       content: "O usuário " + user.mention + " quer ser seu contato.",
@@ -29,16 +39,12 @@ export function sendRequestChat(user, value) {
   );
   toast.success(`Pedido de amizade enviado para ${value}!`)
 }
-export function sendSubscribeNotifi() {
-  const getNotification = (eventRes) => {
-    const message = JSON.parse(eventRes.body);
-    console.log("messagemessagemessagemessagemessagemessagemessagemessagemessage");
-    console.log(message);
-    return message;
-  }
-  if (client.connected) {
-    client.subscribe("/user/queue/sendback", getNotification);
-  }
+
+export function sendSubscribeNotifi(getNotification) {
+  if (connection.client) {
+    console.log("entrei aqui ")
+    const { client } = connection;
+    client.onConnect = () => client.subscribe("/user/queue/sendback", getNotification);
 }
 
 
@@ -49,12 +55,19 @@ export function sendSubscribe(setMessage) {
     setMessage(past => [message, ...past]);
     return message;
   }
-  if (client.connected) {
-    console.log(client.connected);
-    client.subscribe("/user/queue/get-msg", getMessage);
+
+  console.log(connection.client, "asdasdasdasdasd")
+  if (connection.client && connection.client.connected) {
+    console.log(connection.client.connected);
+    connection.client.subscribe("/user/queue/get-msg", getMessage);
+
   }
 }
 
 export function sendMessageChat(data) {
-  client.publish({ destination: "/app/send-message", body: JSON.stringify(data) });
+
+  if (!connection.client) return;
+  connection.client.publish({ destination: "/app/send-message", body: JSON.stringify(data) });
 }
+
+
