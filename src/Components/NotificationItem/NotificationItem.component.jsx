@@ -1,13 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CustomButton from '../CustomComponent/Button';
 
 import { ItemContainer } from './NotificationItem.styles';
 import api from '../../services/Api';
 import { getAuth } from '../../utils/utils';
+import { removeNotification } from '../../redux/User/User.actions';
+import { toast } from 'react-toastify';
 
 const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, type, from, id: userId, ...rest }) => {
+  const dispatch = useDispatch();
+
   const onClick = () => {
     const data = {
       userId,
@@ -17,12 +21,19 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
       ...getAuth()
     })
       .then(res => {
-        console.log(res.data)})
+        console.log(res.data)
+      })
       .catch(error => {
         console.log(error.response);
       });
-
-      api.delete(`/message/notification/${idNotification}/${idMenssage}`)
+    api.delete(`/message/notification/${idNotification}/${idMenssage}`)
+      .then(res => {
+        dispatch(removeNotification(idMenssage))
+      })
+      .catch((error)=>{
+        alert(error)
+        toast.error("Andre é gay")
+      })
   }
   const colors = useSelector(state => state.sideEffectReducer);
   return isEmpty ?

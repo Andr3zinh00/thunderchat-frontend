@@ -27,10 +27,10 @@ export default (state = INITIAL_STATE, action) => {
         ...action.payload
       }
     case types.ON_NOTIFICATIONS:
-      const isLive = action.payload?.isLive;
       return {
         ...state,
-        notifications: [...state.notifications, ...action.payload]
+        notifications: [...state.notifications, ...action.payload.notification],
+        idNotification: action.payload._id
       }
     case types.DELETE_USER:
       return {
@@ -45,6 +45,15 @@ export default (state = INITIAL_STATE, action) => {
     case types.SIGN_OUT:
       return{
       }
+    
+    case types.REMOVE_NOTIFICATIONS:
+      console.log(state.notifications)
+      console.log(action.payload)
+      return{
+        ...state,
+        notification: state.notifications.filter(noti=>noti._id!==action.payload)
+      }
+    
     default:
       return state;
   }

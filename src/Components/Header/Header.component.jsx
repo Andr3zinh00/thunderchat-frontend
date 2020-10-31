@@ -31,12 +31,10 @@ const Header = () => {
 
 
   useEffect(() => {
-    console.log("tesssssss")
     sendSubscribeNotifi();
   }, [countNotification]);
 
   useEffect(() => {
-    console.log("AAAAAAAAAAAAss")
     const message = sendSubscribeNotifi();
     if (message) {
       dispatch(onNotification([{
@@ -55,12 +53,12 @@ const Header = () => {
         ...getAuth()
       })
         .then(res => {
-          const { notificationContent } = res.data;
+          console.log(res.data)
+          const { notificationContent, _id } = res.data;
           console.log(res);
           console.log(notificationContent);
-
           if (notificationContent.length !== 0) {
-            dispatch(onNotification(notificationContent));
+            dispatch(onNotification(notificationContent, _id));
             setCountNotification(
               notificationContent.filter(notif => !notif.read).length
             );
@@ -68,6 +66,7 @@ const Header = () => {
           }
         })
         .catch((erro) => {
+          console.log(erro)
           if (erro.response.status === 401) {
             dispatch(signOut());
             history.push('/');

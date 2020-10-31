@@ -18,7 +18,11 @@ export const createToken = (token) => ({
   payload: token,
 });
 
-export const onNotification = (notification) => ({
+export const onNotification = (notification, _id) => ({
   type: types.ON_NOTIFICATIONS,
-  payload: notification
+  payload: {notification, _id}
+});
+export const removeNotification = (idMenssage) => ({
+  type: types.REMOVE_NOTIFICATIONS,
+  payload: idMenssage
 });

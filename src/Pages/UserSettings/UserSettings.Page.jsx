@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserSettingsContent, Switch, ThemeSettings, ColorBox } from './UserSettings.styles';
 import { Container, Wrapper } from '../../Global.styles';
 import { IoIosSettings, IoMdLogOut, IoIosTrash } from 'react-icons/io';
 import { signOut, createUser } from '../../redux/User/User.actions';
+import api from '../../services/Api';
+import { toast } from 'react-toastify';
+
 
 const color1 = {
   "background-color": "rgb(255,22,22)",
@@ -18,6 +21,7 @@ const color2 = {
 }
 
 const UserSettings = () => {
+  const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -29,7 +33,16 @@ const UserSettings = () => {
 
   const onClick = () => {
     dispatch(signOut());
-    history.push('/')
+    history.push('/');
+  }
+
+  const onClickDelete = () => {
+    api.delete(`/user/${_id}`).then((res)=>{
+      dispatch(signOut());
+      history.push('/');
+    }).catch((error) =>{
+      toast.error("Erro ao tentar deletar seu usuário, talvez seja um sinal")
+    })
   }
 
   return (
@@ -71,7 +84,7 @@ const UserSettings = () => {
                 <IoMdLogOut color="#ff1616" size={40} />
                 <h3> Sair. </h3>
               </Wrapper>
-              <Wrapper className="icon-wrapper">
+              <Wrapper className="icon-wrapper" onClick={onClickDelete}>
                 <IoIosTrash color="#ff1616" size={40} />
                 <h3> Deletar Conta.</h3>
               </Wrapper>
