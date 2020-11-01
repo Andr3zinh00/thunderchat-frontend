@@ -13,7 +13,8 @@ import ProtectedRoute from './ProtectedRoute';
 
 import { useSelector } from 'react-redux';
 import { getReduxState } from '../utils/utils';
-import connect from '../services/Socket';
+import connect, { connection } from '../services/Socket';
+import HomeProvider from '../Contexts/HomeContext';
 
 const Routes = () => {
 
@@ -24,7 +25,7 @@ const Routes = () => {
       console.log("entrei");
       connect();
     }
-  }, [_id]);
+  }, [_id, connection.client]);
 
   return (
     <Router>

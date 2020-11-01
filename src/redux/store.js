@@ -14,12 +14,14 @@ const middleware = store => next => action => {
     localStorage.removeItem('u');
     return result;
   }
-  
+
   console.log("--------//--------")
   if (types[action.type] === undefined) {
     localStorage.setItem("u", JSON.stringify(store.getState().userReducer))
   } else {
-    localStorage.setItem("s", JSON.stringify(store.getState().sideEffectReducer))
+    const reducer = { ...store.getState().sideEffectReducer };
+    delete reducer.reloadContacts;
+    localStorage.setItem("s", JSON.stringify(reducer));
   }
   console.log("--------//--------")
 

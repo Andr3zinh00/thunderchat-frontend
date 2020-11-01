@@ -19,16 +19,12 @@ import { useEffect } from 'react';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
 import NotSelected from './NotSelected';
+import { useHomeContext } from '../../Contexts/HomeContext';
 
-const ContactMessageWithSpinner = ({
-  onToggle,
-  toggle,
-  setSelectedUser,
-  selectedUser,
-  messageLoad,
-}) => {
+const ContactMessageWithSpinner = ({ messageLoad }) => {
   const user = useSelector(state => state.userReducer)
-
+  const { selectedUser, toggle, setToggle, setSelectedUser } = useHomeContext();
+  const onToggle = () => setToggle(!toggle);
   const initial_state = {
     content: "",
     from: user.mention,

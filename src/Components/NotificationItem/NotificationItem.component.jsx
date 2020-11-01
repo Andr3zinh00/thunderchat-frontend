@@ -5,35 +5,38 @@ import CustomButton from '../CustomComponent/Button';
 
 import { ItemContainer } from './NotificationItem.styles';
 import api from '../../services/Api';
-import { getAuth } from '../../utils/utils';
 import { removeNotification } from '../../redux/User/User.actions';
 import { toast } from 'react-toastify';
+import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
 
 const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, type, from, id: userId, ...rest }) => {
   const dispatch = useDispatch();
 
-  const onClick = () => {
+  const onClick = async () => {
     const data = {
       userId,
       mention: from
     }
-    api.post("contact/add", data, {
-      ...getAuth()
-    })
+    const resp = await api.post("contact/add", data)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
+        dispatch(reloadContacts());
+        return res.data
       })
       .catch(error => {
         console.log(error.response);
       });
-    api.delete(`/message/notification/${idNotification}/${idMenssage}`)
-      .then(res => {
-        dispatch(removeNotification(idMenssage))
-      })
-      .catch((error)=>{
-        alert(error)
-        toast.error("Andre é gay")
-      })
+
+    if (resp) {
+      api.delete(`/message/notification/${idNotification}/${idMenssage}`)
+        .then(res => {
+          dispatch(removeNotification(idMenssage))
+        })
+        .catch((error) => {
+          console.log(error.response)
+          toast.error("Não foi possivel deletar a notificação no momento!")
+        })
+    }
   }
   const colors = useSelector(state => state.sideEffectReducer);
   return isEmpty ?

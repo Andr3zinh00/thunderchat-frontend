@@ -1,11 +1,12 @@
 export function calculateAge(birthDate) {
   
-  if(birthDate == null){
+  if(birthDate === null){
     return "Data de nascimento não cadastrada!";
   }
+  console.log(birthDate)
 
   birthDate = new Date(birthDate);
-
+  console.log(birthDate,"aaaaa")
   let otherDate = new Date();
   let years = (otherDate.getFullYear() - birthDate.getFullYear());
 
@@ -14,7 +15,7 @@ export function calculateAge(birthDate) {
       otherDate.getDate() < birthDate.getDate())) {
     years--;
   }
-
+  console.log(years)
   return years;
 }
 

@@ -92,9 +92,9 @@ const User = () => {
 
           <span><strong>Idade</strong></span>
           <Input
-            type="numero"
-            value={calculateAge(birth_date)}
-            disabled={buttonBol}
+            type="text"
+            value={String(calculateAge(birth_date))}
+            disabled={true}
           />
           <span><strong>Usuário</strong></span>
           <Input

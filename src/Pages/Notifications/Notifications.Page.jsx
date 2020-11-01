@@ -13,7 +13,7 @@ const Notifications = () => {
   const idNotification = useSelector(state => state.userReducer.idNotification);
   const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
-
+  console.log(notifications, idNotification, "AAAA")
   return (
     <Container>
       <MessagesContent>

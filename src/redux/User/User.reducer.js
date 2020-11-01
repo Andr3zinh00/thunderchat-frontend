@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         notifications: [...state.notifications, ...action.payload.notification],
-        idNotification: action.payload._id
+        idNotification: state.idNotification || action.payload._id
       }
     case types.DELETE_USER:
       return {
@@ -51,7 +51,7 @@ export default (state = INITIAL_STATE, action) => {
       console.log(action.payload)
       return{
         ...state,
-        notification: state.notifications.filter(noti=>noti._id!==action.payload)
+        notifications: state.notifications.filter(noti=>noti._id!==action.payload)
       }
     
     default:

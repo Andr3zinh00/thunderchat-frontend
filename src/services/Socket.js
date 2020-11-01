@@ -9,6 +9,7 @@ console.log(credentials.Authorization)
 
 export const connection = {
   client: undefined,
+  subscribtion: undefined
 };
 const factory = () => new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
 export default function connect() {
@@ -43,7 +44,7 @@ export function sendSubscribeNotifi(getNotification) {
 
 export function sendSubscribe(getMsg) {
   if (connection.client && connection.client.connected) {
-    connection.client.subscribe("/user/queue/get-msg", getMsg);
+    connection['subscribtion'] = connection.client.subscribe("/user/queue/get-msg", getMsg);
   }
 }
 

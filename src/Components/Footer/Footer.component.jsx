@@ -6,9 +6,10 @@ const Footer = () => {
   const display = useDisplayHeaderFooter();
   return display ? null : (
     <FooterDown>
-      <h3 style={{ color: "#fff" }}>
-        Criado por André Luiz (@Andr3zinh00)
-      </h3>
+      <h5 style={{ color: "#fff" }}>
+        Criado por André Luiz (@Andr3zinh00) e João Vitor
+      </h5>
+      
     </FooterDown>
   );
 }

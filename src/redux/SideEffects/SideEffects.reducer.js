@@ -9,6 +9,7 @@ const STATE = {
     fontColor: "#fff",
     primaryColorDarker: "#990d0d"
   },
+  reloadContacts: false
 }
 
 
@@ -18,13 +19,17 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-  //deixei o switch caso tenha outras funcionalidades mais tarde...
   switch (action.type) {
 
     case types.CHANGE_THEME:
       return {
         ...state,
         theme: action.payload
+      }
+    case types.RELOAD_CONTACTS:
+      return {
+        ...state,
+        reloadContacts: !state.reloadContacts
       }
     default:
       return state;

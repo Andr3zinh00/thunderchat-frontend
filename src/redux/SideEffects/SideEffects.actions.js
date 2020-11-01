@@ -5,3 +5,7 @@ export const changeTheme = (theme) => ({
   payload: theme
 });
 
+export const reloadContacts = ()=>({
+  type:types.RELOAD_CONTACTS
+})
+

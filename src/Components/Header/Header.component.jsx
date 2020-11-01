@@ -44,9 +44,7 @@ const Header = () => {
   useEffect(() => {
     //só fazer a busca por notificações quando o user estiver logado
     if (_id) {
-      api.get(`/notifications/${_id}`, {
-        ...getAuth()
-      })
+      api.get(`/notifications/${_id}`)
         .then(res => {
           console.log(res.data)
           const { notificationContent, _id } = res.data;
@@ -64,7 +62,7 @@ const Header = () => {
           console.log(erro)
           if (erro.response.status === 401) {
             dispatch(signOut());
-            history.push('/');
+            window.open("/", "_self");
           }
           console.log(erro.response);
         });

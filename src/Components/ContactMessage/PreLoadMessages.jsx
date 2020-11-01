@@ -9,14 +9,11 @@ import api from '../../services/Api';
 import { toast } from 'react-toastify';
 import WithSpinner from '../WithSpinner/WithSpinner.component';
 import ContactMessageWithSpinner from './ContactMessage.WithSpinner';
+import { useHomeContext } from '../../Contexts/HomeContext';
 
 const MessagesWithThunder = WithSpinner(ContactMessageWithSpinner);
-const PreLoadMessages = ({
-  selectedUser,
-  setMessageLoad,
-  ...rest
-}) => {
-
+const PreLoadMessages = ({ setMessageLoad, ...rest }) => {
+  const { selectedUser } = useHomeContext();
   const { _id } = useSelector(state => state.userReducer)
 
   const [isLoading, setIsLoading] = useState(false);
