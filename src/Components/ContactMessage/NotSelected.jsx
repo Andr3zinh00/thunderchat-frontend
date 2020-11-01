@@ -9,7 +9,7 @@ const NotSelected = () => {
         alt="Menina segurando um notebook"
       />
       <div >
-      <p>Não seja tímido(a), chame alguém pra conversar <br></br> Garanto que não vai se arrepender</p>
+      <p>Não seja tímidx, chame alguém pra conversar</p>
       </div>
     </NotSelectedContact >
   )

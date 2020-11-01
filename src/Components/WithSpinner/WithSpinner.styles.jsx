@@ -17,7 +17,7 @@ export const ContainerLoading = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
-height: 30%;
+height: 100%;
 `;
 
 export const ThunderLoading = styled.div`
@@ -27,7 +27,7 @@ export const ThunderLoading = styled.div`
   background: #ff1616;
   transform: skew(-25deg);
   opacity: 0;
-  animation: thunder 2s 0s linear infinite;
+  animation: thunder 0.79s 0s linear infinite;
 
 :before{
   content: '';

@@ -56,7 +56,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
         console.log(error.response)
       });
 
-  }, [user._id, user.id, user.mention, user.password]);
+  }, [user._id]);
 
    
   //caso o usuario dê um click fora da sidebar
@@ -67,7 +67,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
     <>
       {modalToggle &&
         <SearchModal
-          text={`Adicione algum contato. Procure utilizando a @ dele/dela.`}
+          text={`Adicione algum contato. Procure utilizando a @ delx.`}
           nodo={modalRef}
           closeModal={() => setModalToggle(false)}
           error={modalError}
@@ -95,8 +95,7 @@ const SideContacts = ({ onToggle, toggle, setSelectedUser }) => {
           <ContainerLoading>
             <ThunderLoading />
           </ContainerLoading>
-          : (null)}
-        {
+          : 
           contacts.length === 0 && !isLoadingContacts ?
             <a style={{ marginTop: '5px', color: "#aaa", justifyContent: 'center', display: 'flex' }}> Nenhum contato adicionado :( </a> :
             (

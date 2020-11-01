@@ -16,7 +16,7 @@ const Home = () => {
 
   const [toggle, setToggle] = useState(false);
   const onToggle = () => setToggle(!toggle);
-  const [selectedUser, setSelectedUser] = useState({ user: null });
+  const [selectedUser, setSelectedUser] = useState({ user: undefined });
   const [messages, setMessages] = useState([]);
 
   return (

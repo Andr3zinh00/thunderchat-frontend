@@ -18,36 +18,31 @@ import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
 import { getAuth } from '../../utils/utils';
-import { sendSubscribeNotifi } from '../../services/Socket';
+import { sendSubscribeNotifi, connection } from '../../services/Socket';
 
 
 const Header = () => {
 
   const dispatch = useDispatch();
   const { _id } = useSelector(state => state.userReducer);
-  const { connection } = useSelector(state => state.socketReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
 
-
   useEffect(() => {
-    sendSubscribeNotifi();
-  }, [countNotification]);
-
-  useEffect(() => {
-    const message = sendSubscribeNotifi();
-    if (message) {
-      dispatch(onNotification([{
-        ...message
-      }]));
-      console.log(message);
-
+    if (_id) {
+      sendSubscribeNotifi((eventMessage) => {
+        const message = JSON.parse(eventMessage.body);
+        dispatch(onNotification([{
+          ...message,
+          isLive: true
+        }]));
+        console.log(message);
+      });
     }
-  }, []);
+  }, [connection.client]);
 
   useEffect(() => {
-    //só fazer a busca por notificações quando algum user estiver logado
-    //por enquanto desabilitado
+    //só fazer a busca por notificações quando o user estiver logado
     if (_id) {
       api.get(`/notifications/${_id}`, {
         ...getAuth()

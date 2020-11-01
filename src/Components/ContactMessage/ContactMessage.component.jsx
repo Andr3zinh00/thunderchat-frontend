@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { sendSubscribe, connection } from '../../services/Socket';
-import WithSpinner from '../WithSpinner/WithSpinner.component';
+import { sendSubscribe } from '../../services/Socket';
 
 import { ContactMessageContent } from './ContactMessage.styles';
-import ContactMessageWithSpinner from './ContactMessage.WithSpinner';
 import NotSelected from './NotSelected';
+import PreLoadMessages from './PreLoadMessages';
 
 
 const ContactMessage = ({ setSelectedUser, selectedUser, toggle, ...rest }) => {
-  const MessagesWithSpinner = WithSpinner(
-    ContactMessageWithSpinner,
-    selectedUser.user ? null : NotSelected);
 
   const user = useSelector(state => state.userReducer)
-
-  console.log(selectedUser)
   const [messageLoad, setMessageLoad] = useState([]);
+  const [hasSubscribed, setHasSubscribed] = useState(false);
   // useEffect(() => {
   //   console.log("aslçdkjasidjiasjidojasiodjioasjdiojasiodjoiasjdioajsoidjioasjdoiasnjd")
   //   sendSubscribe(setMessageLoad);
   // }, [connection.client]);
+  const getFreshSelectedUser = () => selectedUser;
+  useEffect(() => {
+    if (selectedUser.user && !hasSubscribed) {
+      sendSubscribe((eventRes) => {
+        const message = JSON.parse(eventRes.body);
+        console.log(message);
+        setMessageLoad(past => [message, ...past]);
+      });
+      setHasSubscribed(true);
+    }
+
+  }, [selectedUser]);
 
   return (
     <ContactMessageContent toggle={toggle}>
-      <MessagesWithSpinner
-        setSelectedUser={setSelectedUser}
-        isLoading={!selectedUser.user}
-        toggle={toggle}
+
+      <PreLoadMessages
         selectedUser={selectedUser}
-        setMessageLoad={setMessageLoad}
         messageLoad={messageLoad}
+        setMessageLoad={setMessageLoad}
         {...rest}
       />
+
     </ContactMessageContent>
   )
 }

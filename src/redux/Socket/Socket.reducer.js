@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   //deixei o switch caso tenha outras funcionalidades mais tarde...
-  console.log("asdjhaskjdhjaksdhjkashdjkhaskjdhkas dentro do reducer", action);
   switch (action.type) {
     case types.CONNECT:
       console.log(" REDUCE SOCKET")

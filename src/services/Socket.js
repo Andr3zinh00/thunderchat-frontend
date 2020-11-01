@@ -9,19 +9,11 @@ console.log(credentials.Authorization)
 
 export const connection = {
   client: undefined,
-  socket: undefined,
-  connected: undefined
 };
-
+const factory = () => new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
 export default function connect() {
-  connection['socket'] = new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
-  connection['client'] = Stomp.over(connection.socket);
-  connection.client.onConnect = () => {
-    connection['connected'] = {};
-    console.log(connection, "conexao on conncet")
-  };
+  connection['client'] = Stomp.over(factory);
   connection.client.activate();
-
 }
 
 export function sendRequestChat(user, value) {
@@ -49,19 +41,9 @@ export function sendSubscribeNotifi(getNotification) {
 }
 
 
-export function sendSubscribe(setMessage) {
-  const getMessage = (eventRes) => {
-    const message = JSON.parse(eventRes.body);
-    console.log(message);
-    setMessage(past => [message, ...past]);
-    return message;
-  }
-
-  console.log(connection.client, "asdasdasdasdasd")
+export function sendSubscribe(getMsg) {
   if (connection.client && connection.client.connected) {
-    console.log(connection.client.connected);
-    connection.client.subscribe("/user/queue/get-msg", getMessage);
-
+    connection.client.subscribe("/user/queue/get-msg", getMsg);
   }
 }
 
