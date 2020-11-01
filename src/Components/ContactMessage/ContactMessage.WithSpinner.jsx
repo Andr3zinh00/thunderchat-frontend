@@ -21,9 +21,9 @@ import { toast } from 'react-toastify';
 import NotSelected from './NotSelected';
 import { useHomeContext } from '../../Contexts/HomeContext';
 
-const ContactMessageWithSpinner = ({ messageLoad }) => {
+const ContactMessageWithSpinner = () => {
   const user = useSelector(state => state.userReducer)
-  const { selectedUser, toggle, setToggle, setSelectedUser } = useHomeContext();
+  const { selectedUser, toggle, setToggle, setSelectedUser, messageLoad } = useHomeContext();
   const onToggle = () => setToggle(!toggle);
   const initial_state = {
     content: "",
@@ -32,7 +32,6 @@ const ContactMessageWithSpinner = ({ messageLoad }) => {
     type: "CHAT",
     time: null,
   }
-
   const [messageValue, setMessageValue] = useState(initial_state);
   const [messageSend, setMessageSend] = useState(false);
 
@@ -43,14 +42,15 @@ const ContactMessageWithSpinner = ({ messageLoad }) => {
 
   const handleDeleteUser = () => {
 
-    console.log(setSelectedUser);
-    //api.delete(`/contact/${user._id}/${_id}`)
-    //.then((res)=>{
-    // toast.success("Amizade e conversa excluida!")
-    //}).catch((error)=>{
-    // console.log(error)
-    //  toast.error("Erro ao tentar excluir amizade!")
-    // })
+    api.delete(`/contact/${user._id}/${selectedUser.user._id}`)
+      .then((res) => {
+        setSelectedUser({ user: null });
+        toast.success("Contato excluido com sucesso!");
+      }).catch((error) => {
+        console.log(error)
+
+        toast.error("Erro ao tentar excluir contato!");
+      })
   }
 
 
@@ -101,7 +101,7 @@ const ContactMessageWithSpinner = ({ messageLoad }) => {
             />
             <h3>{selectedUser.user?.name}</h3>
           </HeaderProfileInfo>
-          <TiUserDelete size={40} color="#ff1616" onClick={handleDeleteUser} />
+          <TiUserDelete style={{ cursor: "pointer" }} size={40} color="#ff1616" onClick={handleDeleteUser} />
         </ContactHeader>
         <ContactMessageMain>
           {

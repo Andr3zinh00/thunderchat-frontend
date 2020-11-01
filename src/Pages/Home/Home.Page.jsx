@@ -12,14 +12,28 @@ import { useHomeContext } from '../../Contexts/HomeContext';
 
 
 const Home = () => {
-
-  const { sideEffectReducer: { theme } } = useSelector(state => state);
+  const { setMessageLoad } = useHomeContext();
+  const { sideEffectReducer: { theme, connected } } = useSelector(state => state);
+  useEffect(() => {
+    if (connected) {
+      sendSubscribe((eventRes) => {
+        const message = JSON.parse(eventRes.body);
+        console.log(message);
+        setMessageLoad(past => {
+          if (window.location.pathname.includes('home')) {
+            return [message, ...past];
+          }
+          return past;
+        });
+      });
+    }
+  }, [connected]);
 
   return (
     <Container display={1}>
       <HomeContent colors={theme}>
         <SideContacts />
-        <ContactMessage/>
+        <ContactMessage />
       </HomeContent>
     </Container>
   )

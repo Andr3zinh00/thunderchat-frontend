@@ -9,7 +9,8 @@ const STATE = {
     fontColor: "#fff",
     primaryColorDarker: "#990d0d"
   },
-  reloadContacts: false
+  reloadContacts: false,
+  connected: false
 }
 
 
@@ -31,6 +32,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         reloadContacts: !state.reloadContacts
       }
+    case types.CONNECTED:
+      return {
+        ...state,
+        connected: !state.connected
+      };
     default:
       return state;
   }

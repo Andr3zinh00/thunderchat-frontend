@@ -5,7 +5,11 @@ export const changeTheme = (theme) => ({
   payload: theme
 });
 
-export const reloadContacts = ()=>({
-  type:types.RELOAD_CONTACTS
-})
+export const reloadContacts = () => ({
+  type: types.RELOAD_CONTACTS
+});
+
+export const connectedToWebsocket = () => ({
+  type: types.CONNECTED
+});
 

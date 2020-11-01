@@ -11,21 +11,28 @@ import UserSettings from '../Pages/UserSettings/UserSettings.Page';
 import Notifications from '../Pages/Notifications/Notifications.Page';
 import ProtectedRoute from './ProtectedRoute';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getReduxState } from '../utils/utils';
 import connect, { connection } from '../services/Socket';
 import HomeProvider from '../Contexts/HomeContext';
+import { connectedToWebsocket } from '../redux/SideEffects/SideEffects.actions';
 
 const Routes = () => {
 
   const { _id, token } = useSelector(state => state.userReducer);
+
+  const dispatch = useDispatch();
+  function connectCallback() {
+    dispatch(connectedToWebsocket())
+  }
+
   useEffect(() => {
     console.log(_id, token);
     if (_id) {
       console.log("entrei");
-      connect();
+      connect(connectCallback);
     }
-  }, [_id, connection.client]);
+  }, [_id]);
 
   return (
     <Router>

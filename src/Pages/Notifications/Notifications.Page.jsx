@@ -9,11 +9,9 @@ import { useSelector, useDispatch } from 'react-redux';
 const Notifications = () => {
 
   const notifications = useSelector(state => state.userReducer.notifications) || [];
-  console.log(notifications);
   const idNotification = useSelector(state => state.userReducer.idNotification);
   const _id = useSelector(state => state.userReducer._id);
-  const dispatch = useDispatch();
-  console.log(notifications, idNotification, "AAAA")
+
   return (
     <Container>
       <MessagesContent>
@@ -21,7 +19,7 @@ const Notifications = () => {
           <h2 className="title-wrap">Notificações</h2>
         </Wrapper>
         <Wrapper>
-          {notifications[0] ?
+          {notifications.length > 0 ?
             notifications.map((notification, index) =>
               <NotificationItem
                 id={notification.type === "INVITE" ? _id : null}

@@ -17,29 +17,41 @@ import { onNotification, signOut } from '../../redux/User/User.actions';
 import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
-import { getAuth } from '../../utils/utils';
 import { sendSubscribeNotifi, connection } from '../../services/Socket';
-
+import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
 
 const Header = () => {
 
   const dispatch = useDispatch();
-  const { _id } = useSelector(state => state.userReducer);
+  const { _id, notifications } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
   const [countNotification, setCountNotification] = useState(0);
+  const connected = useSelector(state => state.sideEffectReducer.connected);
+
+  const subscribeCallback = (eventMessage) => {
+    const message = JSON.parse(eventMessage.body);
+    if (message.type === "INVITE_ACCEPTED")
+      dispatch(reloadContacts());
+
+    dispatch(onNotification([{
+      ...message,
+      isLive: true
+    }]));
+
+    setCountNotification(past => past + 1);
+    console.log(message);
+  };
+  useEffect(() => {
+   console.log(countNotification, "count")
+  }, [notifications]);
+
 
   useEffect(() => {
-    if (_id) {
-      sendSubscribeNotifi((eventMessage) => {
-        const message = JSON.parse(eventMessage.body);
-        dispatch(onNotification([{
-          ...message,
-          isLive: true
-        }]));
-        console.log(message);
-      });
+    console.log(connected)
+    if (connected) {
+      sendSubscribeNotifi(subscribeCallback);
     }
-  }, [connection.client]);
+  }, [connected]);
 
   useEffect(() => {
     //só fazer a busca por notificações quando o user estiver logado
@@ -48,7 +60,7 @@ const Header = () => {
         .then(res => {
           console.log(res.data)
           const { notificationContent, _id } = res.data;
-          console.log(res);
+          console.log(res.data);
           console.log(notificationContent);
           if (notificationContent.length !== 0) {
             dispatch(onNotification(notificationContent, _id));

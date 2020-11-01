@@ -22,7 +22,6 @@ import LandingToModal from './Landing.ToModal';
 import { useOnClickOutside } from '../../Hooks';
 import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
-import connect from '../../services/Socket';
 
 import { toast } from 'react-toastify';
 

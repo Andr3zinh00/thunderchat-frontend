@@ -12,8 +12,8 @@ import ContactMessageWithSpinner from './ContactMessage.WithSpinner';
 import { useHomeContext } from '../../Contexts/HomeContext';
 
 const MessagesWithThunder = WithSpinner(ContactMessageWithSpinner);
-const PreLoadMessages = ({ setMessageLoad, ...rest }) => {
-  const { selectedUser } = useHomeContext();
+const PreLoadMessages = () => {
+  const { selectedUser, setMessageLoad } = useHomeContext();
   const { _id } = useSelector(state => state.userReducer)
 
   const [isLoading, setIsLoading] = useState(false);
@@ -38,8 +38,6 @@ const PreLoadMessages = ({ setMessageLoad, ...rest }) => {
   return (
     <MessagesWithThunder
       isLoading={isLoading}
-      selectedUser={selectedUser}
-      {...rest}
     />
   )
 }

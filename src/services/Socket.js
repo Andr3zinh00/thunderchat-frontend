@@ -4,22 +4,23 @@ import { Stomp } from "@stomp/stompjs";
 import { getAuth } from '../utils/utils';
 
 const credentials = getAuth().headers;
-console.log(credentials, "cred")
-console.log(credentials.Authorization)
 
 export const connection = {
   client: undefined,
-  subscribtion: undefined
 };
 const factory = () => new SockJS("https://thunderchat-backend.herokuapp.com/socket?Authorization=" + getAuth().headers.Authorization);
-export default function connect() {
+
+export default function connect(callback) {
   connection['client'] = Stomp.over(factory);
+  connection.client.onConnect = () => {
+    console.log("conectou no webSocket");
+    callback();
+  }
   connection.client.activate();
 }
 
 export function sendRequestChat(user, value) {
   connection.client.publish({
-
     destination: "/app/send-notification",
     body: JSON.stringify({
       content: "O usuário " + user.mention + " quer ser seu contato.",
@@ -35,18 +36,17 @@ export function sendRequestChat(user, value) {
 
 export function sendSubscribeNotifi(getNotification) {
   if (connection.client) {
-    console.log("entrei aqui ")
-    const { client } = connection;
-    client.onConnect = () => client.subscribe("/user/queue/sendback", getNotification);
+    connection.client.subscribe("/user/queue/sendback", getNotification);
   }
 }
 
 
 export function sendSubscribe(getMsg) {
   if (connection.client && connection.client.connected) {
-    connection['subscribtion'] = connection.client.subscribe("/user/queue/get-msg", getMsg);
+    connection.client.subscribe("/user/queue/get-msg", getMsg);
   }
 }
+
 
 export function sendMessageChat(data) {
   if (!connection.client) return;

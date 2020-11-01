@@ -3,6 +3,11 @@ import { Button } from '../CustomComponent/Custom.styles';
 
 export const ItemContainer = styled.div`
   min-height:100px;
+  padding:5%;
+  :hover{
+    opacity:0.8;
+    background-color:#e5e5e5;
+  }
 
   display:flex;
   align-items:center;
@@ -12,8 +17,7 @@ export const ItemContainer = styled.div`
   color:${p => p.colors.theme.primaryColor};
   ${p => p.read && css`
   color:#bbb;
-  
-  `
+    `
   }
 
   border-bottom:1px solid ${props => props.colors.theme.primaryColor};
@@ -27,6 +31,20 @@ export const ItemContainer = styled.div`
     flex:60%;
     text-align:left;
     font-size: .9em;
+    display:flex;
+    align-items:center;
+    flex-direction:row;
+  
+
+    svg{
+      height:45px;
+      width:45px;
+      color:#990d0d;
+    }
+
+    svg:hover{
+      color:#ff1616;
+    }
   }
   .btn-container{
     display:flex;

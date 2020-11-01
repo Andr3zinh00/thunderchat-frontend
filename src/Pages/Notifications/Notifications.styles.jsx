@@ -19,10 +19,10 @@ export const MessagesContent = styled.div`
   }
 
   ${Wrapper}:not(:first-child){
-    padding:3% 5%;
     flex:4;
     flex-direction:column;
     overflow-y:auto;
+    cursor:auto;
   }
   
   .title-wrap{

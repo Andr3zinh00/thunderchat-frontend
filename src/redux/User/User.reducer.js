@@ -8,6 +8,7 @@ const STATE = {
   mention: undefined,
   token: undefined,
   notifications: [],
+  idNotification: undefined,
 }
 
 
@@ -43,17 +44,17 @@ export default (state = INITIAL_STATE, action) => {
         token: action.payload,
       }
     case types.SIGN_OUT:
-      return{
+      return {
       }
-    
+
     case types.REMOVE_NOTIFICATIONS:
       console.log(state.notifications)
       console.log(action.payload)
-      return{
+      return {
         ...state,
-        notifications: state.notifications.filter(noti=>noti._id!==action.payload)
+        notifications: state.notifications.filter(noti => noti._id !== action.payload)
       }
-    
+
     default:
       return state;
   }
