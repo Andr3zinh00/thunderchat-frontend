@@ -27,8 +27,9 @@ const SideContactsToModal = ({ text, closeModal, user, contacts }) => {
       toast.error("Você está tentando mandar um pedido para si mesmo?");
       return;
     }
-    if(contacts.find(ct => ct.contact.mention === value)){
+    if (contacts.find(ct => ct.contact.mention === value)) {
       toast.error("Você está tentanto madar um pedido para alguem que já é seu contato!");
+      return;
     }
 
     sendRequestChat(user, value);
