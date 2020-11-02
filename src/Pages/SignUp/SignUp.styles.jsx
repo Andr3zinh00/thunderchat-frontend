@@ -26,8 +26,8 @@ export const ContentContainer = styled.div`
     flex-direction:column;
     align-items:center;
 
-    background:${props => props.colors.secondaryColor};
-    color:${props => props.colors.primaryColor};
+    background:${props => props.theme.colors.secondary};
+    color:${props => props.theme.colors.primary};
     box-shadow: 0 0px 5px 0px rgba(0,0,0,1);
 
     ${Button}{
@@ -36,8 +36,8 @@ export const ContentContainer = styled.div`
       border-radius:14px;
       font-weight:700;
       font-size:1em;
-      background-color:${props => props.colors.primaryColor};
-      color:${props => props.colors.fontColor};
+      background-color:${props => props.theme.colors.primary};
+      color:${props => props.theme.colors.textPrimary};
     }
     
   }
