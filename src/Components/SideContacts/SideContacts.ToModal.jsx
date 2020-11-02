@@ -6,34 +6,33 @@ import { Wrapper } from '../../Global.styles';
 import { IoMdSearch, IoMdClose } from 'react-icons/io';
 import { sendRequestChat } from '../../services/Socket';
 
-
-const SideContactsToModal = ({ text, closeModal, user }) => {
+const SideContactsToModal = ({ text, closeModal, user, contacts }) => {
 
   const [value, setValue] = useState("");
-
-  useEffect((()=>{
-    if(!value){
+  useEffect((() => {
+    if (!value) {
       return
     }
-    if (value[0] !== "@"){
+    if (value[0] !== "@") {
       setValue('@' + value)
     }
-  }),[value])
+  }), [value])
   const onRequestSent = (value) => {
     if (value[0] !== "@") {
       setValue('@' + value);
     }
-
+    console.log(contacts, value)
     //caso o exxxpertinho do usuario tente mandar uma mensagem pra ele mesmo
-    //WARNING: FAZER ISSO PARA CASO ELE TENTE MANDAR UM PEDIDO PARA ALGUEM QUE JA
-    //CONSTA NA LISTA DE CONTATOS!
     if (user.mention === value) {
       toast.error("Você está tentando mandar um pedido para si mesmo?");
       return;
     }
+    if(contacts.find(ct => ct.contact.mention === value)){
+      toast.error("Você está tentanto madar um pedido para alguem que já é seu contato!");
+    }
 
     sendRequestChat(user, value);
-    
+
   }
 
   const handleSubmit = () => {

@@ -87,6 +87,7 @@ const SideContacts = () => {
           closeModal={() => setModalToggle(false)}
           error={modalError}
           user={user}
+          contacts={contacts}
         />
       }
       <Aside ref={ref} toggle={toggle} colors={sideEffects.theme}>
