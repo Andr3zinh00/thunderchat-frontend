@@ -22,12 +22,12 @@ export const LandingToModalContent = styled.div`
 
   text-align:center;
   height:100%;
-  color:${props=>props.colors.primaryColor};
+  color:${props=>props.theme.colors.primary};
   font-size:1.1em;
 
   ${Button}{
-    color:${props=>props.colors.secondaryColor};
-    background:${props=>props.colors.primaryColor};
+    color:${props=>props.theme.colors.secondary};
+    background:${props=>props.theme.colors.primaryor};
   
     height:45px;
     width:120px;
