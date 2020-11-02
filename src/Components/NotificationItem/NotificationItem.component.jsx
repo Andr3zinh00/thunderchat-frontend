@@ -11,7 +11,7 @@ import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
 import { TiDeleteOutline } from 'react-icons/ti'
 import { ContainerLoading, ThunderLoading } from '../WithSpinner/WithSpinner.styles';
 
-const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, type, from, id: userId, ...rest }) => {
+const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, type, from, id: userId }) => {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -39,16 +39,15 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
       setIsLoading(true);
       api.delete(`/message/notification/${idNotification}/${idMenssage}`)
         .then(res => {
+          setIsLoading(false);
           console.log('removendo', resp, justDelete);
           dispatch(removeNotification(idMenssage));
         })
         .catch((error) => {
+          setIsLoading(false);
           console.log(error.response)
           toast.error("Não foi possivel deletar a notificação no momento!");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        })
+        });
     }
   }
   const colors = useSelector(state => state.sideEffectReducer);

@@ -45,6 +45,7 @@ export default (state = INITIAL_STATE, action) => {
       }
     case types.SIGN_OUT:
       return {
+        ...INITIAL_STATE
       }
 
     case types.REMOVE_NOTIFICATIONS:

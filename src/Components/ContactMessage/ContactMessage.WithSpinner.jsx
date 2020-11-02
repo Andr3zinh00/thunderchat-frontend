@@ -13,13 +13,14 @@ import {
 import { TiGroupOutline } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
-import { useSelector } from 'react-redux';
-import { connection, sendMessageChat, sendSubscribe, sendSubscribeNotifi } from '../../services/Socket';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendMessageChat } from '../../services/Socket';
 import { useEffect } from 'react';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
 import NotSelected from './NotSelected';
 import { useHomeContext } from '../../Contexts/HomeContext';
+import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions'
 
 const ContactMessageWithSpinner = () => {
   const user = useSelector(state => state.userReducer)
@@ -34,7 +35,7 @@ const ContactMessageWithSpinner = () => {
   }
   const [messageValue, setMessageValue] = useState(initial_state);
   const [messageSend, setMessageSend] = useState(false);
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setMessageValue(initial_state);
@@ -44,6 +45,7 @@ const ContactMessageWithSpinner = () => {
 
     api.delete(`/contact/${user._id}/${selectedUser.user._id}`)
       .then((res) => {
+        dispatch(reloadContacts());
         setSelectedUser({ user: null });
         toast.success("Contato excluido com sucesso!");
       }).catch((error) => {

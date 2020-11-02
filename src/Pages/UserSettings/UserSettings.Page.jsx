@@ -41,7 +41,7 @@ const UserSettings = () => {
       dispatch(signOut());
       history.push('/');
     }).catch((error) =>{
-      toast.error("Erro ao tentar deletar seu usuário, talvez seja um sinal")
+      toast.error("Erro ao tentar deletar seu usuário, talvez seja um sinal!")
     })
   }
 
@@ -56,7 +56,7 @@ const UserSettings = () => {
           <Wrapper className="img-wrapper">
             <img
               alt="Settings"
-              src={require('../../assets/undraw_preferences_uuo2.svg')}
+              src={require('../../assets/meninaescolhendocoisas.svg')}
             />
           </Wrapper>
           <Wrapper className="settings-wrapper">
