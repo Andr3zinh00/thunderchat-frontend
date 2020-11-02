@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { HeaderTop, Nav, LogoContainer } from './Header.styles';
 import { TiCogOutline, TiUser } from 'react-icons/ti';
@@ -22,7 +22,7 @@ import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 const Header = () => {
-  const {colors, title} = useContext(ThemeContext);
+  const { colors, title } = useContext(ThemeContext);
   const dispatch = useDispatch();
   const { _id, notifications } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
@@ -43,7 +43,7 @@ const Header = () => {
     console.log(message);
   };
   useEffect(() => {
-   console.log(countNotification, "count")
+    console.log(countNotification, "count")
   }, [notifications]);
 
 
@@ -61,14 +61,11 @@ const Header = () => {
         .then(res => {
           console.log(res.data)
           const { notificationContent, _id } = res.data;
-          console.log(res.data);
-          console.log(notificationContent);
+          dispatch(onNotification(notificationContent, _id));
           if (notificationContent.length !== 0) {
-            dispatch(onNotification(notificationContent, _id));
             setCountNotification(
               notificationContent.filter(notif => !notif.read).length
             );
-            console.log(notificationContent.filter(notif => !notif.read).length);
           }
         })
         .catch((erro) => {
@@ -82,7 +79,7 @@ const Header = () => {
     }
 
     // eslint-disable-next-line
-  }, []);
+  }, [_id]);
 
   const [dropDown, setDropDown] = useState(false);
   const [notificationDropDown, setNotificationDropDown] = useState(false);

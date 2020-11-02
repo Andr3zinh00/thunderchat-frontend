@@ -20,6 +20,7 @@ const Home = () => {
         const message = JSON.parse(eventRes.body);
         console.log(message);
         setMessageLoad(past => {
+          console.log(window.location.pathname.includes('home'), "verificação do sendSubscribe")
           if (window.location.pathname.includes('home')) {
             return [message, ...past];
           }
