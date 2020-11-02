@@ -14,12 +14,12 @@ export const Aside = styled.aside`
   transition: transform 0.3s ease-in-out;
   box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.3);
 
-  border-right: 1px solid #ccc;
+  border-right: 1px solid ${props => props.theme.colors.primary};
 
   display:flex;
   flex-direction:column;
 
-  background:#fff;
+  background: ${props => props.theme.colors.backgroundPrimary};
 
   overflow-y:auto;
   overflow-x: hidden;
@@ -47,7 +47,7 @@ margin: 10px;
 display: flex;
   justify-content: space-between;
 
-  background:#ff1616;
+  background:${props => props.theme.colors.primary};
   border-radius: 10px;
 
   box-shadow: 0 5px 15px 0px rgba(0,0,0,0.1);
@@ -70,7 +70,7 @@ export const IconContainer = styled.div`
   
   cursor:pointer;
 
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.backgroundPrimary};
   
   display: flex;
   align-self: center;
@@ -94,7 +94,7 @@ export const Span = styled.span`
 
   width: 100%;
 
-  border-bottom: 1px solid #ff1616;
+  border-bottom: 1px solid ${props => props.theme.colors.primary};
 `;
 
 export const ContactInfoContainer = styled.div`
@@ -125,7 +125,7 @@ export const UserContacts = styled.div`
 
   :hover{
     opacity:0.8;
-    background-color:#e5e5e5;
+    background-color: ${props => props.theme.colors.hoverPrimary};
   }
 
   :hover span{
@@ -139,10 +139,10 @@ export const UserContacts = styled.div`
 
 export const ImgContainer = styled.div`
   border-radius:50%;
-  border:1px solid #ff1616;
+  border:1px solid ${props => props.theme.colors.primary};
   margin: 0 10px 0 15px ;
-  height:65%;
-  width:20%;
+  height:65px;
+  width:65px;
   display:flex;
   align-items:center;
 `;

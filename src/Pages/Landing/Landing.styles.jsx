@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { Button } from '../../Components/CustomComponent/Custom.styles';
 
 export const LandingContent = styled.div`
-  height:100%;
-  display:flex;
-  align-items:center;
-  flex-direction:column;
-  min-height:400px;
-  @media (min-width:768px) {
-    flex-direction:row;
-  }
+height:100%;
+display:flex;
+align-items:center;
+flex-direction:column;
+min-height:400px;
+@media (min-width:768px) {
+  flex-direction:row;
+}
 `;
 
 export const LandingToModalContent = styled.div`
@@ -41,8 +41,8 @@ export const FirstSide = styled.div`
   width:100%;
   height:100%;
   min-height:350px;
-  background: #ff1616;
-  background: linear-gradient(133deg, #000000,#ff1616);
+  background: ${props => props.theme.colors.primary};
+  background: linear-gradient(133deg, #000000,${props => props.theme.colors.primary});
   background-size: 400% 400%;
 
   -webkit-box-shadow: inset 0px 0px 203px 78px rgba(0,0,0,0.14);
@@ -91,7 +91,7 @@ export const CenterFirst = styled.div`
 
 export const SecondSide = styled.div`
   flex:1.5;
-  background:#ffff;
+  background:${props => props.theme.colors.backgroundPrimary};
   width:100%;
   height:100%; 
 /*height:100%  apenas para media queries*/
@@ -112,8 +112,8 @@ export const FormContainer = styled.form`
     height: 46px;
     width: 150px;
     border-radius: 15px;
-    background: #ff1616;
-    color: #fff;
+    background: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.textTertiary};
     font-size: 20px;
   }
 `;

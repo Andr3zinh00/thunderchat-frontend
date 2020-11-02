@@ -82,8 +82,8 @@ export const FormContainer = styled.form`
     height: 56px;
     width: 155px;
     border-radius: 20px;
-    background: #fff;
-    color: #ff1616;
+    background: ${props => props.theme.colors.textTertiary};
+    color: ${props => props.theme.colors.primary};
     font-size: 1.3em;
     font-weight:700;
     opacity:1;
@@ -94,14 +94,14 @@ export const FormContainer = styled.form`
   }
 
   ${Input}{
-    color:#fff;
+    color:${props => props.theme.colors.textTertiary};
     border: none;
-    border-bottom: solid 1px #fff;
+    border-bottom: solid 1px ${props => props.theme.colors.textTertiary};
     background-color:transparent;
     opacity:0.75;
 
     ::placeholder{
-      color: #fff;
+      color: ${props => props.theme.colors.textTertiary};
     }
   
     :focus{

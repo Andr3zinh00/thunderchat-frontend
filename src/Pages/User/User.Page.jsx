@@ -54,7 +54,6 @@ const User = () => {
   const onChangeDate = (value) => {
     setBirth_date(value);
   };
-
   useEffect(() => {
     setName(user.name);
     setMention(user.mention);

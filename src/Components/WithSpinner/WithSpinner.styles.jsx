@@ -24,7 +24,7 @@ export const ThunderLoading = styled.div`
   
   width: 19px;
   height: 30px;
-  background: #ff1616;
+  background: ${props => props.theme.colors.primary};
   transform: skew(-25deg);
   opacity: 0;
   animation: thunder 0.79s 0s linear infinite;
@@ -36,7 +36,7 @@ export const ThunderLoading = styled.div`
   left: 0px;
   width: 32px;
   height: 21px;
-  background: #ff1616;
+  background: ${props => props.theme.colors.primary};
 }
 
 :after{
@@ -48,7 +48,7 @@ export const ThunderLoading = styled.div`
   right: -14px;
   border-left: 10px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 30px solid #ff1616;
+  border-top: 30px solid ${props => props.theme.colors.primary};
   transform: skew(5deg);
 }
 

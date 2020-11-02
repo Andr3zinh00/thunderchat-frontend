@@ -21,6 +21,8 @@ import api from '../../services/Api';
 import { ContainerLoading, ThunderLoading } from '../WithSpinner/WithSpinner.styles';
 import { useHomeContext } from '../../Contexts/HomeContext';
 import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const infoStyle = {
   textOverflow: "ellipsis",
@@ -44,6 +46,8 @@ const SideContacts = () => {
   const sideEffects = useSelector(state => state.sideEffectReducer);
   const user = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
+  const { colors } = useContext(ThemeContext)
+
 
   const ref = useRef();
   const modalRef = useRef();
@@ -82,7 +86,7 @@ const SideContacts = () => {
     <>
       {modalToggle &&
         <SearchModal
-          text={`Adicione algum contato. Procure utilizando a @ delx.`}
+          text={`Adicione algum contato. Procure utilizando a @ dele.`}
           nodo={modalRef}
           closeModal={() => setModalToggle(false)}
           error={modalError}
@@ -98,12 +102,12 @@ const SideContacts = () => {
           <TiUserAdd
             style={{ margin: "5px 0 0 10px", alignSelf: 'center', cursor: 'pointer' }}
             size={35}
-            color="#fff"
+            color= {colors.textTertiary}
           />
           <IconContainer isToggled={toggle} onClick={() => setToggle(!toggle)}>
             <TiChevronRight
               size={35}
-              style={{ marginLeft: '3px', color: "#ff1616", alignSelf: 'center' }}
+              style={{ marginLeft: '3px', color: colors.primary, alignSelf: 'center' }}
             />
           </IconContainer>
         </HeaderContainer>
@@ -113,7 +117,7 @@ const SideContacts = () => {
           </ContainerLoading>
           :
           contacts.length === 0 && !isLoadingContacts ?
-            <a style={{ marginTop: '5px', color: "#aaa", justifyContent: 'center', display: 'flex' }}> Nenhum contato adicionado :( </a> :
+            <a style={{ marginTop: '5px', color: colors.disabled, justifyContent: 'center', display: 'flex' }}> Nenhum contato adicionado :( </a> :
             (
               contacts.map(contact => (
                 <UserContacts
@@ -121,7 +125,7 @@ const SideContacts = () => {
                   key={String(contact.contact._id)}
                 >
                   <ImgContainer>
-                    <TiUser style={{ flex: 1 }} size={35} color="#ff1616" />
+                    <TiUser style={{ flex: 1 }} size={35} color={colors.primary} />
                   </ImgContainer>
                   <ContactInfoContainer>
                     <h3 style={infoStyle}>{contact.contact.mention}</h3>

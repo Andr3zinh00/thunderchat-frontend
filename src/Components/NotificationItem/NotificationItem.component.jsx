@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
 import { TiDeleteOutline } from 'react-icons/ti'
 import { ContainerLoading, ThunderLoading } from '../WithSpinner/WithSpinner.styles';
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, type, from, id: userId }) => {
   const dispatch = useDispatch();
@@ -45,19 +47,19 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
         toast.error("Não foi possivel deletar a notificação no momento!");
       });
   }
-  const colors = useSelector(state => state.sideEffectReducer);
+  const {colors} = useContext(ThemeContext);
   return isLoading ?
     <ContainerLoading>
       <ThunderLoading />
     </ContainerLoading>
     :
     isEmpty ?
-      <ItemContainer colors={colors}>
+      <ItemContainer colors={colors.primary}>
         <h3 style={{ textAlign: 'center' }}>Você não possui nenhuma notificação :(</h3>
       </ItemContainer>
       :
       (
-        <ItemContainer read={read} colors={colors} >
+        <ItemContainer read={read} colors={colors.primary} >
           <div className="msg">
             <h4>{content}</h4>
             {

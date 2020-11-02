@@ -19,11 +19,11 @@ export const HeaderTop = styled.header`
   flex-direction:row;
   justify-content:space-between;
   padding: 0 5%;
-  background:#FF1616;
+  background:${props => props.theme.colors.primary};
 
   h1{
     font-size:1.7em;
-    color:#fff;
+    color:${props => props.theme.colors.textTertiary};
   }
 
   img{
@@ -44,10 +44,10 @@ export const Nav = styled.div`
   .abs{
     position:relative;
     svg{
-      color:${p => p.color.primaryColor};
+      color:${p => p.theme.colors.primary};
     }
     div{
-        background:${p => p.color.primaryColor};
+        background:${p => p.theme.colors.primary};
 
         border-radius:50%;
         position:absolute;
@@ -56,7 +56,7 @@ export const Nav = styled.div`
         padding:4px;
 
         h4{
-          color:${p => p.color.secondaryColor};
+          color:${p => p.theme.colors.secondary};
           font-size:0.7em;
           font-weight:700;
         }
@@ -74,17 +74,17 @@ export const Nav = styled.div`
 
     .hide{
       display:unset;
-      color:${p => p.color.secondaryColor} !important;
+      color:${p => p.theme.colors.secondary} !important;
     }
 
     .abs{
       svg{
-        color:${p => p.color.secondaryColor} !important;
+        color:${p => p.theme.colors.secondary} !important;
       }
       div{
-          background:${p => p.color.secondaryColor};
+          background:${p => p.theme.colors.secondary};
           h4{
-            color:${p => p.color.primaryColor};
+            color:${p => p.theme.colors.primary};
           }
       }
   }

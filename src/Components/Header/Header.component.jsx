@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 
 import { HeaderTop, Nav, LogoContainer } from './Header.styles';
 import { TiCogOutline, TiUser } from 'react-icons/ti';
@@ -10,18 +10,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DropDown from '../DropDown/DropDown.component';
 
-// import { stompClient } from ';'
 import api from '../../services/Api';
 import { onNotification, signOut } from '../../redux/User/User.actions';
 
 import NotificationToDropdown from './Notification.ToDropdown';
 import MobileToDropdown from './Mobile.ToDropdown';
 import IconToDropdown from './Icon.ToDropdown';
-import { sendSubscribeNotifi, connection } from '../../services/Socket';
+import { sendSubscribeNotifi } from '../../services/Socket';
 import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions';
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const Header = () => {
-
+  const {colors, title} = useContext(ThemeContext);
   const dispatch = useDispatch();
   const { _id, notifications } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
@@ -111,7 +112,7 @@ const Header = () => {
   return display ? null : (
     <HeaderTop>
       <LogoContainer onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
-        <img src={require('../../assets/icon.png')} alt="logo" />
+        <img src={require(`../../assets/icon${title}.png`)} alt="logo" />
         <h1>ThunderChat</h1>
       </LogoContainer>
       <Nav color={color.theme}>
@@ -123,8 +124,8 @@ const Header = () => {
           setCountNotification={setCountNotification}
           handleClick={handleClick}
         />
-        <TiUser className="hide" onClick={() => history.push('/user')} color="#fff" />
-        <TiCogOutline onClick={() => history.push('/settings')} className="hide" color="#fff" />
+        <TiUser className="hide" onClick={() => history.push('/user')} color={colors.textTertiary} />
+        <TiCogOutline onClick={() => history.push('/settings')} className="hide" color={colors.textTertiary} />
         <MobileDropDown
           nodo={ref}
           dropDown={dropDown}

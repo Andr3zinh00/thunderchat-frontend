@@ -8,15 +8,16 @@ import CustomButton from '../../Components/CustomComponent/Button';
 import CustomInput from '../../Components/CustomComponent/Input';
 import Modal from '../../Components/Modal/Modal.component';
 import SignUpToModal from './SignUp.ToModal';
-import { ReactComponent as Wave } from '../../assets/wave.svg';
 
 import { InputContainer } from '../Landing/Landing.styles';
 
 import api from '../../services/Api';
 import { calculateAge, onChange } from '../../utils/utils';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const OnSubmitModal = Modal(SignUpToModal);
 const SignUp = () => {
@@ -31,6 +32,8 @@ const SignUp = () => {
     message: "",
     error: false
   });
+
+  const {title, colors} = useContext(ThemeContext);
 
   useEffect(()=>{
     if(!mention){
@@ -77,7 +80,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container style={{ backgroundColor: "#990d0d", minHeight: "600px", position: 'relative', zIndex: 1 }}>
+    <Container style={{ backgroundColor: colors.secondary, minHeight: "600px", position: 'relative', zIndex: 1 }}>
       <ContentContainer colors={state.sideEffectReducer.theme}>
         {toggleModal.toggle &&
           <OnSubmitModal
@@ -93,7 +96,7 @@ const SignUp = () => {
           marginTop: '10px'
         }}>
           <img
-            src={require('../../assets/icon.png')}
+            src={require(`../../assets/icon${title}.png`)}
             style={{ height: "60px", width: "60px", marginRight: '10px' }}
             alt="icon da page"
           />
@@ -146,7 +149,7 @@ const SignUp = () => {
         </FormContainer>
       </ContentContainer>
       <BackgroundContainer>
-        <Wave style={{ height: "100%" }} />
+        <img src={require(`../../assets/wave${title}.svg`)} style={{ height: "100%" }} />
       </BackgroundContainer>
     </Container>
   )

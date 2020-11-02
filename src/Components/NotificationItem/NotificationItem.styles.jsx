@@ -6,7 +6,7 @@ export const ItemContainer = styled.div`
   padding:5%;
   :hover{
     opacity:0.8;
-    background-color:#e5e5e5;
+    background-color: ${props => props.theme.colors.hoverPrimary};
   }
 
   display:flex;
@@ -14,13 +14,13 @@ export const ItemContainer = styled.div`
   justify-content:space-between;
   cursor:auto;
 
-  color:${p => p.colors.theme.primaryColor};
+  color:${p => p.theme.colors.primary};
   ${p => p.read && css`
   color:#bbb;
     `
   }
 
-  border-bottom:1px solid ${props => props.colors.theme.primaryColor};
+  border-bottom:1px solid ${props => props.theme.colors.primary};
 
   :last-child{
     border:none;
@@ -39,11 +39,11 @@ export const ItemContainer = styled.div`
     svg{
       height:45px;
       width:45px;
-      color:#990d0d;
+      color:${props => props.theme.colors.secondary};
     }
 
     svg:hover{
-      color:#ff1616;
+      color:${props => props.theme.colors.primary};
     }
   }
   .btn-container{
@@ -57,22 +57,22 @@ export const ItemContainer = styled.div`
       width:100%;
       height:40px;
      
-      color:${p => p.colors.theme.fontColor};
-      background:${p => p.colors.theme.primaryColorDarker};
+      color:${p => p.theme.colors.textTertiary};
+      background:${p => p.theme.colors.primary};
      
       opacity:1;
 
       :hover{
-        background:${p => p.colors.theme.primaryColor};
+        background:${p => p.theme.colors.primary};
       }
 
       transition: .4s linear;
 
       :last-child{
         margin-top:5px;
-        border:1px solid ${p => p.colors.theme.primaryColor};
-        background:${p => p.colors.theme.secondaryColor};
-        color:${p => p.colors.theme.primaryColor};
+        border:1px solid ${p => p.theme.colors.primary};
+        background:${p => p.theme.colors.secondary};
+        color:${p => p.theme.colors.primary};
       } 
     }
   }

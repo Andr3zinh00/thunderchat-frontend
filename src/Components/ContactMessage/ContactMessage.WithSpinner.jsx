@@ -21,6 +21,8 @@ import { toast } from 'react-toastify';
 import NotSelected from './NotSelected';
 import { useHomeContext } from '../../Contexts/HomeContext';
 import { reloadContacts } from '../../redux/SideEffects/SideEffects.actions'
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const ContactMessageWithSpinner = () => {
   const user = useSelector(state => state.userReducer)
@@ -36,6 +38,8 @@ const ContactMessageWithSpinner = () => {
   const [messageValue, setMessageValue] = useState(initial_state);
   const [messageSend, setMessageSend] = useState(false);
   const dispatch = useDispatch();
+
+  const {colors} = useContext(ThemeContext);
 
   useEffect(() => {
     setMessageValue(initial_state);
@@ -55,7 +59,6 @@ const ContactMessageWithSpinner = () => {
       })
   }
 
-
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       onClick();
@@ -74,6 +77,7 @@ const ContactMessageWithSpinner = () => {
       setMessageSend(!messageSend);
     }
   };
+
   return (
     !selectedUser.user ?
       < NotSelected />
@@ -86,9 +90,9 @@ const ContactMessageWithSpinner = () => {
             className="sidebar-toggle"
             style={{
               padding: '2px',
-              color: '#ff1616',
+              color: {},
               borderRadius: "50%",
-              border: "1px solid #ff1616",
+              border: `1px solid ${colors.primary}`,
               visibility: toggle ? 'hidden' : 'unset',
               cursor: 'pointer'
             }}
@@ -103,7 +107,7 @@ const ContactMessageWithSpinner = () => {
             />
             <h3>{selectedUser.user?.name}</h3>
           </HeaderProfileInfo>
-          <TiUserDelete style={{ cursor: "pointer" }} size={40} color="#ff1616" onClick={handleDeleteUser} />
+          <TiUserDelete style={{ cursor: "pointer" }} size={40} color={colors.primary} onClick={handleDeleteUser} />
         </ContactHeader>
         <ContactMessageMain>
           {

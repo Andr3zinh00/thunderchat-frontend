@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import ToggleThemeProvider from './Contexts/ToggleThemeContext';
 import Routes from './Routes/Routes';
 
 
 const App = () => {
 
-  useEffect(() => {
-
-    // eslint-ignore-next-line
-  }, [])
 
   return (<>
-    <Routes />
-    <ToastContainer autoClose={4000} style={{marginTop:'50px'}} />
+    <ToggleThemeProvider>
+      <Routes />
+      <ToastContainer autoClose={4000} style={{ marginTop: '50px' }} />
+    </ToggleThemeProvider>
   </>);
 }
 

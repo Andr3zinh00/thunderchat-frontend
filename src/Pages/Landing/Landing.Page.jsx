@@ -24,27 +24,30 @@ import { createUser } from '../../redux/User/User.actions';
 import { useHistory } from 'react-router';
 
 import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 
 
-const inputStyle = {
-  border: 'none',
-  "border-bottom": "solid 1px",
-  "border-bottom-color": "#ff1616",
-};
-
-const customModalStyles = {
-  backgroundColor: "#fff",
-  width: '250px',
-  height: '250px'
-}
 
 
 //hoc do modal
 const MessageModal = Modal(LandingToModal);
 
 const Landing = () => {
+  const { colors, title } = useContext(ThemeContext);
+  const inputStyle = {
+    "border-radius": "4px",
+    "border": 'none',
+    "border-bottom": "solid 1px",
+    "border-bottom-color": colors.primary,
+  };
 
+  const customModalStyles = {
+    backgroundColor: colors.textTertiary,
+    width: '250px',
+    height: '250px'
+  }
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -81,7 +84,7 @@ const Landing = () => {
 
     })
       .catch(error => {
-          toast.error("Falha na autenticação, verifique seus dados");
+        toast.error("Falha na autenticação, verifique seus dados");
       });
 
   }
@@ -118,11 +121,11 @@ const Landing = () => {
                 width: '100px'
               }}
               alt="Logo do app"
-              src={require('../../assets/icon.png')}
+              src={require(`../../assets/icon${title}.png`)}
             />
             <h1
               style={{
-                color: "#fff",
+                color: colors.textTertiary,
                 fontWeight: "700",
                 fontSize: "2.3em",
               }}>
@@ -132,7 +135,7 @@ const Landing = () => {
         </FirstSide>
         <SecondSide>
           <FormContainer onSubmit={event => onSubmit(event)}>
-            <h3 style={{ alignSelf: "center", marginTop: "80px", fontSize: '1.3em', fontWeight: "bold", color: "#555" }}>Faça login</h3>
+            <h3 style={{ alignSelf: "center", marginTop: "80px", fontSize: '1.3em', fontWeight: "bold", color: colors.textPrimary }}>Faça login</h3>
             <InputContainer>
               <CustomInput
                 value={userId}
@@ -157,7 +160,7 @@ const Landing = () => {
               style={{
                 marginTop: "10px",
                 fontSize: '1em',
-                color: "#ff1616",
+                color: colors.primary,
               }}>Criar conta</Link>
           </FormContainer>
         </SecondSide>

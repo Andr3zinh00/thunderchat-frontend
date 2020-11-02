@@ -6,7 +6,7 @@ export const DropDownContainer = styled.div`
 
   .dont-hide{
     display:unset !important;
-    color:#ff1616 !important;
+    color:${props => props.theme.colors.primary} !important;
   }
 
 `;
@@ -25,8 +25,8 @@ export const HiddenElements = styled.div`
 
   border-radius:${props=>props.isMobile?'unset':'15px'};
 
-  background:#fff;
-  border:1px solid #ff1616;
+  background:${props => props.theme.colors.backgroundPrimary};
+  border:1px solid ${props => props.theme.colors.primary};
 
   z-index:555;
 

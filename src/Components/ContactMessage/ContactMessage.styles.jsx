@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ContactMessageContent = styled.div`
+  background:${props => props.theme.colors.backgroundPrimary};
   flex:1; 
   display:flex;
   flex-direction:column;
@@ -8,9 +9,9 @@ export const ContactMessageContent = styled.div`
 `;
 
 export const ContactHeader = styled.header`
-  background:#fff;
+  background:${props => props.theme.colors.backgroundPrimary};
 
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${props => props.theme.colors.backgroundSecondary};
   box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.3);
 
   width:100%;
@@ -24,7 +25,7 @@ export const ContactHeader = styled.header`
   padding:0 10%;
 
   h3{
-    color:#ff1616;
+    color:${props => props.theme.colors.textSecondary};
   }
   @media screen and (min-width:767px){
     .sidebar-toggle{
@@ -35,7 +36,7 @@ export const ContactHeader = styled.header`
 
 
 export const Message = styled.div`
-  background: #ff1616;
+  background: ${props => props.theme.colors.primary};
 
   border-radius: 5px 0px 5px 5px;
 
@@ -46,7 +47,7 @@ export const Message = styled.div`
 
   font-family:Lato;
   font-size:1em;
-  color:#fff;
+  color:${props => props.theme.colors.textTertiary};
 
   padding:10px;
 
@@ -57,7 +58,7 @@ export const Message = styled.div`
   &.received{
     float:left;
     border-radius: 0 5px 5px 5px;
-    background:#990d0d;
+    background:${props => props.theme.colors.secondary};
   }
 
   :last-child{
@@ -89,11 +90,12 @@ export const ContactMessageMain = styled.main`
 export const TextMessage = styled.textarea`
   resize:none;
   outline:none;
-
+  background:${props => props.theme.colors.backgroundPrimary};
+  color:${props => props.theme.colors.textPrimary};
   white-space: pre-wrap;
 
   :focus{
-    border:1px solid #ff1616;
+    border:1px solid ${props => props.theme.colors.primary};
   }
 
   flex:4;
@@ -127,7 +129,7 @@ export const FooterTextContainer = styled.footer`
   padding: 0 3% ; 
 
   svg{
-   color:#ff1616;
+   color:${props => props.theme.colors.primary};
    background:transparent;
 
    border-radius:30%;
@@ -144,8 +146,8 @@ export const FooterTextContainer = styled.footer`
   }
 
   svg:active{
-    background:#ff1616;
-    color:#fff;
+    background:${props => props.theme.colors.primary};
+    color:${props => props.theme.colors.textTertiary};
     margin-bottom:4px;
     transition:0.1s ease-in;
   }
@@ -170,12 +172,11 @@ export const HeaderProfileInfo = styled.div`
 export const NotSelectedContact = styled.div`
   height:100%;
   padding:10% 3%;
-
+  background: ${props => props.theme.colors.backgroundPrimary};
   display:flex;
   align-items:center;
   justify-content:space-evenly;
   flex-direction:column;
-
   img{
     flex:2;
     width:100%;
@@ -186,6 +187,7 @@ export const NotSelectedContact = styled.div`
   }
 
   p{
+    color: ${props => props.theme.colors.textPrimary};
     font-size:1.5em;
     font-weight:700;
     text-align:center;

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router';
-
+import { ThemeContext } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSettingsContent, Switch, ThemeSettings, ColorBox } from './UserSettings.styles';
 import { Container, Wrapper } from '../../Global.styles';
 import { IoIosSettings, IoMdLogOut, IoIosTrash } from 'react-icons/io';
-import { signOut, createUser } from '../../redux/User/User.actions';
+import { signOut } from '../../redux/User/User.actions';
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
-
+import { useToggleThemeContext } from '../../Contexts/ToggleThemeContext';
 
 const color1 = {
   "background-color": "rgb(255,22,22)",
@@ -21,14 +21,16 @@ const color2 = {
 }
 
 const UserSettings = () => {
+  const { toggleTheme, toggle } = useToggleThemeContext();
+  const { colors, title } = useContext(ThemeContext);
+
   const _id = useSelector(state => state.userReducer._id);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [toggle, setToggle] = useState(false);
-
   const handleToggle = () => {
-    setToggle(!toggle);
+    console.log(toggle);
+    toggleTheme();
   }
 
   const onClick = () => {
@@ -37,30 +39,29 @@ const UserSettings = () => {
   }
 
   const onClickDelete = () => {
-    api.delete(`/user/${_id}`).then((res)=>{
+    api.delete(`/user/${_id}`).then((res) => {
       dispatch(signOut());
       history.push('/');
-    }).catch((error) =>{
+    }).catch((error) => {
       toast.error("Erro ao tentar deletar seu usuário, talvez seja um sinal!")
     })
   }
-
   return (
     <Container display={1}>
       <UserSettingsContent>
         <header>
-          <IoIosSettings size={70} color="#ff1616" />
+          <IoIosSettings size={70} color={colors.primary} />
           <h2>Configurações</h2>
         </header>
         <Wrapper className="wrapper-all">
           <Wrapper className="img-wrapper">
             <img
               alt="Settings"
-              src={require('../../assets/undraw_personal_settings_kihd.svg')}
+              src={require(`../../assets/undraw_personal_settings_kihd${title}.svg`)}
             />
           </Wrapper>
           <Wrapper className="settings-wrapper">
-            <ThemeSettings labelBackground={!toggle ? "#ff1616" : "rgb(28,0,103)"}>
+            <ThemeSettings labelBackground={!toggle ? colors.primary : colors.primary}>
               <h3>Temas: </h3>
               <div>
                 <ColorBox color={color1} />
@@ -81,11 +82,11 @@ const UserSettings = () => {
             </ThemeSettings>
             <Wrapper>
               <Wrapper className="icon-wrapper" onClick={onClick}>
-                <IoMdLogOut color="#ff1616" size={40} />
+                <IoMdLogOut color={colors.primary} size={40} />
                 <h3> Sair. </h3>
               </Wrapper>
               <Wrapper className="icon-wrapper" onClick={onClickDelete}>
-                <IoIosTrash color="#ff1616" size={40} />
+                <IoIosTrash color={colors.primary} size={40} />
                 <h3> Deletar Conta.</h3>
               </Wrapper>
             </Wrapper>

@@ -13,7 +13,7 @@ export const MessagesContent = styled.div`
   ${Wrapper}:first-child{
     justify-content:center;
     align-items:center;
-    background:#ff1616;
+    background:${props => props.theme.colors.primary};
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
     cursor:auto;
   }
@@ -28,8 +28,8 @@ export const MessagesContent = styled.div`
   .title-wrap{
       padding-bottom:3px;
       font-size:1.5em;
-      border-bottom:1px solid #fff;
-      color:#fff;
+      border-bottom:1px solid ${props => props.theme.colors.textTertiary};
+      color:${props => props.theme.colors.textTertiary};
   }
 
   @media screen and (min-width:767px){

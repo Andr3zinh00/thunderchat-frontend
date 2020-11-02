@@ -123,7 +123,7 @@ export const UserSettingsContent = styled.div`
     height: 26px;
     border-radius: 45px;
     transition: 0.2s;
-    background: #fff;
+    background: ${props => props.theme.colors.textTertiary};
     box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
   }
 

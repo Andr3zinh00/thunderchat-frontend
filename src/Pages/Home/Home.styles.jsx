@@ -7,7 +7,7 @@ export const HomeContent = styled.div`
  height:100%;
  display:flex;
  position:relative;
- background-color:#fff;
+ background-color:${props => props.theme.colors.textTertiary};
 
  .modal-wrap{
     display:flex;
@@ -22,10 +22,10 @@ export const HomeContent = styled.div`
       width:30px;
       
       cursor:pointer;
-      color:${props=>props.colors.primaryColor};
+      color:${props=>props.theme.colors.primary};
 
       :active{
-        color:${props=>props.colors.primaryColorDarker}
+        color:${props=>props.theme.colors.primary}
       }
     }
 
@@ -43,13 +43,13 @@ export const HomeContent = styled.div`
       
       border-radius:15px;
       
-      color:${props => props.colors.secondaryColor};
-      background:${props => props.colors.primaryColor};
+      color:${props => props.theme.colors.textTertiary};
+      background:${props => props.theme.colors.primary};
       
       opacity:1;
       
       :hover{
-        background:${props => props.colors.primaryColorDarker};
+        background:${props => props.theme.colors.primary};
       }
 
       :active{
@@ -67,8 +67,8 @@ export const HomeContent = styled.div`
       
       height:250px;
       width:100%;
-      color:${props => props.colors.primaryColor};
-      background:${props => props.colors.secondaryColor};
+      color:${props => props.theme.colors.primary};
+      background:${props => props.theme.colors.textTertiary};
 
       border-radius:24px;
 
@@ -93,7 +93,7 @@ export const HomeContent = styled.div`
           width:70%;
           border-top-right-radius:15px;
           border-bottom-right-radius:15px;
-          border-color:${p => p.colors.primaryColor};
+          border-color:${p => p.theme.colors.primary};
 
           :focus{
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -108,13 +108,13 @@ export const HomeContent = styled.div`
           border-bottom-left-radius:15px;
           height:35px;
           width:35px;
-          background:${props => props.colors.primaryColor};
+          background:${props => props.theme.colors.primary};
         }
 
         span svg{
           width:35px;
           height:35px;
-          color:${props => props.colors.secondaryColor}
+          color:${props => props.theme.colors.secondary}
         }
       }
     }
