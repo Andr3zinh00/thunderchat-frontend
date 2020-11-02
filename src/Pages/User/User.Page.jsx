@@ -46,9 +46,9 @@ const User = () => {
           console.log(error.response.data.message)
           toast.error(error.response.data.message);
         });
-      }else{
-        setButtonBol(!buttonBol);
-      }
+    } else {
+      setButtonBol(!buttonBol);
+    }
 
   }
   const onChangeDate = (value) => {
@@ -117,13 +117,6 @@ const User = () => {
             type="date"
             value={birth_date}
             disabled={buttonBol}
-          />
-          <span><strong>Contatos bloqueados</strong></span>
-          <Input
-            type="text"
-            value={0}
-            disabled={true}
-            onChange={null}
           />
           <div>
             <CustomButton
