@@ -56,7 +56,7 @@ const UserSettings = () => {
           <Wrapper className="img-wrapper">
             <img
               alt="Settings"
-              src={require('../../assets/meninaescolhendocoisas.svg')}
+              src={require('../../assets/undraw_personal_settings_kihd.svg')}
             />
           </Wrapper>
           <Wrapper className="settings-wrapper">

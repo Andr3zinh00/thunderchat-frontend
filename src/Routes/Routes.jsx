@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import Landing from '../Pages/Landing/Landing.Page';
 import SignUp from '../Pages/SignUp/SignUp.Page';
@@ -16,6 +16,7 @@ import { getReduxState } from '../utils/utils';
 import connect, { connection } from '../services/Socket';
 import HomeProvider from '../Contexts/HomeContext';
 import { connectedToWebsocket } from '../redux/SideEffects/SideEffects.actions';
+import NotFound from '../Pages/NotFound/NotFound.Page';
 
 const Routes = () => {
 
@@ -75,6 +76,8 @@ const Routes = () => {
           path="/notifications"
           component={Notifications}
         />
+        <Route path="/404" component={NotFound} />
+        <Redirect to={{ pathname: "/404" }} />
       </Switch>
       <Footer />
     </Router>

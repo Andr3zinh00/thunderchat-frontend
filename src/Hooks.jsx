@@ -33,5 +33,5 @@ export const useDisplayHeaderFooter = () => {
 
   const { pathname } = location;
 
-  return (pathname === "/") || (pathname === "/sign-up");
+  return (pathname === "/") || (pathname === "/sign-up") || (pathname === "/404");
 }
