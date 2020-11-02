@@ -15,40 +15,35 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
-  const onClick = async (justDelete) => {
+  const clickAdd = async () => {
     const data = {
       userId,
       mention: from
     }
-    let resp
-    console.log(justDelete, "justdelete")
-    if (!justDelete) {
-      console.log("passei")
-      resp = await api.post("contact/add", data)
-        .then(res => {
-          console.log(res.data);
-          dispatch(reloadContacts());
-          return res.data
-        })
-        .catch(error => {
-          console.log(error.response);
-        });
-    }
-    if (resp || justDelete) {
-      console.log("passei 2")
-      setIsLoading(true);
-      api.delete(`/message/notification/${idNotification}/${idMenssage}`)
-        .then(res => {
-          setIsLoading(false);
-          console.log('removendo', resp, justDelete);
-          dispatch(removeNotification(idMenssage));
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          console.log(error.response)
-          toast.error("Não foi possivel deletar a notificação no momento!");
-        });
-    }
+    const resp = await api.post("contact/add", data)
+      .then(res => {
+        console.log(res.data);
+        dispatch(reloadContacts());
+        return res.data
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+    if (resp) onClick();
+  }
+  const onClick = () => {
+    console.log(idNotification, idMenssage, "Message")
+    setIsLoading(true);
+    api.delete(`/message/notification/${idNotification}/${idMenssage}`)
+      .then(res => {
+        setIsLoading(false);
+        dispatch(removeNotification(idMenssage));
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error.response)
+        toast.error("Não foi possivel deletar a notificação no momento!");
+      });
   }
   const colors = useSelector(state => state.sideEffectReducer);
   return isLoading ?
@@ -68,7 +63,7 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
             {
               type !== "INVITE" &&
               (<TiDeleteOutline
-                onClick={() => onClick(true)}
+                onClick={onClick}
                 size={50}
                 style={{ cursor: 'pointer', marginLeft: '3px' }}
               />)
@@ -76,8 +71,8 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
           </div>
           { type === "INVITE" &&
             (<div className="btn-container">
-              <CustomButton text={"Aceitar"} onClick={() => onClick()} />
-              <CustomButton text={"Recusar"} onClick={() => onClick(true)} />
+              <CustomButton text={"Aceitar"} onClick={clickAdd} />
+              <CustomButton text={"Recusar"} onClick={onClick} />
             </div>)
           }
         </ItemContainer>

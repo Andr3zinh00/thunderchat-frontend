@@ -20,10 +20,10 @@ const Notifications = () => {
         </Wrapper>
         <Wrapper>
           {notifications.length > 0 ?
-            notifications.map((notification, index) =>
+            notifications.map((notification) =>
               <NotificationItem
                 id={notification.type === "INVITE" ? _id : null}
-                key={String(index)}
+                key={notification._id}
                 idMenssage={notification._id}
                 idNotification={idNotification}
                 {...notification}
