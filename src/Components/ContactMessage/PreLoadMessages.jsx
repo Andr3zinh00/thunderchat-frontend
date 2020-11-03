@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { TiUserDelete } from 'react-icons/ti';
-
-
 import { useSelector } from 'react-redux';
-import { connection, sendMessageChat, sendSubscribe, sendSubscribeNotifi } from '../../services/Socket';
 import { useEffect } from 'react';
+
 import api from '../../services/Api';
 import { toast } from 'react-toastify';
 import WithSpinner from '../WithSpinner/WithSpinner.component';

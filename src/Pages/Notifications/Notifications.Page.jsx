@@ -4,7 +4,7 @@ import { Container, Wrapper } from '../../Global.styles';
 import { MessagesContent } from './Notifications.styles';
 import NotificationItem from '../../Components/NotificationItem/NotificationItem.component';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Notifications = () => {
 

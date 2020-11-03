@@ -15,7 +15,9 @@ const NotFound = () => {
         overflow: "hidden"
       }}>
       <NotFoundContainer>
-        <img src={require(`../../assets/404 Error Page not Found with people connecting a plug-rafiki${title}.svg`)} />
+        <img 
+        alt=""
+        src={require(`../../assets/404 Error Page not Found with people connecting a plug-rafiki${title}.svg`)} />
         <CustomButton
           type="button"
           onClick={()=>history.push("/")}

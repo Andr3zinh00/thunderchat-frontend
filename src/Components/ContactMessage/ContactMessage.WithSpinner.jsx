@@ -10,7 +10,7 @@ import {
   Message
 } from './ContactMessage.styles';
 
-import { TiGroupOutline } from 'react-icons/ti';
+import { TiChevronLeft } from 'react-icons/ti';
 import { IoIosSend } from 'react-icons/io';
 // import stompClient from '../../services/Socket';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,13 +84,13 @@ const ContactMessageWithSpinner = () => {
       :
       <>
         <ContactHeader>
-          <TiGroupOutline
+          <TiChevronLeft
             onClick={onToggle}
             size={45}
             className="sidebar-toggle"
             style={{
               padding: '2px',
-              color: {},
+              color: colors.primary,
               borderRadius: "50%",
               border: `1px solid ${colors.primary}`,
               visibility: toggle ? 'hidden' : 'unset',
@@ -102,7 +102,7 @@ const ContactMessageWithSpinner = () => {
               style={{ borderRadius: "50%" }}
               alt="Profile pic"
               src={require('../../assets/default.png')}
-              height={45}
+              height={50}
               width={50}
             />
             <h3>{selectedUser.user?.name}</h3>

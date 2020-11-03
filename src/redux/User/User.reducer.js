@@ -1,5 +1,5 @@
 import types from './User.types';
-import { getReduxState, cleanLocal } from '../../utils/utils';
+import { getReduxState } from '../../utils/utils';
 
 const STATE = {
   id: undefined,

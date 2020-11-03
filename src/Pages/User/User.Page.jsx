@@ -35,7 +35,7 @@ const User = () => {
       }
 
       const data = { _id: user._id, email, name, birth_date, mention };
-      console.log(data);
+
       api.put(`user/${user._id}`, data)
         .then(res => {
           toast.success("Alteração feita com sucesso!");
@@ -43,9 +43,9 @@ const User = () => {
           setButtonBol(!buttonBol);
         })
         .catch(error => {
-          console.log(error.response.data.message)
           toast.error(error.response.data.message);
         });
+
     } else {
       setButtonBol(!buttonBol);
     }
@@ -59,9 +59,7 @@ const User = () => {
     setMention(user.mention);
     setEmail(user.email);
 
-    var a = new Date(user.birth_date).toISOString().
-      replace(/T/, ' ').
-      replace(/\..+/, '');
+    var a = new Date(user.birth_date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 
     var dArr = a.split(" ");
 
@@ -89,12 +87,6 @@ const User = () => {
             onChange={(event) => onChange(event.target.value, setName)}
           />
 
-          <span><strong>Idade</strong></span>
-          <Input
-            type="text"
-            value={String(calculateAge(birth_date))}
-            disabled={true}
-          />
           <span><strong>Usuário</strong></span>
           <Input
             type="text"
@@ -116,6 +108,12 @@ const User = () => {
             type="date"
             value={birth_date}
             disabled={buttonBol}
+          />
+          <span><strong>Idade</strong></span>
+          <Input
+            type="text"
+            value={String(calculateAge(birth_date))}
+            disabled={true}
           />
           <div>
             <CustomButton

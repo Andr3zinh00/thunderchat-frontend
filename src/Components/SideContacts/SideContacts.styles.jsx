@@ -52,7 +52,7 @@ display: flex;
 
   box-shadow: 0 5px 15px 0px rgba(0,0,0,0.1);
 
-  height:10%;
+  height:60px;
   :hover{
     box-shadow: 0 5px 15px 0px rgba(0,0,0,0.3);
   }
@@ -65,7 +65,7 @@ display: flex;
 
 export const IconContainer = styled.div`
   width: 50px;
-  height:45px;
+  height: 50px;
   border-radius: 50%;
   
   cursor:pointer;
@@ -77,12 +77,11 @@ export const IconContainer = styled.div`
   justify-content:center;
   
   margin-right: 5px;
-  margin-top: 5px;
   
-  box-shadow: 3px 4px 5px 0px rgba(0,0,0,1);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
   
   @media screen and (min-width:767px){
-    display:none;
+    display: none;
   }
 `;
 

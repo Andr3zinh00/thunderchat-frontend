@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import CustomButton from '../CustomComponent/Button';
 
@@ -24,12 +24,11 @@ const NotificationItem = ({ read, isEmpty, idNotification, idMenssage, content, 
     }
     const resp = await api.post("contact/add", data)
       .then(res => {
-        console.log(res.data);
         dispatch(reloadContacts());
         return res.data
       })
       .catch(error => {
-        console.log(error.response);
+        toast.error(error.response.message);
       });
     if (resp) onClick();
   }

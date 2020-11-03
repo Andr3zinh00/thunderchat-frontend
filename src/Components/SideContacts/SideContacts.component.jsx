@@ -37,7 +37,6 @@ const SearchModal = Modal(SideContactsToModal);
 const SideContacts = () => {
 
   const [modalToggle, setModalToggle] = useState(false);
-  const [modalError, setModalError] = useState({ message: "", error: false });
 
   const [isLoadingContacts, setIsLoadingContacts] = useState(true);
   const [contacts, setContacts] = useState([]);
@@ -89,7 +88,6 @@ const SideContacts = () => {
           text={`Adicione algum contato. Procure utilizando a @ dele.`}
           nodo={modalRef}
           closeModal={() => setModalToggle(false)}
-          error={modalError}
           user={user}
           contacts={contacts}
         />
@@ -97,15 +95,23 @@ const SideContacts = () => {
       <Aside ref={ref} toggle={toggle} colors={sideEffects.theme}>
         <HeaderContainer
           style={{ cursor: 'pointer' }}
-          onClick={() => setModalToggle(true)}
         >
-          <TiUserAdd
-            style={{ margin: "5px 0 0 10px", alignSelf: 'center', cursor: 'pointer' }}
-            size={35}
-            color= {colors.textTertiary}
-          />
-          <IconContainer isToggled={toggle} onClick={() => setToggle(!toggle)}>
+          <div style={{
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+            onClick={() => setModalToggle(true)}>
+            <TiUserAdd
+              style={{alignSelf: 'center', cursor: 'pointer' }}
+              size={35}
+              color={colors.textTertiary}
+            />
+          </div>
+          <IconContainer isToggled={false}>
             <TiChevronRight
+              onClick={() => setToggle(!toggle)}
               size={35}
               style={{ marginLeft: '3px', color: colors.primary, alignSelf: 'center' }}
             />

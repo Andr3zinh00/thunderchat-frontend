@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { ThemeContext } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,6 @@ const UserSettings = () => {
   const history = useHistory();
 
   const handleToggle = () => {
-    console.log(toggle);
     toggleTheme();
   }
 

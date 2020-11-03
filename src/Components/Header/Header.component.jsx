@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { HeaderTop, Nav, LogoContainer } from './Header.styles';
 import { TiCogOutline, TiUser } from 'react-icons/ti';
@@ -22,7 +22,7 @@ import { useContext } from 'react';
 import { ThemeContext } from 'styled-components';
 
 const Header = () => {
-  const {colors, title} = useContext(ThemeContext);
+  const { colors, title } = useContext(ThemeContext);
   const dispatch = useDispatch();
   const { _id, notifications } = useSelector(state => state.userReducer);
   const color = useSelector(state => state.sideEffectReducer);
@@ -40,15 +40,12 @@ const Header = () => {
     }]));
 
     setCountNotification(past => past + 1);
-    console.log(message);
   };
   useEffect(() => {
-   console.log(countNotification, "count")
   }, [notifications]);
 
 
   useEffect(() => {
-    console.log(connected)
     if (connected) {
       sendSubscribeNotifi(subscribeCallback);
     }
@@ -59,25 +56,21 @@ const Header = () => {
     if (_id) {
       api.get(`/notifications/${_id}`)
         .then(res => {
-          console.log(res.data)
+
           const { notificationContent, _id } = res.data;
-          console.log(res.data);
-          console.log(notificationContent);
+
           if (notificationContent.length !== 0) {
             dispatch(onNotification(notificationContent, _id));
             setCountNotification(
               notificationContent.filter(notif => !notif.read).length
             );
-            console.log(notificationContent.filter(notif => !notif.read).length);
           }
         })
         .catch((erro) => {
-          console.log(erro)
           if (erro.response.status === 401) {
             dispatch(signOut());
             window.open("/", "_self");
           }
-          console.log(erro.response);
         });
     }
 

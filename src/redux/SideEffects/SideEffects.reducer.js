@@ -1,5 +1,4 @@
 import types from './SideEffects.types'
-import { getReduxState } from '../../utils/utils'
 
 
 const STATE = {

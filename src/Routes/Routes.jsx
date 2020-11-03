@@ -21,25 +21,25 @@ import { useToggleThemeContext } from '../Contexts/ToggleThemeContext';
 
 const Routes = () => {
 
-  const { _id, token } = useSelector(state => state.userReducer);
+  const { _id } = useSelector(state => state.userReducer);
 
   const dispatch = useDispatch();
-  const {theme} = useToggleThemeContext();  
+  const { theme } = useToggleThemeContext();
 
   function connectCallback() {
     dispatch(connectedToWebsocket())
   }
 
   useEffect(() => {
-    console.log(_id, token);
+
     if (_id) {
-      console.log("entrei");
       connect(connectCallback);
     }
+    
   }, [_id]);
 
   return (
-    <ThemeProvider theme = {theme}>
+    <ThemeProvider theme={theme}>
       <Router>
         <Header />
         <Switch>

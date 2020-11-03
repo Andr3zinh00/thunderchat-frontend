@@ -15,7 +15,6 @@ const middleware = store => next => action => {
     return result;
   }
 
-  console.log("--------//--------")
   if (types[action.type] === undefined) {
     const user =  { ...store.getState().userReducer };
     delete user.notifications;
@@ -26,7 +25,6 @@ const middleware = store => next => action => {
     delete reducer.connected;
     localStorage.setItem("s", JSON.stringify(reducer));
   }
-  console.log("--------//--------")
 
 
   return result;

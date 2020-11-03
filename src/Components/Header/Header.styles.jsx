@@ -9,7 +9,7 @@ export const LogoContainer = styled.div`
 `;
 
 export const HeaderTop = styled.header`
-  height:10vh;
+  height:60px;
   min-height:60px;
 
   width:100%;

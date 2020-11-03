@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Container } from '../../Global.styles';
 import { HomeContent } from './Home.styles';
@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 import { sendSubscribe } from '../../services/Socket';
 import { useHomeContext } from '../../Contexts/HomeContext';
 
-// import stompClient from '../../services/Socket';
-
 
 const Home = () => {
   const { setMessageLoad } = useHomeContext();
@@ -18,11 +16,13 @@ const Home = () => {
     if (connected) {
       sendSubscribe((eventRes) => {
         const message = JSON.parse(eventRes.body);
-        console.log(message);
+
         setMessageLoad(past => {
+
           if (window.location.pathname.includes('home')) {
             return [message, ...past];
           }
+
           return past;
         });
       });

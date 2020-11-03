@@ -58,16 +58,13 @@ const SignUp = () => {
       return;
     }
 
-    
-
     const data = { email, name, birth_date, mention, password };
-    console.log(data);
+    
     api.post('user/create', data)
       .then(res => {
         setToggleModal({ message:`Bem vindo ao ThunderChat ${mention}!`, toggle: true, error: false });
       })
       .catch(error => {
-        console.log(error.response.data.message)
         setToggleModal({ message: "Erro: "+error.response.data.message, toggle: true, error: true });
       });
   }
@@ -96,9 +93,9 @@ const SignUp = () => {
           marginTop: '10px'
         }}>
           <img
+            alt=""
             src={require(`../../assets/icon${title}.png`)}
             style={{ height: "60px", width: "60px", marginRight: '10px' }}
-            alt="icon da page"
           />
           <h3>Criar Conta</h3>
         </div>

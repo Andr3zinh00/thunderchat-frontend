@@ -15,7 +15,7 @@ export const ContactHeader = styled.header`
   box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.3);
 
   width:100%;
-  height:13%;
+  height:75px;
 
   display:flex;
   flex-direction:row;
@@ -204,7 +204,21 @@ export const NotSelectedContact = styled.div`
       min-width:300px;
     }
   }
+`;
 
+export const OpenSide = styled.div`
+  cursor: pointer;
+  display: flex;
+  padding: 10px;
+  border-radius: 50%;
+  width: 50px;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 15px;
+  background: ${props => props.theme.colors.primary};
+  @media screen and (min-width:767px){
+    display: none;
+  }
 `;
 
 

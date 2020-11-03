@@ -3,8 +3,6 @@ import { toast } from 'react-toastify';
 import { Stomp } from "@stomp/stompjs";
 import { getAuth } from '../utils/utils';
 
-const credentials = getAuth().headers;
-
 export const connection = {
   client: undefined,
 };
@@ -13,7 +11,6 @@ const factory = () => new SockJS("https://thunderchat-backend.herokuapp.com/sock
 export default function connect(callback) {
   connection['client'] = Stomp.over(factory);
   connection.client.onConnect = () => {
-    console.log("conectou no webSocket");
     callback();
   }
   connection.client.activate();
