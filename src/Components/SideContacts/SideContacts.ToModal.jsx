@@ -52,7 +52,7 @@ const SideContactsToModal = ({ text, closeModal, user, contacts }) => {
             onChange={(event) => {
               setValue(event.target.value)
             }}
-            placeholder={"Ex.: @FernandoBeiramar123"}
+            placeholder={"Ex.: @ronaldinhogaucho"}
           />
         </Wrapper>
         <CustomButton text={'Enviar solicitação'} onClick={() => handleSubmit()} />
