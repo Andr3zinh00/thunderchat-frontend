@@ -58,9 +58,8 @@ const Header = () => {
         .then(res => {
 
           const { notificationContent, _id } = res.data;
-
+          dispatch(onNotification(notificationContent, _id));
           if (notificationContent.length !== 0) {
-            dispatch(onNotification(notificationContent, _id));
             setCountNotification(
               notificationContent.filter(notif => !notif.read).length
             );
@@ -75,7 +74,7 @@ const Header = () => {
     }
 
     // eslint-disable-next-line
-  }, []);
+  }, [_id]);
 
   const [dropDown, setDropDown] = useState(false);
   const [notificationDropDown, setNotificationDropDown] = useState(false);

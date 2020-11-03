@@ -18,7 +18,6 @@ const Home = () => {
         const message = JSON.parse(eventRes.body);
 
         setMessageLoad(past => {
-
           if (window.location.pathname.includes('home')) {
             return [message, ...past];
           }
