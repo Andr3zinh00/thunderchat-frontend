@@ -17,6 +17,7 @@ export const UserProfileImgContainer = styled.div`
 `;
 
 export const Input = styled.input`
+      color: ${props => props.theme.colors.textPrimary};
       background: transparent;
       text-align: center;
       border: 0;
@@ -33,7 +34,7 @@ export const Input = styled.input`
 ${(props) => !props.disabled &&
     css`
     color:${props => props.theme.colors.textPrimary}
-    border-bottom-color:${props => props.theme.colors.textPrimary};
+    border-bottom-color:${props => props.theme.colors.primary};
     transition:0.81s;
      `}
 `;

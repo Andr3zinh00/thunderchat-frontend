@@ -37,14 +37,15 @@ const MessageModal = Modal(LandingToModal);
 const Landing = () => {
   const { colors, title } = useContext(ThemeContext);
   const inputStyle = {
-    "border-radius": "4px",
+    "background-color": "transparent",
     "border": 'none',
     "border-bottom": "solid 1px",
     "border-bottom-color": colors.primary,
+    "color": colors.textPrimary,
   };
 
   const customModalStyles = {
-    backgroundColor: colors.textTertiary,
+    backgroundColor: colors.backgroundPrimary,
     width: '250px',
     height: '250px'
   }

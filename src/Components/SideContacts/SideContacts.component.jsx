@@ -127,7 +127,7 @@ const SideContacts = () => {
             (
               contacts.map(contact => (
                 <UserContacts
-                  onClick={() => setSelectedUser({ user: contact.contact })}
+                  onClick={() =>{setSelectedUser({ user: contact.contact }); setToggle(!toggle) }}
                   key={String(contact.contact._id)}
                 >
                   <ImgContainer>
